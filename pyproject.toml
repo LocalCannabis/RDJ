@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aoc-analytics"
+version = "1.0.0"
+description = "Analytics & Optimization Center - Weather-aware retail analytics for cannabis retail"
+readme = "README.md"
+license = {text = "Proprietary"}
+authors = [
+    { name = "Tim Kaye", email = "tim@localcannabis.ca" },
+]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "httpx>=0.26.0",
+    "pandas>=2.1.0",
+    "numpy>=1.26.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "black>=24.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+]
+ml = [
+    "scikit-learn>=1.4.0",
+    "prophet>=1.1.0",
+    "xgboost>=2.0.0",
+]
+
+[project.scripts]
+aoc-server = "aoc_analytics.api.server:main"
+
+[project.urls]
+Homepage = "https://github.com/LocalCannabis/aoc-analytics"
+Documentation = "https://docs.localcannabis.ca/aoc"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aoc_analytics"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
