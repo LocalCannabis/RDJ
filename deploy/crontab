@@ -1,0 +1,21 @@
+# AOC Cron Jobs
+# Add to crontab with: crontab -e
+# Or copy to /etc/cron.d/aoc-analytics
+
+# Environment variables
+SHELL=/bin/bash
+PATH=/usr/local/bin:/usr/bin:/bin
+AOC_DIR=/home/macklemoron/Projects/aoc-analytics
+AOC_VENV=/home/macklemoron/Projects/aoc-analytics/.venv/bin/python
+
+# Hourly: Fetch weather data (every hour at :05)
+5 * * * * cd $AOC_DIR && $AOC_VENV -m aoc_analytics.jobs.scheduler fetch_weather >> /var/log/aoc/weather.log 2>&1
+
+# Hourly: Sync sales data (every hour at :15)
+15 * * * * cd $AOC_DIR && $AOC_VENV -m aoc_analytics.jobs.scheduler sync_sales >> /var/log/aoc/sales.log 2>&1
+
+# Daily: Generate mood features (5am)
+0 5 * * * cd $AOC_DIR && $AOC_VENV -m aoc_analytics.jobs.scheduler mood_features >> /var/log/aoc/mood.log 2>&1
+
+# Weekly: Recalculate adaptive weights (Sunday 3am)
+0 3 * * 0 cd $AOC_DIR && $AOC_VENV -m aoc_analytics.jobs.scheduler recalculate_weights >> /var/log/aoc/weights.log 2>&1

@@ -46,6 +46,19 @@ from .decision_router import (
     WeatherContext,
     TimeContext,
 )
+from .calendar import (
+    AOCCalendar,
+    CalendarEvent,
+    EventType,
+    EventImpact,
+    get_calendar_context,
+)
+from .store_profiles import (
+    StoreProfile,
+    get_store_profile,
+    get_all_store_profiles,
+    get_store_regime_adjustments,
+)
 from .recommender import SignageRecommenderV1
 from .weather import (
     WeatherClient,
@@ -88,6 +101,17 @@ __all__ = [
     "Regime",
     "WeatherContext",
     "TimeContext",
+    # Calendar (holidays, events, paydays)
+    "AOCCalendar",
+    "CalendarEvent",
+    "EventType",
+    "EventImpact",
+    "get_calendar_context",
+    # Store Profiles (per-store adjustments)
+    "StoreProfile",
+    "get_store_profile",
+    "get_all_store_profiles",
+    "get_store_regime_adjustments",
     # Recommender
     "SignageRecommenderV1",
     # Weather

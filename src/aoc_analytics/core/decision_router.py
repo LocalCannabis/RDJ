@@ -43,6 +43,7 @@ class AnalysisLens(str, Enum):
 class Regime(str, Enum):
     COZY_INDOOR = "cozy_indoor"
     SUNNY_OUTDOOR = "sunny_outdoor"
+    RAINY_DAY = "rainy_day"  # Data-validated: flower +0.6pp, sativa -0.6pp
     PAYDAY_RUSH = "payday_rush"
     EVENING_WIND_DOWN = "evening_wind_down"
     WEEKEND_SOCIAL = "weekend_social"
@@ -221,55 +222,99 @@ PURPOSE_LENS_DEFAULTS: Dict[str, Dict[str, List[str]]] = {
 
 # =============================================================================
 # REGIME DEFINITIONS
+# Data-driven weights validated against 538,623 transactions (2021-2025)
+# pp = percentage point lift vs baseline
 # =============================================================================
 
 REGIME_DEFINITIONS: Dict[str, Dict[str, Any]] = {
+    # Cold weather (temp < 10°C) - 232K transactions analyzed
     Regime.COZY_INDOOR.value: {
-        "category_boosts": ["flower", "edibles", "ounces", "indica", "sleep"],
-        "category_demotes": ["vapes", "accessories", "sativa"],
+        # VALIDATED: indica +0.7pp, extracts +0.3pp
+        # INVALIDATED: flower/edibles were NOT significantly boosted
+        "category_boosts": ["indica", "extracts", "sleep"],
+        # VALIDATED: pre-rolls -1.2pp, beverages -0.3pp
+        "category_demotes": ["pre-rolls", "beverages", "sativa"],
+        "boost_weights": {"indica": 0.7, "extracts": 0.3},
+        "demote_weights": {"pre-rolls": 1.2, "beverages": 0.3},
         "lens_adjustments": {
             AnalysisLens.MARGIN_MIX.value: 0.1,
             AnalysisLens.BASKET.value: 0.1,
         },
     },
+    # Warm & dry weather (temp > 18°C, no rain) - 133K transactions analyzed
     Regime.SUNNY_OUTDOOR.value: {
-        "category_boosts": ["vapes", "pre-rolls", "beverages", "sativa", "energy"],
-        "category_demotes": ["ounces", "indica"],
+        # VALIDATED: sativa +0.6pp, pre-rolls +0.5pp, beverages +0.3pp
+        "category_boosts": ["sativa", "pre-rolls", "beverages", "energy"],
+        # VALIDATED: flower -0.6pp, indica -0.5pp
+        "category_demotes": ["flower", "indica"],
+        "boost_weights": {"sativa": 0.6, "pre-rolls": 0.5, "beverages": 0.3},
+        "demote_weights": {"flower": 0.6, "indica": 0.5},
         "lens_adjustments": {
             AnalysisLens.FUNNEL.value: 0.1,
         },
     },
+    # Payday periods (1st, 15th, last Friday) - behavioral signal driven
     Regime.PAYDAY_RUSH.value: {
         "category_boosts": ["ounces", "bulk", "premium", "high-margin"],
         "category_demotes": [],
+        "boost_weights": {"ounces": 1.0, "premium": 0.5},
+        "demote_weights": {},
         "lens_adjustments": {
             AnalysisLens.FUNNEL.value: 0.15,
             AnalysisLens.MARGIN_MIX.value: 0.1,
         },
     },
+    # Weekday evenings (5pm-9pm Mon-Fri) - 172K transactions analyzed
     Regime.EVENING_WIND_DOWN.value: {
-        "category_boosts": ["edibles", "indica", "sleep", "CBD", "tinctures"],
-        "category_demotes": ["sativa", "energy", "pre-rolls"],
+        # VALIDATED: edibles +0.9pp, beverages +0.6pp, indica +0.4pp, pre-rolls +0.3pp
+        "category_boosts": ["edibles", "beverages", "indica", "pre-rolls", "sleep"],
+        # VALIDATED: sativa -0.4pp, flower -0.4pp, extracts -0.3pp
+        "category_demotes": ["sativa", "flower", "extracts"],
+        "boost_weights": {"edibles": 0.9, "beverages": 0.6, "indica": 0.4, "pre-rolls": 0.3},
+        "demote_weights": {"sativa": 0.4, "flower": 0.4, "extracts": 0.3},
         "lens_adjustments": {
             AnalysisLens.BASKET.value: 0.1,
         },
     },
+    # Weekend afternoon/evening (Sat/Sun 12pm+) - 132K transactions analyzed
     Regime.WEEKEND_SOCIAL.value: {
-        "category_boosts": ["pre-rolls", "party-packs", "beverages", "edibles"],
-        "category_demotes": [],
+        # VALIDATED: edibles +1.3pp, beverages +0.8pp
+        "category_boosts": ["edibles", "beverages", "party-packs"],
+        # VALIDATED: flower -0.5pp, indica -0.5pp, pre-rolls -0.4pp
+        "category_demotes": ["flower", "indica", "pre-rolls", "extracts"],
+        "boost_weights": {"edibles": 1.3, "beverages": 0.8},
+        "demote_weights": {"flower": 0.5, "indica": 0.5, "pre-rolls": 0.4, "extracts": 0.3},
         "lens_adjustments": {
             AnalysisLens.BASKET.value: 0.1,
             AnalysisLens.FUNNEL.value: 0.05,
         },
     },
+    # Morning functional (6am-12pm weekdays) - morning pre-roll peak observed
     Regime.MORNING_FUNCTIONAL.value: {
-        "category_boosts": ["sativa", "microdose", "CBD", "energy", "tinctures"],
-        "category_demotes": ["indica", "sleep", "edibles"],
+        # Pre-rolls peak in morning (23.9% share)
+        "category_boosts": ["pre-rolls", "sativa", "CBD", "energy"],
+        "category_demotes": ["edibles", "indica", "sleep"],
+        "boost_weights": {"pre-rolls": 0.5, "sativa": 0.3},
+        "demote_weights": {"edibles": 0.5, "indica": 0.3},
         "lens_adjustments": {},
+    },
+    # Rainy day (precip > 0.5mm) - 51K transactions analyzed
+    Regime.RAINY_DAY.value: {
+        # VALIDATED: flower +0.6pp, edibles +0.3pp
+        "category_boosts": ["flower", "edibles", "indica"],
+        # VALIDATED: sativa -0.6pp, pre-rolls -0.4pp
+        "category_demotes": ["sativa", "pre-rolls"],
+        "boost_weights": {"flower": 0.6, "edibles": 0.3},
+        "demote_weights": {"sativa": 0.6, "pre-rolls": 0.4},
+        "lens_adjustments": {
+            AnalysisLens.MARGIN_MIX.value: 0.1,
+        },
     },
     Regime.HOLIDAY_GIFTING.value: {
         "category_boosts": ["gift-sets", "premium", "bundles", "accessories"],
         "category_demotes": ["value-packs", "budget"],
+        "boost_weights": {"premium": 1.0, "gift-sets": 0.5},
+        "demote_weights": {},
         "lens_adjustments": {
             AnalysisLens.MARGIN_MIX.value: 0.15,
         },
@@ -277,6 +322,8 @@ REGIME_DEFINITIONS: Dict[str, Dict[str, Any]] = {
     Regime.BASELINE.value: {
         "category_boosts": [],
         "category_demotes": [],
+        "boost_weights": {},
+        "demote_weights": {},
         "lens_adjustments": {},
     },
 }
@@ -303,11 +350,65 @@ class AOCDecisionRouter:
         
         # Quick decision (uses defaults)
         result = router.decide(purpose="SIGNAGE")
+        
+        # With adaptive weights (live from database)
+        router = AOCDecisionRouter(use_adaptive_weights=True)
     """
     
-    def __init__(self):
+    def __init__(self, use_adaptive_weights: bool = False):
+        """
+        Initialize the decision router.
+        
+        Args:
+            use_adaptive_weights: If True, use live weights from database.
+                                  If False, use static REGIME_DEFINITIONS.
+        """
         self.purpose_defaults = PURPOSE_LENS_DEFAULTS
         self.regime_definitions = REGIME_DEFINITIONS
+        self.use_adaptive_weights = use_adaptive_weights
+        self._adaptive_weights = None
+        
+        if use_adaptive_weights:
+            self._load_adaptive_weights()
+    
+    def _load_adaptive_weights(self):
+        """Load adaptive weights from database."""
+        try:
+            from .adaptive_weights import get_current_weights
+            self._adaptive_weights = get_current_weights()
+            if self._adaptive_weights:
+                logger.info(f"Loaded adaptive weights v{self._adaptive_weights.version}")
+            else:
+                logger.warning("No adaptive weights found, falling back to static")
+        except Exception as e:
+            logger.warning(f"Could not load adaptive weights: {e}")
+            self._adaptive_weights = None
+    
+    def get_regime_config(self, regime_name: str) -> Dict[str, Any]:
+        """
+        Get regime configuration, preferring adaptive weights if available.
+        """
+        # Try adaptive weights first
+        if self.use_adaptive_weights and self._adaptive_weights:
+            if regime_name in self._adaptive_weights.regime_weights:
+                adaptive = self._adaptive_weights.regime_weights[regime_name]
+                return {
+                    "category_boosts": list(adaptive.category_boosts.keys()),
+                    "category_demotes": list(adaptive.category_demotes.keys()),
+                    "boost_weights": adaptive.category_boosts,
+                    "demote_weights": adaptive.category_demotes,
+                    "lens_adjustments": self.regime_definitions.get(regime_name, {}).get("lens_adjustments", {}),
+                    "source": "adaptive",
+                    "confidence": adaptive.confidence,
+                    "sample_size": adaptive.sample_size,
+                }
+        
+        # Fall back to static definitions
+        static = self.regime_definitions.get(regime_name, {})
+        return {
+            **static,
+            "source": "static",
+        }
     
     def decide(
         self,
@@ -394,7 +495,12 @@ class AOCDecisionRouter:
             best_regime = Regime.BASELINE.value
             best_drivers = ["No strong regime signals detected"]
         
-        config = self.regime_definitions[best_regime]
+        # Get config (adaptive or static)
+        config = self.get_regime_config(best_regime)
+        
+        # Add source info to drivers
+        if config.get("source") == "adaptive":
+            best_drivers.append(f"Using adaptive weights v{self._adaptive_weights.version}")
         
         return RegimeConfig(
             name=best_regime,
@@ -448,6 +554,20 @@ class AOCDecisionRouter:
             if signals.out_about_index > 0.6:
                 triggers_met += 0.5
                 drivers.append(f"Out-about index: {signals.out_about_index:.2f}")
+        
+        # Data-validated: flower +0.6pp, edibles +0.3pp on rainy days
+        elif regime_name == Regime.RAINY_DAY.value:
+            total_triggers = 2
+            if weather:
+                if weather.is_rainy:
+                    triggers_met += 1.5
+                    drivers.append(f"Rain: {weather.precip_mm:.1f}mm")
+                elif weather.precip_mm > 0:
+                    triggers_met += 0.5
+                    drivers.append(f"Light precip: {weather.precip_mm:.1f}mm")
+            if signals.at_home_index > 0.6:
+                triggers_met += 0.5
+                drivers.append(f"At-home index: {signals.at_home_index:.2f}")
         
         elif regime_name == Regime.PAYDAY_RUSH.value:
             total_triggers = 2

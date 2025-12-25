@@ -1,0 +1,61 @@
+# AOC Analytics Cloud Run Jobs
+# Deploy with: gcloud run jobs create aoc-weights-weekly --image gcr.io/PROJECT/aoc-analytics --schedule "0 3 * * 0"
+
+substitutions:
+  _PROJECT_ID: sheets-writer-465009
+  _REGION: us-central1
+  _CLOUD_SQL_INSTANCE: sheets-writer-465009:us-central1:jfk-db
+
+steps:
+  # Build the container
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${_PROJECT_ID}/aoc-analytics:${SHORT_SHA}'
+      - '-f'
+      - 'Dockerfile.jobs'
+      - '.'
+
+  # Push to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'gcr.io/${_PROJECT_ID}/aoc-analytics:${SHORT_SHA}'
+
+  # Deploy weekly weights recalculation job
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'jobs'
+      - 'update'
+      - 'aoc-weights-weekly'
+      - '--image'
+      - 'gcr.io/${_PROJECT_ID}/aoc-analytics:${SHORT_SHA}'
+      - '--region'
+      - '${_REGION}'
+      - '--set-env-vars'
+      - 'JOB_TYPE=recalculate_weights,AOC_DATABASE_URL=postgresql://postgres@/aoc_analytics?host=/cloudsql/${_CLOUD_SQL_INSTANCE}'
+      - '--add-cloudsql-instances'
+      - '${_CLOUD_SQL_INSTANCE}'
+
+  # Deploy hourly weather/sales sync job
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'jobs'
+      - 'update'
+      - 'aoc-hourly-sync'
+      - '--image'
+      - 'gcr.io/${_PROJECT_ID}/aoc-analytics:${SHORT_SHA}'
+      - '--region'
+      - '${_REGION}'
+      - '--set-env-vars'
+      - 'JOB_TYPE=hourly,AOC_DATABASE_URL=postgresql://postgres@/aoc_analytics?host=/cloudsql/${_CLOUD_SQL_INSTANCE}'
+      - '--add-cloudsql-instances'
+      - '${_CLOUD_SQL_INSTANCE}'
+
+images:
+  - 'gcr.io/${_PROJECT_ID}/aoc-analytics:${SHORT_SHA}'
