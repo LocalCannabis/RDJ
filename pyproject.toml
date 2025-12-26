@@ -47,6 +47,22 @@ ml = [
     "prophet>=1.1.0",
     "xgboost>=2.0.0",
 ]
+llm = [
+    "openai>=1.0.0",
+    "anthropic>=0.18.0",
+    "sentence-transformers>=2.2.0",
+    "beautifulsoup4>=4.12.0",
+]
+# GPU-accelerated AI brain - only install on machines with GPU
+brain = [
+    "sentence-transformers>=2.2.0",
+    "torch>=2.0.0",
+]
+# Full AI stack (brain + LLM APIs)
+ai = [
+    "aoc-analytics[llm]",
+    "aoc-analytics[brain]",
+]
 
 [project.scripts]
 aoc-server = "aoc_analytics.api.server:main"

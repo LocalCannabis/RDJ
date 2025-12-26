@@ -17,6 +17,21 @@ logger = logging.getLogger(__name__)
 
 
 # =============================================================================
+# STORE STATUS - Active vs Closed/Failed
+# =============================================================================
+
+from enum import Enum
+from datetime import date
+
+class StoreStatus(str, Enum):
+    """Store operational status for filtering in analytics."""
+    ACTIVE = "active"           # Currently operating
+    CLOSED = "closed"           # Permanently closed (normal closure)
+    FAILED = "failed"           # Closed due to business failure (cautionary data)
+    SEASONAL = "seasonal"       # Temporarily closed (seasonal operation)
+
+
+# =============================================================================
 # STORE IDS AND NAMES
 # =============================================================================
 
@@ -25,6 +40,59 @@ STORE_IDS = {
     "kingsway": "Kingsway", 
     "victoria_drive": "Victoria Drive",
 }
+
+
+# =============================================================================
+# STORE REGISTRY - Complete store metadata including status
+# =============================================================================
+
+STORE_REGISTRY: Dict[str, Dict[str, Any]] = {
+    "parksville": {
+        "name": "Parksville",
+        "status": StoreStatus.ACTIVE,
+        "location": "Vancouver Island",
+        "opened": date(2022, 6, 1),  # Approximate
+        "closed": None,
+        "notes": "Mature store, older demographic, strong weather sensitivity",
+    },
+    "kingsway": {
+        "name": "Kingsway",
+        "status": StoreStatus.ACTIVE,
+        "location": "Vancouver",
+        "opened": date(2022, 1, 1),  # Approximate
+        "closed": None,
+        "notes": "Urban store, younger demographic, commuter traffic",
+    },
+    "victoria_drive": {
+        "name": "Victoria Drive",
+        "status": StoreStatus.FAILED,
+        "location": "Vancouver",
+        "opened": date(2023, 1, 1),  # Approximate
+        "closed": date(2024, 4, 1),  # Approximate closure
+        "notes": "FAILED STORE - Use as cautionary data only. Do not include in normal forecasting.",
+    },
+}
+
+
+def get_active_stores() -> List[str]:
+    """Return list of currently active store IDs."""
+    return [
+        store_id for store_id, info in STORE_REGISTRY.items()
+        if info["status"] == StoreStatus.ACTIVE
+    ]
+
+
+def get_store_status(store_id: str) -> Optional[StoreStatus]:
+    """Get status for a store by ID."""
+    store_id = store_id.lower().replace(" ", "_")
+    if store_id in STORE_REGISTRY:
+        return STORE_REGISTRY[store_id]["status"]
+    return None
+
+
+def is_store_active(store_id: str) -> bool:
+    """Check if a store is currently active."""
+    return get_store_status(store_id) == StoreStatus.ACTIVE
 
 
 # =============================================================================

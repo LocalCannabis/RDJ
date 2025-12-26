@@ -187,6 +187,64 @@ def is_payday_period(dt: date) -> Tuple[bool, str]:
 
 
 # =============================================================================
+# SPORTS SEASONS & SUNDAY CONTEXT
+# =============================================================================
+
+def is_nfl_season(dt: date) -> bool:
+    """
+    NFL season roughly runs early September through early February.
+    This affects Sunday shopping patterns significantly in BC
+    (Seahawks/49ers territory).
+    """
+    month = dt.month
+    # Regular season: Sep 7 - Feb 13 (approximate)
+    if month in (9, 10, 11, 12, 1):
+        return True
+    if month == 2 and dt.day <= 15:  # Super Bowl period
+        return True
+    return False
+
+
+def is_super_bowl_sunday(dt: date) -> bool:
+    """Check if it's Super Bowl Sunday (always 2nd Sunday of February)."""
+    if dt.month != 2:
+        return False
+    if dt.weekday() != 6:  # Not Sunday
+        return False
+    # Second Sunday of February is between day 8-14
+    return 8 <= dt.day <= 14
+
+
+def get_sunday_type(dt: date) -> str:
+    """
+    Categorize Sundays to help with prediction variance.
+    
+    Returns: 'super_bowl', 'nfl_season', 'long_weekend', 'month_end', 'regular'
+    """
+    if dt.weekday() != 6:
+        return "not_sunday"
+    
+    if is_super_bowl_sunday(dt):
+        return "super_bowl"
+    
+    if is_nfl_season(dt):
+        return "nfl_season"
+    
+    # Check if it's part of a long weekend
+    next_day = dt + timedelta(days=1)
+    if next_day in BC_STATUTORY_HOLIDAYS:
+        return "long_weekend"
+    
+    # Month position
+    if dt.day >= 25:
+        return "month_end"
+    elif dt.day <= 7:
+        return "month_start"
+    
+    return "regular"
+
+
+# =============================================================================
 # SEASONAL DETECTION
 # =============================================================================
 
@@ -465,6 +523,13 @@ def get_calendar_context(dt: Optional[datetime] = None) -> Dict[str, any]:
         "category_demotes": demotes,
         "holiday_index": holiday_index,
         "payday_index": payday_index,
+        # New Sunday/sports context
+        "is_sunday": dt_date.weekday() == 6,
+        "sunday_type": get_sunday_type(dt_date),
+        "is_nfl_season": is_nfl_season(dt_date),
+        "is_super_bowl": is_super_bowl_sunday(dt_date),
+        # Pre-holiday detection (day before holiday)
+        "is_preholiday": (dt_date + timedelta(days=1)) in BC_STATUTORY_HOLIDAYS,
     }
 
 

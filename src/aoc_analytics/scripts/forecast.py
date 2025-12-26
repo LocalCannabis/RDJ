@@ -83,8 +83,8 @@ def load_weather_data(db_path: str, store: Optional[str] = None) -> pd.DataFrame
         SELECT 
             datetime as date,
             location,
-            temperature_2m as temp_c,
-            precipitation as precip_mm,
+            temp_c,
+            precip_mm,
             weather_code
         FROM weather_hourly
     """

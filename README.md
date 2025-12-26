@@ -25,6 +25,49 @@ Or with ML dependencies:
 pip install aoc-analytics[ml]
 ```
 
+### Optional Dependencies
+
+The package uses optional dependency groups to support machines with different capabilities:
+
+| Install Command | What You Get | Requirements |
+|-----------------|--------------|--------------|
+| `pip install aoc-analytics` | Core analytics, signals, forecasting | Python 3.10+ |
+| `pip install aoc-analytics[ml]` | + scikit-learn, advanced forecasting | ~500MB |
+| `pip install aoc-analytics[llm]` | + LLM integrations (OpenAI, Anthropic, Ollama) | API keys |
+| `pip install aoc-analytics[brain]` | + Learning agent, hypothesis engine | LLM deps |
+| `pip install aoc-analytics[gpu]` | + PyTorch, sentence-transformers | CUDA GPU |
+| `pip install aoc-analytics[all]` | Everything | GPU + all deps |
+
+**For machines WITHOUT a GPU:**
+```bash
+pip install aoc-analytics[ml]  # Full forecasting, no GPU required
+```
+
+**For machines WITH an NVIDIA GPU:**
+```bash
+pip install aoc-analytics[brain,gpu]  # Full AI brain features
+```
+
+### Runtime Feature Detection
+
+The brain and LLM modules gracefully degrade on machines without required dependencies:
+
+```python
+from aoc_analytics import brain, llm
+
+# Check what's available
+print(brain.BRAIN_FEATURES)
+# {'memory': True, 'learner': True, 'hypothesis': True, 'agent': True, 'signal_integration': True}
+
+print(llm.LLM_FEATURES)
+# {'client': True, 'events': True, 'explainer': True, 'rag': True, 'chat': True}
+
+# On a machine without GPU/torch:
+# {'memory': False, 'learner': False, ...}  # All False, but no import errors
+```
+
+This allows the same codebase to run everywhere - GPU features simply won't be available on machines without CUDA.
+
 ## Quick Start
 
 ### As a Library
@@ -78,6 +121,20 @@ aoc-analytics/
 │   │   ├── predictor.py         # Demand forecasting
 │   │   ├── hero_signals.py      # Hero product ranking
 │   │   └── anomaly_registry.py  # Anomaly detection
+│   │
+│   ├── brain/                   # 🧠 Learning agent (optional, GPU)
+│   │   ├── memory.py            # Vector-based memory store
+│   │   ├── learner.py           # Pattern learning from sales data
+│   │   ├── hypothesis.py        # Testable hypothesis generation
+│   │   ├── agent.py             # Autonomous learning agent
+│   │   └── signal_integration.py # Piggyback on existing signals
+│   │
+│   ├── llm/                     # 🤖 LLM integrations (optional)
+│   │   ├── client.py            # Ollama/OpenAI client
+│   │   ├── events.py            # Event extraction from text
+│   │   ├── explainer.py         # Human-readable explanations
+│   │   ├── rag.py               # Retrieval-augmented generation
+│   │   └── chat.py              # Conversational interface
 │   │
 │   ├── api/                     # FastAPI REST interface
 │   │   ├── server.py            # Application factory

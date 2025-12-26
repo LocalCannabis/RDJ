@@ -24,10 +24,8 @@ import numpy as np
 import pandas as pd
 
 from .calendar import (
-    CalendarContext,
     get_calendar_context,
-    get_events_for_date,
-    is_payday_window,
+    AOCCalendar,
 )
 from .predictor import (
     SimilarityConfig,
@@ -35,9 +33,40 @@ from .predictor import (
     compute_similarity,
     forecast_demand_for_slot,
 )
+from .predictor_fast import (
+    FastSimilarityIndex,
+    forecast_demand_fast,
+    FAISS_AVAILABLE,
+)
 from .weather import WeatherClient, STORE_LOCATIONS
+from .store_profiles import get_store_status, StoreStatus, is_store_active
+from .signals.vibe_signals import VibeEngine, get_vibe_for_date_cached, preload_vibe_cache
+from .signals.external_calendar import CalendarService
 
 logger = logging.getLogger(__name__)
+
+# Track which stores have already shown warnings (to avoid spam)
+_warned_stores: set = set()
+
+# Module-level singletons (reused across ForecastEngine instances)
+_VIBE_ENGINE: Optional[VibeEngine] = None
+_CALENDAR_SERVICE: Optional[CalendarService] = None
+
+
+def _get_vibe_engine() -> VibeEngine:
+    """Get or create module-level VibeEngine singleton."""
+    global _VIBE_ENGINE
+    if _VIBE_ENGINE is None:
+        _VIBE_ENGINE = VibeEngine()
+    return _VIBE_ENGINE
+
+
+def _get_calendar_service() -> CalendarService:
+    """Get or create module-level CalendarService singleton."""
+    global _CALENDAR_SERVICE
+    if _CALENDAR_SERVICE is None:
+        _CALENDAR_SERVICE = CalendarService()
+    return _CALENDAR_SERVICE
 
 
 # =============================================================================
@@ -130,6 +159,9 @@ class ForecastConfig:
     
     # Category aggregation level
     category_level: str = "category"  # or "subcategory"
+    
+    # Skip category-level forecasting (faster for backtesting)
+    skip_categories: bool = False
 
 
 # =============================================================================
@@ -154,6 +186,20 @@ class ForecastEngine:
         self.store = store
         self.config = config or ForecastConfig()
         
+        # Check store status and warn if not active (only once per store)
+        if store not in _warned_stores:
+            status = get_store_status(store)
+            if status == StoreStatus.FAILED:
+                logger.warning(
+                    f"⚠️  CAUTION: '{store}' is a FAILED store. "
+                    "Forecasts based on this store's historical data may not be reliable. "
+                    "Consider this data for cautionary analysis only."
+                )
+                _warned_stores.add(store)
+            elif status == StoreStatus.CLOSED:
+                logger.warning(f"Note: '{store}' is a closed store.")
+                _warned_stores.add(store)
+        
         # Get store coordinates for weather
         if store in STORE_LOCATIONS:
             self.lat, self.lon = STORE_LOCATIONS[store]
@@ -168,6 +214,7 @@ class ForecastEngine:
         self._conditions_df: Optional[pd.DataFrame] = None
         self._sales_df: Optional[pd.DataFrame] = None
         self._category_sales: Optional[pd.DataFrame] = None
+        self._fast_index: Optional[FastSimilarityIndex] = None  # Cache for fast similarity search
     
     def load_historical_data(
         self,
@@ -191,6 +238,28 @@ class ForecastEngine:
         
         # Pre-aggregate category-level sales
         self._aggregate_category_sales()
+        
+        # Build fast similarity index (this is the speedup!)
+        # Try GPU first, then FAISS, then fall back to slow path
+        from .predictor_fast import TORCH_AVAILABLE, GPU_NAME
+        
+        if TORCH_AVAILABLE:
+            self._fast_index = FastSimilarityIndex(
+                self._conditions_df,
+                self.config.similarity_config,
+                use_gpu=True,
+            )
+            logger.info(f"Built GPU similarity index on {GPU_NAME}")
+        elif FAISS_AVAILABLE:
+            self._fast_index = FastSimilarityIndex(
+                self._conditions_df,
+                self.config.similarity_config,
+                use_gpu=False,
+            )
+            logger.info(f"Built FAISS CPU index for similarity search")
+        else:
+            self._fast_index = None
+            logger.warning("No GPU or FAISS available - using slow similarity search")
         
         logger.info(
             f"Loaded {len(self._conditions_df)} historical days for {self.store}"
@@ -218,18 +287,43 @@ class ForecastEngine:
         daily_sales["dow"] = daily_sales["date"].apply(lambda d: d.weekday())
         daily_sales["hour"] = 12  # Default to noon for daily aggregates
         
+        # NEW: Add seasonality features (critical for accuracy!)
+        daily_sales["month"] = daily_sales["date"].apply(lambda d: d.month)
+        daily_sales["day_of_year"] = daily_sales["date"].apply(lambda d: d.timetuple().tm_yday)
+        
         # Add calendar context
+        calendar = AOCCalendar()
+        vibe_engine = _get_vibe_engine()
+        ext_calendar = _get_calendar_service()
+        
         for idx, row in daily_sales.iterrows():
             d = row["date"]
             ctx = get_calendar_context(d)
-            events = get_events_for_date(d)
             
-            daily_sales.loc[idx, "is_holiday"] = 1 if ctx.is_holiday else 0
-            daily_sales.loc[idx, "is_preholiday"] = 1 if ctx.is_preholiday else 0
-            daily_sales.loc[idx, "is_payday_window"] = 1 if is_payday_window(d) else 0
+            daily_sales.loc[idx, "is_holiday"] = 1 if ctx.get("is_holiday") else 0
+            daily_sales.loc[idx, "is_preholiday"] = 1 if ctx.get("is_preholiday") else 0
+            daily_sales.loc[idx, "is_payday_window"] = 1 if ctx.get("is_payday") else 0
             daily_sales.loc[idx, "has_home_game"] = 0  # TODO: integrate sports calendar
             daily_sales.loc[idx, "has_concert"] = 0
-            daily_sales.loc[idx, "has_festival"] = 1 if any("420" in str(e) for e in events) else 0
+            daily_sales.loc[idx, "has_festival"] = 1 if ctx.get("is_cannabis_event") else 0
+            # Sunday-specific features
+            daily_sales.loc[idx, "is_sunday"] = 1 if ctx.get("is_sunday") else 0
+            daily_sales.loc[idx, "is_nfl_sunday"] = 1 if (ctx.get("is_sunday") and ctx.get("is_nfl_season")) else 0
+            
+            # Vibe signal features
+            # Get weather data for this day if available
+            temp_c = row.get("temp_c", 15.0) if "temp_c" in daily_sales.columns else 15.0
+            precip_mm = row.get("precip_mm", 0.0) if "precip_mm" in daily_sales.columns else 0.0
+            weather_data = {"temp_c": temp_c, "precip_mm": precip_mm}
+            
+            day_vibe = vibe_engine.get_day_vibe(d, weather_data=weather_data)
+            daily_sales.loc[idx, "couch_index"] = day_vibe.couch_index
+            daily_sales.loc[idx, "party_index"] = day_vibe.party_index
+            daily_sales.loc[idx, "stress_index"] = day_vibe.stress_index
+            
+            # Check for major events from external calendar
+            ext_data = ext_calendar.get_calendar_data(d)
+            daily_sales.loc[idx, "has_major_event"] = 1 if ext_data.get("has_events") else 0
         
         # Merge weather if provided
         if weather_df is not None:
@@ -303,36 +397,68 @@ class ForecastEngine:
         
         # Get calendar context
         ctx = get_calendar_context(target_date)
-        events = get_events_for_date(target_date)
         
         # Get weather forecast if not provided
         if weather_forecast is None:
             weather_forecast = self._get_weather_for_date(target_date)
         
+        # Get vibe signals for the target date (use singletons)
+        vibe_engine = _get_vibe_engine()
+        ext_calendar = _get_calendar_service()
+        weather_data = {
+            "temp_c": weather_forecast.get("temp_avg", 15.0),
+            "precip_mm": weather_forecast.get("precip_sum", 0.0),
+        }
+        day_vibe = vibe_engine.get_day_vibe(target_date, weather_data=weather_data)
+        ext_data = ext_calendar.get_calendar_data(target_date)
+        
         # Build future condition row for similarity matching
         future_row = {
             "dow": target_date.weekday(),
             "hour": 12,  # Midday for daily
+            # NEW: Seasonality features (critical for accuracy!)
+            "month": target_date.month,
+            "day_of_year": target_date.timetuple().tm_yday,
+            # Weather
             "temp_c": weather_forecast.get("temp_avg", 15.0),
             "precip_mm": weather_forecast.get("precip_sum", 0.0),
-            "is_holiday": 1 if ctx.is_holiday else 0,
-            "is_preholiday": 1 if ctx.is_preholiday else 0,
-            "is_payday_window": 1 if is_payday_window(target_date) else 0,
+            # Calendar/events
+            "is_holiday": 1 if ctx.get("is_holiday") else 0,
+            "is_preholiday": 1 if ctx.get("is_preholiday") else 0,
+            "is_payday_window": 1 if ctx.get("is_payday") else 0,
             "has_home_game": 0,
             "has_concert": 0,
-            "has_festival": 1 if any("420" in str(e) for e in events) else 0,
+            "has_festival": 1 if ctx.get("is_cannabis_event") else 0,
             "local_vibe_at_home_index": 0.5,
             "local_vibe_out_and_about_index": 0.5,
+            # Sunday-specific features
+            "is_sunday": 1 if ctx.get("is_sunday") else 0,
+            "is_nfl_sunday": 1 if (ctx.get("is_sunday") and ctx.get("is_nfl_season")) else 0,
+            # NEW: Vibe signal features
+            "couch_index": day_vibe.couch_index,
+            "party_index": day_vibe.party_index,
+            "stress_index": day_vibe.stress_index,
+            "has_major_event": 1 if ext_data.get("has_events") else 0,
         }
         
-        # Run similarity forecast
-        forecast_result = forecast_demand_for_slot(
-            conditions_df=self._conditions_df,
-            future_row=future_row,
-            k_neighbors=self.config.k_neighbors,
-            outcome_cols=["sales_units", "sales_revenue"],
-            cfg=self.config.similarity_config,
-        )
+        # Run similarity forecast (use fast version if available)
+        if self._fast_index is not None:
+            forecast_result = forecast_demand_fast(
+                conditions_df=self._conditions_df,
+                future_row=future_row,
+                k_neighbors=self.config.k_neighbors,
+                outcome_cols=["sales_units", "sales_revenue"],
+                cfg=self.config.similarity_config,
+                index=self._fast_index,
+            )
+        else:
+            forecast_result = forecast_demand_for_slot(
+                conditions_df=self._conditions_df,
+                future_row=future_row,
+                k_neighbors=self.config.k_neighbors,
+                outcome_cols=["sales_units", "sales_revenue"],
+                cfg=self.config.similarity_config,
+            )
         
         # Calculate confidence from similarity scores
         sim_range = forecast_result["similarity_max"] - forecast_result["similarity_min"]
@@ -340,11 +466,17 @@ class ForecastEngine:
         # Higher mean similarity = more confidence, narrower range = more confidence
         confidence = min(1.0, max(0.0, (sim_mean + 10) / 20))  # Normalize to 0-1
         
-        # Get category forecasts
-        category_forecasts = self._forecast_categories(target_date, future_row)
+        # Get category forecasts (skip if configured for speed)
+        if self.config.skip_categories:
+            category_forecasts = {}
+        else:
+            category_forecasts = self._forecast_categories(target_date, future_row)
+        
+        # Get events from context
+        events = ctx.get("events", [])
         
         # Determine suggested regime
-        regime, rationale = self._suggest_regime(ctx, weather_forecast, events)
+        regime, rationale = self._suggest_regime(target_date, ctx, weather_forecast, events)
         
         dow_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         
@@ -358,10 +490,10 @@ class ForecastEngine:
             precip_mm=weather_forecast.get("precip_sum", 0.0),
             weather_code=weather_forecast.get("weather_code", 0),
             weather_desc=weather_forecast.get("weather_desc", "Unknown"),
-            is_holiday=ctx.is_holiday,
-            holiday_name=ctx.holiday_name,
-            is_preholiday=ctx.is_preholiday,
-            is_payday_window=is_payday_window(target_date),
+            is_holiday=ctx.get("is_holiday", False),
+            holiday_name=ctx.get("holiday_name"),
+            is_preholiday=ctx.get("is_preholiday", False),
+            is_payday_window=ctx.get("is_payday", False),
             events=[str(e) for e in events],
             expected_revenue=forecast_result.get("expected_sales_revenue", 0.0),
             expected_units=forecast_result.get("expected_sales_units", 0.0),
@@ -448,7 +580,8 @@ class ForecastEngine:
     
     def _suggest_regime(
         self,
-        ctx: CalendarContext,
+        target_date: date,
+        ctx: Dict[str, Any],
         weather: Dict[str, Any],
         events: List,
     ) -> Tuple[str, str]:
@@ -459,14 +592,18 @@ class ForecastEngine:
         if any("420" in str(e) for e in events):
             return "420_celebration", "4/20 cannabis culture celebration day"
         
-        if ctx.is_holiday:
-            if ctx.holiday_name in ["Christmas Day", "Boxing Day"]:
-                return "holiday_gifting", f"{ctx.holiday_name} - gifting focus"
-            if ctx.holiday_name in ["Canada Day", "BC Day", "Victoria Day"]:
-                return "holiday_party", f"{ctx.holiday_name} - celebration/party focus"
-            return "holiday_general", f"Holiday: {ctx.holiday_name}"
+        is_holiday = ctx.get("is_holiday", False)
+        holiday_name = ctx.get("holiday_name")
+        is_preholiday = ctx.get("is_preholiday", False)
         
-        if ctx.is_preholiday:
+        if is_holiday:
+            if holiday_name in ["Christmas Day", "Boxing Day"]:
+                return "holiday_gifting", f"{holiday_name} - gifting focus"
+            if holiday_name in ["Canada Day", "BC Day", "Victoria Day"]:
+                return "holiday_party", f"{holiday_name} - celebration/party focus"
+            return "holiday_general", f"Holiday: {holiday_name}"
+        
+        if is_preholiday:
             reasons.append("pre-holiday stock-up period")
         
         # Weather impact
@@ -486,7 +623,7 @@ class ForecastEngine:
             return "cold_winter", "; ".join(reasons)
         
         # Default by day of week
-        dow = ctx.date.weekday()
+        dow = target_date.weekday()
         if dow == 4:  # Friday
             return "friday_rush", "Friday - end of work week rush"
         if dow == 5:  # Saturday

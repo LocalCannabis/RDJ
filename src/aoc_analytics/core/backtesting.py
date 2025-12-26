@@ -25,6 +25,8 @@ import numpy as np
 import pandas as pd
 
 from .forecast_engine import ForecastEngine, ForecastConfig, DayForecast, WeekForecast
+from .store_profiles import get_store_status, StoreStatus, is_store_active
+from .signals.vibe_signals import preload_vibe_cache
 
 logger = logging.getLogger(__name__)
 
@@ -125,7 +127,25 @@ class BacktestRunner:
         self.train_window_days = train_window_days
         self.test_window_days = test_window_days
         self.rolling = rolling
-        self.config = config or ForecastConfig()
+        
+        # Check store status and warn if not active
+        status = get_store_status(store)
+        if status == StoreStatus.FAILED:
+            logger.warning(
+                f"⚠️  CAUTION: '{store}' is a FAILED store. "
+                "Results may not be representative of healthy store patterns. "
+                "Consider using this data only for cautionary analysis."
+            )
+        elif status == StoreStatus.CLOSED:
+            logger.warning(f"Note: '{store}' is a closed store.")
+        elif status is None:
+            logger.debug(f"Store '{store}' not found in registry.")
+        
+        # Use provided config or create default with skip_categories=True for speed
+        if config:
+            self.config = config
+        else:
+            self.config = ForecastConfig(skip_categories=True)
     
     def run(
         self,
@@ -167,6 +187,9 @@ class BacktestRunner:
             f"(train={self.train_window_days}d, test={self.test_window_days}d)"
         )
         
+        # Preload vibe cache for the entire date range (prevents repeated API calls)
+        preload_vibe_cache(data_start, end_date)
+        
         # Collect predictions and actuals
         daily_results = []
         weekly_results = []
@@ -188,7 +211,7 @@ class BacktestRunner:
             ]
             
             train_weather = None
-            if weather_df is not None:
+            if weather_df is not None and len(weather_df) > 0:
                 weather_df_copy = weather_df.copy()
                 weather_df_copy["date"] = pd.to_datetime(weather_df_copy["date"]).dt.date
                 train_weather = weather_df_copy[
@@ -715,6 +738,19 @@ def run_backtest(
 def print_backtest_report(result: BacktestResult) -> None:
     """Print a human-readable backtest report."""
     m = result.metrics
+    
+    # Check if this is a failed/closed store and show warning banner
+    status = get_store_status(result.store)
+    if status == StoreStatus.FAILED:
+        print(f"\n{'!'*60}")
+        print(f"⚠️  WARNING: {result.store} is a FAILED STORE")
+        print(f"This data represents a business that failed.")
+        print(f"Use for cautionary analysis only - not for forecasting.")
+        print(f"{'!'*60}")
+    elif status == StoreStatus.CLOSED:
+        print(f"\n{'~'*60}")
+        print(f"Note: {result.store} is a CLOSED store.")
+        print(f"{'~'*60}")
     
     print(f"\n{'='*60}")
     print(f"BACKTEST REPORT: {result.store}")

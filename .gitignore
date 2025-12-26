@@ -58,3 +58,32 @@ htmlcov/
 
 # mypy
 .mypy_cache/
+
+# ==============================================
+# AI/ML - Large model files and caches
+# ==============================================
+
+# Sentence-transformers model cache
+.cache/
+sentence-transformers/
+
+# HuggingFace cache
+huggingface/
+~/.cache/huggingface/
+
+# PyTorch model files
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Brain memory databases (local state, not code)
+brain_memory.db
+brain_memory.db-journal
+
+# Ollama (managed separately)
+# Models are stored in ~/.ollama, not in repo
+
+# Large data files
+*.parquet
+*.feather
