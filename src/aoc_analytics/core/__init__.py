@@ -68,6 +68,22 @@ from .weather import (
     get_weather_for_location,
     get_all_store_weather,
 )
+from .forecast_engine import (
+    ForecastEngine,
+    ForecastConfig,
+    DayForecast,
+    WeekForecast,
+    quick_forecast,
+)
+from .backtesting import (
+    BacktestRunner,
+    BacktestResult,
+    ForecastMetrics,
+    PurchaseOptimizer,
+    PurchaseSuggestion,
+    run_backtest,
+    print_backtest_report,
+)
 
 __all__ = [
     # Anomaly registry
@@ -121,4 +137,18 @@ __all__ = [
     "STORE_LOCATIONS",
     "get_weather_for_location",
     "get_all_store_weather",
+    # Forecasting
+    "ForecastEngine",
+    "ForecastConfig",
+    "DayForecast",
+    "WeekForecast",
+    "quick_forecast",
+    # Backtesting
+    "BacktestRunner",
+    "BacktestResult",
+    "ForecastMetrics",
+    "PurchaseOptimizer",
+    "PurchaseSuggestion",
+    "run_backtest",
+    "print_backtest_report",
 ]
