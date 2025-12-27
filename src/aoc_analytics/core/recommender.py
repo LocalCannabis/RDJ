@@ -4,6 +4,9 @@ Signage Recommender V1
 Produces ranked SKU/category lists for digital signage screens.
 Uses the Decision Router to determine lens weights, then scores
 products accordingly with hard guards and diversity enforcement.
+
+Includes outlier detection to penalize SKUs driven by repeat customers
+rather than genuine broad demand.
 """
 
 from __future__ import annotations
@@ -43,6 +46,11 @@ class HardGuards:
     require_recent_sale_days: int = 90   # Must have sold in last N days
     min_recommendation_count: int = 6
     max_recommendation_count: int = 12
+    
+    # Outlier customer detection
+    outlier_penalty_enabled: bool = True
+    outlier_min_confidence: float = 0.4  # Min confidence to apply penalty
+    outlier_max_penalty: float = 0.3     # Max score reduction for outliers
 
 
 @dataclass
@@ -150,6 +158,89 @@ class RecommendationResult:
 
 
 # =============================================================================
+# OUTLIER DETECTION INTEGRATION
+# =============================================================================
+
+def _get_outlier_signatures(db_path: str, min_confidence: float = 0.4) -> Dict[str, float]:
+    """
+    Get outlier confidence scores for all SKUs.
+    
+    Returns dict mapping SKU -> outlier_confidence (0-1).
+    Higher confidence = more likely driven by repeat customers.
+    """
+    from collections import defaultdict
+    import numpy as np
+    
+    try:
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        # Get SKUs with enough transactions
+        cursor.execute("""
+            SELECT sku, COUNT(*) as txn_count
+            FROM sales
+            WHERE sku IS NOT NULL AND sku != ''
+            GROUP BY sku
+            HAVING txn_count >= 20
+        """)
+        
+        skus = cursor.fetchall()
+        outlier_scores = {}
+        
+        for row in skus:
+            sku = row["sku"]
+            
+            # Get transaction patterns for this SKU
+            cursor.execute("""
+                SELECT date, time, quantity
+                FROM sales
+                WHERE sku = ?
+                ORDER BY date, time
+            """, (sku,))
+            
+            transactions = cursor.fetchall()
+            if len(transactions) < 20:
+                continue
+            
+            # Analyze patterns
+            quantities = [t["quantity"] or 1 for t in transactions]
+            daily_counts = defaultdict(int)
+            for t in transactions:
+                daily_counts[t["date"]] += 1
+            
+            # Same-day repeat indicator
+            same_day_repeats = sum(1 for c in daily_counts.values() if c > 1)
+            same_day_ratio = same_day_repeats / len(daily_counts) if daily_counts else 0
+            
+            # Quantity consistency
+            qty_cv = np.std(quantities) / np.mean(quantities) if np.mean(quantities) > 0 else 1
+            
+            # Calculate confidence
+            confidence = 0.0
+            if same_day_ratio > 0.1:
+                confidence += 0.3
+            if same_day_ratio > 0.2:
+                confidence += 0.2
+            if qty_cv < 0.3:
+                confidence += 0.2
+            if qty_cv < 0.5:
+                confidence += 0.1
+            
+            confidence = min(confidence, 1.0)
+            
+            if confidence >= min_confidence:
+                outlier_scores[sku] = confidence
+        
+        conn.close()
+        return outlier_scores
+        
+    except Exception as e:
+        logger.warning(f"Could not compute outlier scores: {e}")
+        return {}
+
+
+# =============================================================================
 # RECOMMENDER ENGINE
 # =============================================================================
 
@@ -177,6 +268,30 @@ class SignageRecommenderV1:
         self.db_path = db_path or str(Path(__file__).parent.parent.parent.parent / "aoc_sales.db")
         self.guards = guards or HardGuards()
         self.router = AOCDecisionRouter()
+        
+        # Cache outlier scores (computed once, expensive)
+        self._outlier_cache: Optional[Dict[str, float]] = None
+        self._outlier_cache_time: Optional[datetime] = None
+    
+    def _get_outlier_scores(self) -> Dict[str, float]:
+        """Get cached outlier scores, recompute if stale (>1 hour)."""
+        if not self.guards.outlier_penalty_enabled:
+            return {}
+            
+        now = datetime.now()
+        if (self._outlier_cache is None or 
+            self._outlier_cache_time is None or
+            (now - self._outlier_cache_time) > timedelta(hours=1)):
+            
+            logger.info("Computing outlier scores...")
+            self._outlier_cache = _get_outlier_signatures(
+                self.db_path, 
+                self.guards.outlier_min_confidence
+            )
+            self._outlier_cache_time = now
+            logger.info(f"Found {len(self._outlier_cache)} outlier-driven SKUs")
+        
+        return self._outlier_cache or {}
     
     def generate(
         self,
@@ -401,8 +516,11 @@ class SignageRecommenderV1:
         decision: DecisionResult,
         constraints: Dict[str, Any],
     ) -> List[ScoredProduct]:
-        """Score products based on lens weights."""
+        """Score products based on lens weights, with outlier penalty."""
         scored = []
+        
+        # Get outlier scores (cached)
+        outlier_scores = self._get_outlier_scores()
         
         for product in products:
             lens_scores = {}
@@ -455,6 +573,15 @@ class SignageRecommenderV1:
             if product.category.lower() in [c.lower() for c in must_have]:
                 lens_scores["MUST_HAVE"] = 0.1
                 reasons.append("Required category")
+            
+            # OUTLIER PENALTY: Penalize SKUs driven by repeat customers
+            # This prevents "hero" status for products that only sell to regulars
+            outlier_conf = outlier_scores.get(product.sku, 0)
+            if outlier_conf > 0:
+                # Scale penalty by confidence: 50% confidence = 15% penalty at max
+                penalty = outlier_conf * self.guards.outlier_max_penalty
+                lens_scores["OUTLIER_PENALTY"] = -penalty
+                reasons.append(f"⚠️ Regular customer bias ({outlier_conf:.0%} conf)")
             
             # Calculate total score
             total_score = sum(lens_scores.values())
