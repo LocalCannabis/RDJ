@@ -115,13 +115,20 @@ def job_recalculate_weights(
 
 def job_generate_mood_features(
     target_date: Optional[date] = None,
+    locations: Optional[list] = None,
 ) -> dict:
     """
     Generate daily mood features for all stores.
     
     Run: Daily (early morning)
     Purpose: Pre-compute signals for the day
+    
+    Args:
+        target_date: Date to generate features for (default: today)
+        locations: List of locations to process (default: all from database)
     """
+    import sqlite3
+    
     if target_date is None:
         target_date = date.today()
     
@@ -130,14 +137,48 @@ def job_generate_mood_features(
     try:
         from aoc_analytics.core.signals.builder import rebuild_behavioral_signals
         
-        # Rebuild signals for target date
-        result = rebuild_behavioral_signals(
-            start_date=target_date,
-            end_date=target_date,
-        )
+        # Get database path from environment
+        db_path = os.environ.get("AOC_DATABASE_PATH", "weather_sales.db")
         
-        logger.info(f"Mood features complete: {result}")
-        return {"status": "success", "result": result}
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        
+        try:
+            # Get all locations from database if not specified
+            if locations is None:
+                cursor = conn.execute("SELECT DISTINCT location FROM sales WHERE location IS NOT NULL")
+                locations = [row[0] for row in cursor.fetchall()]
+            
+            if not locations:
+                logger.warning("No locations found in database")
+                return {"status": "warning", "message": "No locations found"}
+            
+            results = {}
+            total_records = 0
+            
+            date_str = target_date.isoformat()
+            
+            for location in locations:
+                try:
+                    count = rebuild_behavioral_signals(
+                        conn,
+                        location=location,
+                        start_date=date_str,
+                        end_date=date_str,
+                    )
+                    results[location] = {"status": "success", "records": count}
+                    total_records += count
+                except Exception as e:
+                    logger.error(f"Failed for location {location}: {e}")
+                    results[location] = {"status": "error", "error": str(e)}
+            
+            conn.commit()
+            
+            logger.info(f"Mood features complete: {total_records} records across {len(locations)} locations")
+            return {"status": "success", "total_records": total_records, "locations": results}
+        
+        finally:
+            conn.close()
     
     except Exception as e:
         logger.error(f"Mood features failed: {e}")
