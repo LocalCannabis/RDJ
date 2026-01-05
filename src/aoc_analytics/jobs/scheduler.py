@@ -113,6 +113,65 @@ def job_recalculate_weights(
         return {"status": "error", "error": str(e)}
 
 
+def _get_database_connection():
+    """
+    Get a database connection - supports both SQLite and PostgreSQL.
+    
+    Uses AOC_DATABASE_URL for PostgreSQL (production) or 
+    AOC_DATABASE_PATH for SQLite (local dev).
+    """
+    import sqlite3
+    
+    # Check for PostgreSQL URL first (production)
+    db_url = os.environ.get("AOC_DATABASE_URL")
+    if db_url and db_url.startswith("postgresql"):
+        try:
+            import psycopg2
+            from urllib.parse import urlparse, parse_qs
+            
+            parsed = urlparse(db_url)
+            
+            # Extract connection params
+            user = parsed.username
+            password = parsed.password
+            database = parsed.path.lstrip('/')
+            
+            # Handle Cloud SQL socket vs regular host
+            query_params = parse_qs(parsed.query)
+            if 'host' in query_params:
+                # Cloud SQL Unix socket
+                host = query_params['host'][0]
+                conn = psycopg2.connect(
+                    dbname=database,
+                    user=user,
+                    password=password,
+                    host=host,
+                )
+            else:
+                # Regular TCP connection
+                host = parsed.hostname or 'localhost'
+                port = parsed.port or 5432
+                conn = psycopg2.connect(
+                    dbname=database,
+                    user=user,
+                    password=password,
+                    host=host,
+                    port=port,
+                )
+            
+            logger.info(f"Connected to PostgreSQL database: {database}")
+            return conn, "postgresql"
+        except Exception as e:
+            logger.warning(f"PostgreSQL connection failed: {e}, falling back to SQLite")
+    
+    # Fall back to SQLite
+    db_path = os.environ.get("AOC_DATABASE_PATH", "weather_sales.db")
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    logger.info(f"Connected to SQLite database: {db_path}")
+    return conn, "sqlite"
+
+
 def job_generate_mood_features(
     target_date: Optional[date] = None,
     locations: Optional[list] = None,
@@ -127,8 +186,6 @@ def job_generate_mood_features(
         target_date: Date to generate features for (default: today)
         locations: List of locations to process (default: all from database)
     """
-    import sqlite3
-    
     if target_date is None:
         target_date = date.today()
     
@@ -137,21 +194,19 @@ def job_generate_mood_features(
     try:
         from aoc_analytics.core.signals.builder import rebuild_behavioral_signals
         
-        # Get database path from environment
-        db_path = os.environ.get("AOC_DATABASE_PATH", "weather_sales.db")
-        
-        conn = sqlite3.connect(db_path)
-        conn.row_factory = sqlite3.Row
+        conn, db_type = _get_database_connection()
         
         try:
+            cursor = conn.cursor()
+            
             # Get all locations from database if not specified
             if locations is None:
-                cursor = conn.execute("SELECT DISTINCT location FROM sales WHERE location IS NOT NULL")
+                cursor.execute("SELECT DISTINCT location FROM sales WHERE location IS NOT NULL")
                 locations = [row[0] for row in cursor.fetchall()]
             
             if not locations:
                 logger.warning("No locations found in database")
-                return {"status": "warning", "message": "No locations found"}
+                return {"status": "warning", "message": "No locations found", "db_type": db_type}
             
             results = {}
             total_records = 0
@@ -175,7 +230,7 @@ def job_generate_mood_features(
             conn.commit()
             
             logger.info(f"Mood features complete: {total_records} records across {len(locations)} locations")
-            return {"status": "success", "total_records": total_records, "locations": results}
+            return {"status": "success", "total_records": total_records, "locations": results, "db_type": db_type}
         
         finally:
             conn.close()
