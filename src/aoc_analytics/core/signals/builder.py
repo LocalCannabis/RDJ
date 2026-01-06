@@ -28,6 +28,73 @@ from ..db_adapter import DBAdapter, wrap_connection
 from .payday_index import build_payday_index
 
 
+# Schema for behavioral_signals_fact table
+BEHAVIORAL_SIGNALS_SCHEMA = """
+CREATE TABLE IF NOT EXISTS behavioral_signals_fact (
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    hour INTEGER NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    at_home FLOAT,
+    out_and_about FLOAT,
+    holiday FLOAT,
+    cultural FLOAT,
+    sports FLOAT,
+    concert FLOAT,
+    payday FLOAT,
+    local_vibe FLOAT,
+    local_vibe_music_component FLOAT,
+    local_vibe_anxiety_component FLOAT,
+    local_vibe_party_energy FLOAT,
+    local_vibe_coziness FLOAT,
+    local_vibe_emotional_tone FLOAT,
+    local_vibe_activation FLOAT,
+    local_vibe_at_home_component FLOAT,
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (date, hour, location)
+);
+CREATE INDEX IF NOT EXISTS idx_bsf_date ON behavioral_signals_fact(date);
+CREATE INDEX IF NOT EXISTS idx_bsf_location ON behavioral_signals_fact(location);
+CREATE INDEX IF NOT EXISTS idx_bsf_date_location ON behavioral_signals_fact(date, location);
+"""
+
+
+def ensure_behavioral_signals_schema(conn: Union[sqlite3.Connection, Any]) -> None:
+    """Ensure the behavioral_signals_fact table exists."""
+    db = wrap_connection(conn)
+    
+    # Check if table exists
+    if db.db_type == 'postgresql':
+        db.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables 
+                WHERE table_name = 'behavioral_signals_fact'
+            )
+        """)
+        exists = db.fetchone()[0]
+        if not exists:
+            # For PostgreSQL, execute each statement separately
+            for stmt in BEHAVIORAL_SIGNALS_SCHEMA.strip().split(';'):
+                stmt = stmt.strip()
+                if stmt:
+                    db.execute(stmt)
+    else:
+        # SQLite version
+        db.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name='behavioral_signals_fact'
+        """)
+        if not db.fetchone():
+            # SQLite doesn't support SERIAL, use INTEGER PRIMARY KEY
+            sqlite_schema = BEHAVIORAL_SIGNALS_SCHEMA.replace('SERIAL', 'INTEGER')
+            sqlite_schema = sqlite_schema.replace('JSONB', 'TEXT')
+            for stmt in sqlite_schema.strip().split(';'):
+                stmt = stmt.strip()
+                if stmt:
+                    db.execute(stmt)
+
+
 def rebuild_behavioral_signals(
     conn: Union[sqlite3.Connection, Any],
     *,
@@ -52,6 +119,9 @@ def rebuild_behavioral_signals(
     """
     # Wrap connection in adapter for cross-database compatibility
     db = wrap_connection(conn)
+    
+    # Ensure table exists
+    ensure_behavioral_signals_schema(conn)
     
     db.execute(
         "DELETE FROM behavioral_signals_fact WHERE date BETWEEN ? AND ?",
