@@ -28,6 +28,24 @@ from ..db_adapter import DBAdapter, wrap_connection
 from .payday_index import build_payday_index
 
 
+# Schema for calendar_events table (dependency for mood pipeline)
+CALENDAR_EVENTS_SCHEMA = """
+CREATE TABLE IF NOT EXISTS calendar_events (
+    id SERIAL PRIMARY KEY,
+    start_ts TIMESTAMP NOT NULL,
+    end_ts TIMESTAMP,
+    event_type VARCHAR(100) NOT NULL,
+    name VARCHAR(255),
+    location VARCHAR(100) DEFAULT 'default',
+    importance FLOAT DEFAULT 1.0,
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_ce_start_ts ON calendar_events(start_ts);
+CREATE INDEX IF NOT EXISTS idx_ce_event_type ON calendar_events(event_type);
+CREATE INDEX IF NOT EXISTS idx_ce_location ON calendar_events(location);
+"""
+
 # Schema for behavioral_signals_fact table
 BEHAVIORAL_SIGNALS_SCHEMA = """
 CREATE TABLE IF NOT EXISTS behavioral_signals_fact (
@@ -60,39 +78,45 @@ CREATE INDEX IF NOT EXISTS idx_bsf_date_location ON behavioral_signals_fact(date
 """
 
 
-def ensure_behavioral_signals_schema(conn: Union[sqlite3.Connection, Any]) -> None:
-    """Ensure the behavioral_signals_fact table exists."""
-    db = wrap_connection(conn)
-    
-    # Check if table exists
+def _create_table_if_not_exists(db: DBAdapter, table_name: str, schema: str) -> None:
+    """Create a table if it doesn't exist."""
     if db.db_type == 'postgresql':
         db.execute("""
             SELECT EXISTS (
                 SELECT FROM information_schema.tables 
-                WHERE table_name = 'behavioral_signals_fact'
+                WHERE table_name = %s
             )
-        """)
+        """, (table_name,))
         exists = db.fetchone()[0]
         if not exists:
-            # For PostgreSQL, execute each statement separately
-            for stmt in BEHAVIORAL_SIGNALS_SCHEMA.strip().split(';'):
+            for stmt in schema.strip().split(';'):
                 stmt = stmt.strip()
                 if stmt:
                     db.execute(stmt)
+            db.commit()
     else:
-        # SQLite version
         db.execute("""
             SELECT name FROM sqlite_master 
-            WHERE type='table' AND name='behavioral_signals_fact'
-        """)
+            WHERE type='table' AND name=?
+        """, (table_name,))
         if not db.fetchone():
-            # SQLite doesn't support SERIAL, use INTEGER PRIMARY KEY
-            sqlite_schema = BEHAVIORAL_SIGNALS_SCHEMA.replace('SERIAL', 'INTEGER')
+            sqlite_schema = schema.replace('SERIAL', 'INTEGER')
             sqlite_schema = sqlite_schema.replace('JSONB', 'TEXT')
             for stmt in sqlite_schema.strip().split(';'):
                 stmt = stmt.strip()
                 if stmt:
                     db.execute(stmt)
+
+
+def ensure_behavioral_signals_schema(conn: Union[sqlite3.Connection, Any]) -> None:
+    """Ensure all required tables exist for the mood pipeline."""
+    db = wrap_connection(conn)
+    
+    # Create calendar_events table (dependency for event scores and payday)
+    _create_table_if_not_exists(db, 'calendar_events', CALENDAR_EVENTS_SCHEMA)
+    
+    # Create behavioral_signals_fact table
+    _create_table_if_not_exists(db, 'behavioral_signals_fact', BEHAVIORAL_SIGNALS_SCHEMA)
 
 
 def rebuild_behavioral_signals(
