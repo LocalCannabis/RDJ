@@ -254,11 +254,11 @@ def job_generate_mood_features(
                     locations = [row[0] for row in cursor.fetchall()]
                 except Exception:
                     # sales table doesn't exist - use default locations
-                    locations = ["Kingsway", "Victoria Drive", "Parksville"]
+                    locations = ["Kingsway", "Burnaby", "Parksville"]
             
             if not locations:
                 # Default to known store locations
-                locations = ["Kingsway", "Victoria Drive", "Parksville"]
+                locations = ["Kingsway", "Burnaby", "Parksville"]
             
             results = {}
             total_records = 0

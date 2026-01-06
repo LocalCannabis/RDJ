@@ -147,16 +147,18 @@ def rebuild_behavioral_signals(
     # Ensure table exists
     ensure_behavioral_signals_schema(conn)
     
+    # Delete only records for this specific location and date range
     db.execute(
-        "DELETE FROM behavioral_signals_fact WHERE date BETWEEN ? AND ?",
-        (start_date, end_date),
+        "DELETE FROM behavioral_signals_fact WHERE date BETWEEN ? AND ? AND location = ?",
+        (start_date, end_date, location),
     )
 
     date_range = list(_iter_dates(start_date, end_date))
     if not date_range:
         return 0
 
-    store_locations = _fetch_sales_locations(db)
+    # Use the passed location parameter, not all locations from sales
+    store_locations = [location]
     payday_rows = list(
         build_payday_index(db, location=location, start_date=start_date, end_date=end_date)
     )
@@ -415,7 +417,7 @@ def _fetch_sales_locations(db: DBAdapter) -> list[str]:
             db.rollback()
         except Exception:
             pass
-        return ["Kingsway", "Victoria Drive", "Parksville"]
+        return ["Kingsway", "Burnaby", "Parksville"]
 
 
 def _collect_weather_stats(

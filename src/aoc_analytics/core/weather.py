@@ -33,9 +33,10 @@ FORECAST_API = "https://api.open-meteo.com/v1/forecast"
 
 # Store locations (latitude, longitude) - geocoded from actual addresses
 STORE_LOCATIONS = {
-    "Parksville": (49.3208840, -124.3116989),    # 491B Island Hwy E, Parksville BC V9P 1V9
-    "Kingsway": (49.2561347, -123.0893652),      # 726 Kingsway, Vancouver BC V5V 3C1
-    "Victoria Drive": (49.2759582, -123.0656508), # 6945 Victoria Dr, Vancouver BC V5P 3Y7
+    "Parksville": (49.3208840, -124.3116989),     # 491B Island Hwy E, Parksville BC V9P 1V9
+    "Kingsway": (49.2561347, -123.0893652),       # 726 Kingsway, Vancouver BC V5V 3C1
+    "Burnaby": (49.260107, -123.023771),          # New location 2026
+    "Victoria Drive": (49.221018, -123.065732),   # 6945 Victoria Dr (CLOSED - historical only)
 }
 
 # Weather variables to fetch
