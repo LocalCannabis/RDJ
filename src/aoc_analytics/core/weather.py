@@ -499,3 +499,227 @@ def get_weather_for_location(location: str) -> WeatherClient:
 def get_all_store_weather() -> Dict[str, WeatherClient]:
     """Get weather clients for all store locations."""
     return {name: WeatherClient(location=name) for name in STORE_LOCATIONS}
+
+
+# =============================================================================
+# Database Functions (PostgreSQL-compatible via DBAdapter)
+# =============================================================================
+
+WEATHER_HOURLY_SCHEMA = """
+CREATE TABLE IF NOT EXISTS weather_hourly (
+    id SERIAL PRIMARY KEY,
+    location VARCHAR(100) NOT NULL,
+    datetime TIMESTAMP NOT NULL,
+    date DATE NOT NULL,
+    hour INTEGER NOT NULL,
+    temp_c FLOAT,
+    feels_like_c FLOAT,
+    precip_mm FLOAT,
+    rain_mm FLOAT,
+    snow_mm FLOAT,
+    cloud_cover_pct FLOAT,
+    humidity_pct FLOAT,
+    wind_kph FLOAT,
+    weather_code INTEGER,
+    condition VARCHAR(50),
+    precip_type VARCHAR(20),
+    is_rain INTEGER DEFAULT 0,
+    is_snow INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(location, datetime)
+);
+CREATE INDEX IF NOT EXISTS idx_weather_hourly_date ON weather_hourly(date);
+CREATE INDEX IF NOT EXISTS idx_weather_hourly_location ON weather_hourly(location);
+CREATE INDEX IF NOT EXISTS idx_weather_hourly_lookup ON weather_hourly(location, date, hour);
+"""
+
+
+def ensure_weather_schema(conn) -> None:
+    """Ensure weather tables exist in the database."""
+    from .db_adapter import wrap_connection
+    db = wrap_connection(conn)
+    
+    if db.db_type == 'postgresql':
+        db.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables 
+                WHERE table_name = 'weather_hourly'
+            )
+        """)
+        exists = db.fetchone()[0]
+        if not exists:
+            for stmt in WEATHER_HOURLY_SCHEMA.strip().split(';'):
+                stmt = stmt.strip()
+                if stmt:
+                    db.execute(stmt)
+            db.commit()
+    else:
+        # SQLite
+        db.execute("""
+            SELECT name FROM sqlite_master 
+            WHERE type='table' AND name='weather_hourly'
+        """)
+        if not db.fetchone():
+            sqlite_schema = WEATHER_HOURLY_SCHEMA.replace('SERIAL', 'INTEGER')
+            for stmt in sqlite_schema.strip().split(';'):
+                stmt = stmt.strip()
+                if stmt:
+                    db.execute(stmt)
+
+
+def save_weather_to_db(weather_clients: Dict[str, WeatherClient], conn=None) -> int:
+    """
+    Save current weather for all stores to the database.
+    
+    Args:
+        weather_clients: Dict of location -> WeatherClient
+        conn: Database connection (will use default if None)
+    
+    Returns:
+        Number of records saved
+    """
+    from .db_adapter import wrap_connection
+    
+    if conn is None:
+        # Import here to avoid circular imports
+        import os
+        import psycopg2
+        conn = psycopg2.connect(os.environ.get('AOC_DATABASE_URL'))
+    
+    db = wrap_connection(conn)
+    ensure_weather_schema(conn)
+    
+    saved = 0
+    for location, client in weather_clients.items():
+        try:
+            current = client.get_current()
+            db.execute("""
+                INSERT INTO weather_hourly (
+                    location, datetime, date, hour,
+                    temp_c, feels_like_c, precip_mm, rain_mm, snow_mm,
+                    cloud_cover_pct, humidity_pct, wind_kph,
+                    weather_code, condition, precip_type, is_rain, is_snow
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT (location, datetime) DO UPDATE SET
+                    temp_c = EXCLUDED.temp_c,
+                    feels_like_c = EXCLUDED.feels_like_c,
+                    precip_mm = EXCLUDED.precip_mm
+            """, (
+                location,
+                current.datetime.isoformat(),
+                current.datetime.strftime("%Y-%m-%d"),
+                current.datetime.hour,
+                current.temp_c,
+                current.feels_like_c,
+                current.precip_mm,
+                current.rain_mm,
+                current.snow_mm,
+                current.cloud_cover_pct,
+                current.humidity_pct,
+                current.wind_kph,
+                current.weather_code,
+                current.condition,
+                current.precip_type,
+                1 if current.rain_mm > 0 else 0,
+                1 if current.snow_mm > 0 else 0,
+            ))
+            saved += 1
+        except Exception as e:
+            logger.error(f"Error saving weather for {location}: {e}")
+    
+    db.commit()
+    return saved
+
+
+def backfill_weather(
+    conn,
+    start_date: str,
+    end_date: str,
+    locations: Optional[List[str]] = None,
+) -> Dict[str, Any]:
+    """
+    Backfill historical weather data from Open-Meteo.
+    
+    Args:
+        conn: Database connection (PostgreSQL or SQLite)
+        start_date: Start date (YYYY-MM-DD)
+        end_date: End date (YYYY-MM-DD)
+        locations: List of store locations (defaults to all)
+    
+    Returns:
+        Stats dict with counts
+    """
+    from .db_adapter import wrap_connection
+    
+    db = wrap_connection(conn)
+    ensure_weather_schema(conn)
+    
+    if locations is None:
+        locations = list(STORE_LOCATIONS.keys())
+    
+    stats = {"inserted": 0, "skipped": 0, "errors": 0}
+    start = date.fromisoformat(start_date)
+    end = date.fromisoformat(end_date)
+    
+    for location in locations:
+        logger.info(f"Backfilling weather for {location}: {start_date} to {end_date}")
+        client = WeatherClient(location=location)
+        
+        # Process in 90-day chunks (Open-Meteo limit)
+        current_start = start
+        while current_start <= end:
+            current_end = min(current_start + timedelta(days=89), end)
+            
+            try:
+                hourly_data = client.get_historical_hourly(
+                    current_start.isoformat(),
+                    current_end.isoformat()
+                )
+                
+                for obs in hourly_data:
+                    try:
+                        db.execute("""
+                            INSERT INTO weather_hourly (
+                                location, datetime, date, hour,
+                                temp_c, feels_like_c, precip_mm, rain_mm, snow_mm,
+                                cloud_cover_pct, humidity_pct, wind_kph,
+                                weather_code, condition, precip_type, is_rain, is_snow
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            ON CONFLICT (location, datetime) DO NOTHING
+                        """, (
+                            location,
+                            obs.datetime.isoformat(),
+                            obs.datetime.strftime("%Y-%m-%d"),
+                            obs.datetime.hour,
+                            obs.temp_c,
+                            obs.feels_like_c,
+                            obs.precip_mm,
+                            obs.rain_mm,
+                            obs.snow_mm,
+                            obs.cloud_cover_pct,
+                            obs.humidity_pct,
+                            obs.wind_kph,
+                            obs.weather_code,
+                            obs.condition,
+                            obs.precip_type,
+                            1 if obs.rain_mm > 0 else 0,
+                            1 if obs.snow_mm > 0 else 0,
+                        ))
+                        stats["inserted"] += 1
+                    except Exception as e:
+                        if "duplicate" not in str(e).lower():
+                            logger.warning(f"Error inserting: {e}")
+                            stats["errors"] += 1
+                        else:
+                            stats["skipped"] += 1
+                
+                db.commit()
+                logger.info(f"  Chunk {current_start} to {current_end}: {len(hourly_data)} records")
+                
+            except Exception as e:
+                logger.error(f"Error fetching weather for {location} ({current_start} to {current_end}): {e}")
+                stats["errors"] += 1
+            
+            current_start = current_end + timedelta(days=1)
+    
+    return stats

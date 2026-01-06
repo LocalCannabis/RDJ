@@ -415,7 +415,7 @@ def _collect_weather_stats(
     start: str,
     end: str
 ) -> dict[str, dict[str, float]]:
-    """Collect daily weather statistics."""
+    """Collect daily weather statistics. Returns empty dict if table doesn't exist."""
     sql = """
         SELECT
             date,
@@ -430,15 +430,19 @@ def _collect_weather_stats(
         GROUP BY date
     """
     stats: dict[str, dict[str, float]] = {}
-    for row in db.execute(sql, (start, end)).fetchall():
-        stats[row[0]] = {
-            "avg_temp": row[1],
-            "feels_like": row[2],
-            "avg_precip": row[3],
-            "rain_share": row[4] or 0.0,
-            "snow_share": row[5] or 0.0,
-            "avg_wind": row[6] or 0.0,
-        }
+    try:
+        for row in db.execute(sql, (start, end)).fetchall():
+            stats[row[0]] = {
+                "avg_temp": row[1],
+                "feels_like": row[2],
+                "avg_precip": row[3],
+                "rain_share": row[4] or 0.0,
+                "snow_share": row[5] or 0.0,
+                "avg_wind": row[6] or 0.0,
+            }
+    except Exception:
+        # Table doesn't exist or missing columns - return empty
+        pass
     return stats
 
 
@@ -448,7 +452,7 @@ def _collect_sales_stats(
     start: str,
     end: str,
 ) -> dict[str, dict[str, float]]:
-    """Collect daily sales statistics."""
+    """Collect daily sales statistics. Returns empty dict if table doesn't exist."""
     sql = """
         SELECT
             date,
@@ -460,7 +464,11 @@ def _collect_sales_stats(
           AND (location = ? OR location IS NULL)
         GROUP BY date
     """
-    rows = db.execute(sql, (start, end, location)).fetchall()
+    try:
+        rows = db.execute(sql, (start, end, location)).fetchall()
+    except Exception:
+        # Table doesn't exist or missing columns
+        return {}
     if not rows:
         return {}
     revenues = [row[1] or 0.0 for row in rows]
@@ -486,7 +494,7 @@ def _collect_event_scores(
     start: str,
     end: str,
 ) -> dict[str, dict[str, float]]:
-    """Collect event scores by date."""
+    """Collect event scores by date. Returns empty dict if table is empty."""
     sql = """
         SELECT date(start_ts) AS event_date, event_type, SUM(importance) AS weight
         FROM calendar_events
