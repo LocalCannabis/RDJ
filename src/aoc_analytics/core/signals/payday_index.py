@@ -60,20 +60,28 @@ def build_payday_index(
     # Wrap in adapter if not already
     db = conn if isinstance(conn, DBAdapter) else wrap_connection(conn)
     
-    rows = db.execute(
-        """
-        SELECT
-            date(start_ts) AS event_date,
-            location,
-            importance
-        FROM calendar_events
-        WHERE event_type = 'payday'
-          AND location = ?
-          AND date(start_ts) BETWEEN ? AND ?
-        ORDER BY start_ts
-        """,
-        (location, start_date, end_date),
-    ).fetchall()
+    try:
+        rows = db.execute(
+            """
+            SELECT
+                date(start_ts) AS event_date,
+                location,
+                importance
+            FROM calendar_events
+            WHERE event_type = 'payday'
+              AND location = ?
+              AND date(start_ts) BETWEEN ? AND ?
+            ORDER BY start_ts
+            """,
+            (location, start_date, end_date),
+        ).fetchall()
+    except Exception:
+        # calendar_events doesn't exist - rollback and return empty
+        try:
+            db.rollback()
+        except Exception:
+            pass
+        return []
     
     if not rows:
         return []

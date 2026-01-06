@@ -410,7 +410,11 @@ def _fetch_sales_locations(db: DBAdapter) -> list[str]:
             return ["default"]
         return sorted(locations)
     except Exception:
-        # sales table doesn't exist - return default locations
+        # sales table doesn't exist - rollback and return default locations
+        try:
+            db.rollback()
+        except Exception:
+            pass
         return ["Kingsway", "Victoria Drive", "Parksville"]
 
 
@@ -445,8 +449,11 @@ def _collect_weather_stats(
                 "avg_wind": row[6] or 0.0,
             }
     except Exception:
-        # Table doesn't exist or missing columns - return empty
-        pass
+        # Table doesn't exist or missing columns - rollback and return empty
+        try:
+            db.rollback()
+        except Exception:
+            pass
     return stats
 
 
@@ -471,7 +478,11 @@ def _collect_sales_stats(
     try:
         rows = db.execute(sql, (start, end, location)).fetchall()
     except Exception:
-        # Table doesn't exist or missing columns
+        # Table doesn't exist or missing columns - rollback
+        try:
+            db.rollback()
+        except Exception:
+            pass
         return {}
     if not rows:
         return {}
@@ -507,13 +518,20 @@ def _collect_event_scores(
         GROUP BY event_date, event_type
     """
     events: dict[str, dict[str, float]] = defaultdict(lambda: {"total": 0.0})
-    for row in db.execute(sql, (start, end, location)).fetchall():
-        day = row[0]
-        event_type = row[1] or ""
-        weight = float(row[2] or 0.0)
-        bucket = events[day]
-        bucket[event_type] = bucket.get(event_type, 0.0) + weight
-        bucket["total"] = bucket.get("total", 0.0) + weight
+    try:
+        for row in db.execute(sql, (start, end, location)).fetchall():
+            day = row[0]
+            event_type = row[1] or ""
+            weight = float(row[2] or 0.0)
+            bucket = events[day]
+            bucket[event_type] = bucket.get(event_type, 0.0) + weight
+            bucket["total"] = bucket.get("total", 0.0) + weight
+    except Exception:
+        # Table doesn't exist - rollback and return empty
+        try:
+            db.rollback()
+        except Exception:
+            pass
     return events
 
 
@@ -589,39 +607,62 @@ def _load_mood_components(
     end = max(dates)
     date_keys = [current.isoformat() for current in dates]
 
-    music_rows = db.execute(
-        """
-        SELECT date, mean_valence, mean_energy
-        FROM music_mood_daily
-        WHERE date BETWEEN ? AND ?
-        ORDER BY date
-        """,
-        (start.isoformat(), end.isoformat()),
-    ).fetchall()
-    valence_series = [(row[0], row[1]) for row in music_rows]
-    energy_series = [(row[0], row[2]) for row in music_rows]
-    valence_z = _rolling_zscores(valence_series, window)
-    energy_z = _rolling_zscores(energy_series, window)
+    # Initialize empty z-score maps in case tables don't exist
+    valence_z: dict[str, float] = {}
+    energy_z: dict[str, float] = {}
+    stress_z: dict[str, float] = {}
+    chill_z: dict[str, float] = {}
+    party_z: dict[str, float] = {}
+    money_z: dict[str, float] = {}
+    cannabis_z: dict[str, float] = {}
 
-    search_rows = db.execute(
-        """
-        SELECT date, stress_score, chill_score, party_score, money_pressure_score, cannabis_interest_score
-        FROM search_mood_daily
-        WHERE date BETWEEN ? AND ?
-        ORDER BY date
-        """,
-        (start.isoformat(), end.isoformat()),
-    ).fetchall()
-    stress_series = [(row[0], row[1]) for row in search_rows]
-    chill_series = [(row[0], row[2]) for row in search_rows]
-    party_series = [(row[0], row[3]) for row in search_rows]
-    money_series = [(row[0], row[4]) for row in search_rows]
-    cannabis_series = [(row[0], row[5]) for row in search_rows]
-    stress_z = _rolling_zscores(stress_series, window)
-    chill_z = _rolling_zscores(chill_series, window)
-    party_z = _rolling_zscores(party_series, window)
-    money_z = _rolling_zscores(money_series, window)
-    cannabis_z = _rolling_zscores(cannabis_series, window)
+    try:
+        music_rows = db.execute(
+            """
+            SELECT date, mean_valence, mean_energy
+            FROM music_mood_daily
+            WHERE date BETWEEN ? AND ?
+            ORDER BY date
+            """,
+            (start.isoformat(), end.isoformat()),
+        ).fetchall()
+        valence_series = [(row[0], row[1]) for row in music_rows]
+        energy_series = [(row[0], row[2]) for row in music_rows]
+        valence_z = _rolling_zscores(valence_series, window)
+        energy_z = _rolling_zscores(energy_series, window)
+    except Exception:
+        # music_mood_daily doesn't exist - rollback and continue
+        try:
+            db.rollback()
+        except Exception:
+            pass
+
+    try:
+        search_rows = db.execute(
+            """
+            SELECT date, stress_score, chill_score, party_score, money_pressure_score, cannabis_interest_score
+            FROM search_mood_daily
+            WHERE date BETWEEN ? AND ?
+            ORDER BY date
+            """,
+            (start.isoformat(), end.isoformat()),
+        ).fetchall()
+        stress_series = [(row[0], row[1]) for row in search_rows]
+        chill_series = [(row[0], row[2]) for row in search_rows]
+        party_series = [(row[0], row[3]) for row in search_rows]
+        money_series = [(row[0], row[4]) for row in search_rows]
+        cannabis_series = [(row[0], row[5]) for row in search_rows]
+        stress_z = _rolling_zscores(stress_series, window)
+        chill_z = _rolling_zscores(chill_series, window)
+        party_z = _rolling_zscores(party_series, window)
+        money_z = _rolling_zscores(money_series, window)
+        cannabis_z = _rolling_zscores(cannabis_series, window)
+    except Exception:
+        # search_mood_daily doesn't exist - rollback and continue
+        try:
+            db.rollback()
+        except Exception:
+            pass
 
     mood_map: dict[str, dict[str, float]] = {}
     for key in date_keys:

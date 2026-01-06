@@ -128,6 +128,10 @@ class DBAdapter:
         """Commit the transaction."""
         self.conn.commit()
     
+    def rollback(self):
+        """Rollback the transaction."""
+        self.conn.rollback()
+    
     def close(self):
         """Close cursor and connection."""
         if self._cursor:
