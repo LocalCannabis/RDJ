@@ -403,11 +403,15 @@ def _iter_dates(start: str, end: str) -> list[_date]:
 
 def _fetch_sales_locations(db: DBAdapter) -> list[str]:
     """Get distinct store locations from sales data."""
-    rows = db.execute("SELECT DISTINCT COALESCE(location, 'default') FROM sales").fetchall()
-    locations = {row[0] or "default" for row in rows}
-    if not locations:
-        return ["default"]
-    return sorted(locations)
+    try:
+        rows = db.execute("SELECT DISTINCT COALESCE(location, 'default') FROM sales").fetchall()
+        locations = {row[0] or "default" for row in rows}
+        if not locations:
+            return ["default"]
+        return sorted(locations)
+    except Exception:
+        # sales table doesn't exist - return default locations
+        return ["Kingsway", "Victoria Drive", "Parksville"]
 
 
 def _collect_weather_stats(

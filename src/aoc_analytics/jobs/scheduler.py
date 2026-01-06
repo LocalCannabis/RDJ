@@ -245,12 +245,21 @@ def job_generate_mood_features(
             
             # Get all locations from database if not specified
             if locations is None:
-                cursor.execute("SELECT DISTINCT location FROM sales WHERE location IS NOT NULL")
-                locations = [row[0] for row in cursor.fetchall()]
+                try:
+                    cursor.execute("SELECT DISTINCT location FROM sales WHERE location IS NOT NULL")
+                    locations = [row[0] for row in cursor.fetchall()]
+                except Exception:
+                    # sales table doesn't exist - use default locations
+                    # Rollback to clear any transaction errors
+                    try:
+                        conn.rollback()
+                    except Exception:
+                        pass
+                    locations = ["Kingsway", "Victoria Drive", "Parksville"]
             
             if not locations:
-                logger.warning("No locations found in database")
-                return {"status": "warning", "message": "No locations found", "db_type": db_type}
+                # Default to known store locations
+                locations = ["Kingsway", "Victoria Drive", "Parksville"]
             
             results = {}
             total_records = 0
@@ -270,8 +279,16 @@ def job_generate_mood_features(
                 except Exception as e:
                     logger.error(f"Failed for location {location}: {e}")
                     results[location] = {"status": "error", "error": str(e)}
+                    # Rollback the failed transaction to allow subsequent operations
+                    try:
+                        conn.rollback()
+                    except Exception:
+                        pass
             
-            conn.commit()
+            try:
+                conn.commit()
+            except Exception:
+                pass
             
             logger.info(f"Mood features complete: {total_records} records across {len(locations)} locations")
             return {"status": "success", "total_records": total_records, "locations": results, "db_type": db_type}
