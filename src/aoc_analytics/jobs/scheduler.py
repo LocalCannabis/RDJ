@@ -240,6 +240,10 @@ def job_generate_mood_features(
         
         conn, db_type = _get_database_connection()
         
+        # Enable autocommit for PostgreSQL to avoid transaction issues
+        if db_type == "postgresql":
+            conn.autocommit = True
+        
         try:
             cursor = conn.cursor()
             
@@ -250,11 +254,6 @@ def job_generate_mood_features(
                     locations = [row[0] for row in cursor.fetchall()]
                 except Exception:
                     # sales table doesn't exist - use default locations
-                    # Rollback to clear any transaction errors
-                    try:
-                        conn.rollback()
-                    except Exception:
-                        pass
                     locations = ["Kingsway", "Victoria Drive", "Parksville"]
             
             if not locations:
@@ -268,27 +267,31 @@ def job_generate_mood_features(
             
             for location in locations:
                 try:
+                    # Disable autocommit for the actual work within each location
+                    if db_type == "postgresql":
+                        conn.autocommit = False
+                    
                     count = rebuild_behavioral_signals(
                         conn,
                         location=location,
                         start_date=date_str,
                         end_date=date_str,
                     )
+                    conn.commit()
                     results[location] = {"status": "success", "records": count}
                     total_records += count
                 except Exception as e:
                     logger.error(f"Failed for location {location}: {e}")
                     results[location] = {"status": "error", "error": str(e)}
-                    # Rollback the failed transaction to allow subsequent operations
+                    # Rollback the failed transaction
                     try:
                         conn.rollback()
                     except Exception:
                         pass
-            
-            try:
-                conn.commit()
-            except Exception:
-                pass
+                finally:
+                    # Re-enable autocommit after each location
+                    if db_type == "postgresql":
+                        conn.autocommit = True
             
             logger.info(f"Mood features complete: {total_records} records across {len(locations)} locations")
             return {"status": "success", "total_records": total_records, "locations": results, "db_type": db_type}
