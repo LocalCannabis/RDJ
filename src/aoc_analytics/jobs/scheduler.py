@@ -71,14 +71,20 @@ def job_fetch_weather(
     try:
         from aoc_analytics.core.weather import get_all_store_weather, save_weather_to_db
         
-        # Fetch weather for all stores
-        weather_clients = get_all_store_weather()
+        # Get database connection using the shared helper
+        conn, db_type = _get_database_connection()
         
-        # Save to database
-        saved_count = save_weather_to_db(weather_clients)
-        
-        logger.info(f"Weather fetch complete: {saved_count} records saved")
-        return {"status": "success", "saved_count": saved_count}
+        try:
+            # Fetch weather for all stores
+            weather_clients = get_all_store_weather()
+            
+            # Save to database
+            saved_count = save_weather_to_db(weather_clients, conn)
+            
+            logger.info(f"Weather fetch complete: {saved_count} records saved")
+            return {"status": "success", "saved_count": saved_count, "db_type": db_type}
+        finally:
+            conn.close()
     
     except Exception as e:
         logger.error(f"Weather fetch failed: {e}")
@@ -105,21 +111,18 @@ def job_backfill_weather(
     
     try:
         from aoc_analytics.core.weather import backfill_weather
-        import os
-        import psycopg2
         
-        # Get database connection
-        db_url = os.environ.get('AOC_DATABASE_URL')
-        if not db_url:
-            return {"status": "error", "error": "AOC_DATABASE_URL not configured"}
+        # Get database connection using shared helper
+        conn, db_type = _get_database_connection()
         
-        conn = psycopg2.connect(db_url)
-        
-        stats = backfill_weather(conn, start_date, end_date, locations)
-        conn.close()
-        
-        logger.info(f"Weather backfill complete: {stats}")
-        return {"status": "success", **stats}
+        try:
+            stats = backfill_weather(conn, start_date, end_date, locations)
+            stats["db_type"] = db_type
+            
+            logger.info(f"Weather backfill complete: {stats}")
+            return {"status": "success", **stats}
+        finally:
+            conn.close()
     
     except Exception as e:
         logger.error(f"Weather backfill failed: {e}")
