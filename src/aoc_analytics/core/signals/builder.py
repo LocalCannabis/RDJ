@@ -22,13 +22,14 @@ import math
 import sqlite3
 from collections import defaultdict, deque
 from datetime import date as _date, timedelta
-from typing import Any
+from typing import Any, Union
 
+from ..db_adapter import DBAdapter, wrap_connection
 from .payday_index import build_payday_index
 
 
 def rebuild_behavioral_signals(
-    conn: sqlite3.Connection,
+    conn: Union[sqlite3.Connection, Any],
     *,
     location: str,
     start_date: str,
@@ -41,7 +42,7 @@ def rebuild_behavioral_signals(
     data into normalized behavioral propensities.
     
     Args:
-        conn: SQLite connection to the AOC database
+        conn: Database connection (SQLite or PostgreSQL via psycopg2)
         location: Store location identifier
         start_date: Start of date range (YYYY-MM-DD)
         end_date: End of date range (YYYY-MM-DD)
@@ -49,7 +50,10 @@ def rebuild_behavioral_signals(
     Returns:
         Number of records inserted
     """
-    conn.execute(
+    # Wrap connection in adapter for cross-database compatibility
+    db = wrap_connection(conn)
+    
+    db.execute(
         "DELETE FROM behavioral_signals_fact WHERE date BETWEEN ? AND ?",
         (start_date, end_date),
     )
@@ -58,17 +62,17 @@ def rebuild_behavioral_signals(
     if not date_range:
         return 0
 
-    store_locations = _fetch_sales_locations(conn)
+    store_locations = _fetch_sales_locations(db)
     payday_rows = list(
-        build_payday_index(conn, location=location, start_date=start_date, end_date=end_date)
+        build_payday_index(db, location=location, start_date=start_date, end_date=end_date)
     )
     payday_map = {row.date: row.payday for row in payday_rows}
     payday_meta = {row.date: row.metadata or {} for row in payday_rows}
 
-    weather_stats = _collect_weather_stats(conn, start_date, end_date)
-    sales_stats = _collect_sales_stats(conn, location, start_date, end_date)
-    event_scores = _collect_event_scores(conn, location, start_date, end_date)
-    mood_components = _load_mood_components(conn, date_range)
+    weather_stats = _collect_weather_stats(db, start_date, end_date)
+    sales_stats = _collect_sales_stats(db, location, start_date, end_date)
+    event_scores = _collect_event_scores(db, location, start_date, end_date)
+    mood_components = _load_mood_components(db, date_range)
 
     payload = []
     for current in date_range:
@@ -122,7 +126,7 @@ def rebuild_behavioral_signals(
                     )
                 )
 
-    conn.executemany(
+    db.executemany(
         """
         INSERT INTO behavioral_signals_fact (
             date, hour, location,
@@ -303,9 +307,9 @@ def _iter_dates(start: str, end: str) -> list[_date]:
     return dates
 
 
-def _fetch_sales_locations(conn: sqlite3.Connection) -> list[str]:
+def _fetch_sales_locations(db: DBAdapter) -> list[str]:
     """Get distinct store locations from sales data."""
-    rows = conn.execute("SELECT DISTINCT COALESCE(location, 'default') FROM sales").fetchall()
+    rows = db.execute("SELECT DISTINCT COALESCE(location, 'default') FROM sales").fetchall()
     locations = {row[0] or "default" for row in rows}
     if not locations:
         return ["default"]
@@ -313,7 +317,7 @@ def _fetch_sales_locations(conn: sqlite3.Connection) -> list[str]:
 
 
 def _collect_weather_stats(
-    conn: sqlite3.Connection,
+    db: DBAdapter,
     start: str,
     end: str
 ) -> dict[str, dict[str, float]]:
@@ -332,7 +336,7 @@ def _collect_weather_stats(
         GROUP BY date
     """
     stats: dict[str, dict[str, float]] = {}
-    for row in conn.execute(sql, (start, end)):
+    for row in db.execute(sql, (start, end)).fetchall():
         stats[row[0]] = {
             "avg_temp": row[1],
             "feels_like": row[2],
@@ -345,7 +349,7 @@ def _collect_weather_stats(
 
 
 def _collect_sales_stats(
-    conn: sqlite3.Connection,
+    db: DBAdapter,
     location: str,
     start: str,
     end: str,
@@ -362,7 +366,7 @@ def _collect_sales_stats(
           AND (location = ? OR location IS NULL)
         GROUP BY date
     """
-    rows = conn.execute(sql, (start, end, location)).fetchall()
+    rows = db.execute(sql, (start, end, location)).fetchall()
     if not rows:
         return {}
     revenues = [row[1] or 0.0 for row in rows]
@@ -383,7 +387,7 @@ def _collect_sales_stats(
 
 
 def _collect_event_scores(
-    conn: sqlite3.Connection,
+    db: DBAdapter,
     location: str,
     start: str,
     end: str,
@@ -397,7 +401,7 @@ def _collect_event_scores(
         GROUP BY event_date, event_type
     """
     events: dict[str, dict[str, float]] = defaultdict(lambda: {"total": 0.0})
-    for row in conn.execute(sql, (start, end, location)):
+    for row in db.execute(sql, (start, end, location)).fetchall():
         day = row[0]
         event_type = row[1] or ""
         weight = float(row[2] or 0.0)
@@ -468,7 +472,7 @@ def _mood_to_index(value: float | None) -> float:
 # =============================================================================
 
 def _load_mood_components(
-    conn: sqlite3.Connection,
+    db: DBAdapter,
     dates: list[_date],
     window: int = 30
 ) -> dict[str, dict[str, float]]:
@@ -479,7 +483,7 @@ def _load_mood_components(
     end = max(dates)
     date_keys = [current.isoformat() for current in dates]
 
-    music_rows = conn.execute(
+    music_rows = db.execute(
         """
         SELECT date, mean_valence, mean_energy
         FROM music_mood_daily
@@ -493,7 +497,7 @@ def _load_mood_components(
     valence_z = _rolling_zscores(valence_series, window)
     energy_z = _rolling_zscores(energy_series, window)
 
-    search_rows = conn.execute(
+    search_rows = db.execute(
         """
         SELECT date, stress_score, chill_score, party_score, money_pressure_score, cannabis_interest_score
         FROM search_mood_daily
