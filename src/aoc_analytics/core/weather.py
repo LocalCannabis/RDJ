@@ -536,7 +536,7 @@ CREATE INDEX IF NOT EXISTS idx_weather_hourly_lookup ON weather_hourly(location,
 
 
 def ensure_weather_schema(conn) -> None:
-    """Ensure weather tables exist in the database."""
+    """Ensure weather tables exist in the database with all required columns."""
     from .db_adapter import wrap_connection
     db = wrap_connection(conn)
     
@@ -553,6 +553,30 @@ def ensure_weather_schema(conn) -> None:
                 stmt = stmt.strip()
                 if stmt:
                     db.execute(stmt)
+            db.commit()
+        else:
+            # Table exists - check for missing columns and add them
+            db.execute("""
+                SELECT column_name 
+                FROM information_schema.columns 
+                WHERE table_name = 'weather_hourly'
+            """)
+            existing_columns = {row[0] for row in db.fetchall()}
+            
+            # Columns that may be missing from older schema
+            column_migrations = [
+                ("is_rain", "INTEGER DEFAULT 0"),
+                ("is_snow", "INTEGER DEFAULT 0"),
+                ("precip_type", "VARCHAR(20)"),
+            ]
+            
+            for col_name, col_def in column_migrations:
+                if col_name not in existing_columns:
+                    try:
+                        db.execute(f"ALTER TABLE weather_hourly ADD COLUMN {col_name} {col_def}")
+                        logger.info(f"Added missing column {col_name} to weather_hourly")
+                    except Exception as e:
+                        logger.warning(f"Could not add column {col_name}: {e}")
             db.commit()
     else:
         # SQLite
