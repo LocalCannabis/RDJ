@@ -1,0 +1,830 @@
+{
+  "generated": "2025-12-27T01:55:28.316326",
+  "period": {
+    "start": "2025-12-28",
+    "end": "2026-01-03"
+  },
+  "recommendations": [
+    {
+      "date": "2025-12-28",
+      "day_name": "Sunday",
+      "overall_lift": 0.2,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "key_events": [
+        "NFL: Sunday Football"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Vapes",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Edibles",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Beverages",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Concentrates",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Accessories",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Hash",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Topicals",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Capsules",
+          "action": "increase",
+          "expected_lift": 0.2,
+          "reasons": [
+            "Events: NFL: Sunday Football",
+            "Sunday effect: +5%"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "date": "2025-12-29",
+      "day_name": "Monday",
+      "overall_lift": 0.09999999999999999,
+      "staffing": "\ud83d\udfe2 Normal staffing",
+      "key_events": [
+        "NFL: Monday Night"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Vapes",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Edibles",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Beverages",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Concentrates",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Accessories",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Hash",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Topicals",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Capsules",
+          "action": "slight_increase",
+          "expected_lift": 0.09999999999999999,
+          "reasons": [
+            "Events: NFL: Monday Night",
+            "Monday effect: -5%"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        }
+      ]
+    },
+    {
+      "date": "2025-12-30",
+      "day_name": "Tuesday",
+      "overall_lift": 0.025,
+      "staffing": "\ud83d\udfe2 Normal staffing",
+      "key_events": [
+        "Canucks Home Game (prob: 25%)"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Vapes",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Edibles",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Beverages",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Concentrates",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Accessories",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Hash",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Topicals",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        },
+        {
+          "category": "Capsules",
+          "action": "normal",
+          "expected_lift": 0.025,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 3
+        }
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "day_name": "Wednesday",
+      "overall_lift": 0.23,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "key_events": [
+        "\ud83d\udcc5 Day Before New Year's Day",
+        "Weeknd Concert Vancouver"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Vapes",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Edibles",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Beverages",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Concentrates",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Accessories",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Hash",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Topicals",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Capsules",
+          "action": "increase",
+          "expected_lift": 0.23,
+          "reasons": [
+            "Events: \ud83d\udcc5 Day Before New Year's Day, Weeknd Concert Vancouver"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-01-01",
+      "day_name": "Thursday",
+      "overall_lift": 0.37200000000000005,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "key_events": [
+        "\ud83c\udf89 New Year's Day",
+        "Canucks Home Game (prob: 25%)",
+        "NFL: Thursday Night"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Vapes",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Edibles",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Beverages",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Concentrates",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Accessories",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Hash",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Topicals",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        },
+        {
+          "category": "Capsules",
+          "action": "heavy_increase",
+          "expected_lift": 0.37200000000000005,
+          "reasons": [
+            "Events: \ud83c\udf89 New Year's Day, Canucks Home Game (prob: 25%)"
+          ],
+          "confidence": 0.95,
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-01-02",
+      "day_name": "Friday",
+      "overall_lift": 0.3,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "key_events": [
+        "The 2025 /r/Vancouver Shop-Local Business Holiday "
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Vapes",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Edibles",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Beverages",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Concentrates",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Accessories",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Hash",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Topicals",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Capsules",
+          "action": "heavy_increase",
+          "expected_lift": 0.3,
+          "reasons": [
+            "Events: The 2025 /r/Vancouver Shop-Local Business Holiday ",
+            "Friday effect: +15%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-01-03",
+      "day_name": "Saturday",
+      "overall_lift": 0.202,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "key_events": [
+        "Canucks Home Game (prob: 35%)",
+        "Small beach bonfire"
+      ],
+      "categories": [
+        {
+          "category": "Flower",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Pre-Rolls",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Vapes",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Edibles",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Beverages",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Concentrates",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Accessories",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Hash",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Topicals",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        },
+        {
+          "category": "Capsules",
+          "action": "increase",
+          "expected_lift": 0.202,
+          "reasons": [
+            "Events: Canucks Home Game (prob: 35%), Small beach bonfire",
+            "Saturday effect: +10%"
+          ],
+          "confidence": 0.85,
+          "priority": 1
+        }
+      ]
+    }
+  ]
+}

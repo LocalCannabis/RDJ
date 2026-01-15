@@ -1,0 +1,144 @@
+{
+  "started": "2025-12-27 01:55:26.284895",
+  "completed": "2025-12-27 01:55:33.950211",
+  "modules": {
+    "signal_magnitude": {
+      "status": "success",
+      "signals_learned": 10,
+      "actionable_signals": 3,
+      "top_signals": [
+        {
+          "name": "Whitecaps Home Game",
+          "lift": "+7.1%"
+        },
+        {
+          "name": "Academic Move In",
+          "lift": "-6.4%"
+        },
+        {
+          "name": "Cruise Ship Day",
+          "lift": "+5.8%"
+        }
+      ]
+    },
+    "product_weather": {
+      "status": "success",
+      "categories_analyzed": 10,
+      "actionable_insights": 7,
+      "top_insights": [
+        {
+          "category": "Hash",
+          "condition": "cold",
+          "lift": "-12.3%"
+        },
+        {
+          "category": "Pre-Rolls",
+          "condition": "cold",
+          "lift": "-12.2%"
+        },
+        {
+          "category": "Pre-Rolls",
+          "condition": "warm",
+          "lift": "+9.9%"
+        }
+      ]
+    },
+    "time_of_day": {
+      "status": "success",
+      "hours_analyzed": 24,
+      "peak_hours": [
+        "16:00 (9.0%)",
+        "17:00 (8.8%)",
+        "13:00 (8.6%)"
+      ]
+    },
+    "event_correlation": {
+      "status": "success",
+      "events_analyzed": 4,
+      "significant_correlations": 2,
+      "top_impacts": [
+        {
+          "event": "cruise_ships",
+          "lift": "+36.0%",
+          "p": "0.000"
+        },
+        {
+          "event": "academic",
+          "lift": "+29.7%",
+          "p": "0.007"
+        }
+      ]
+    },
+    "predictive_calendar": {
+      "status": "success",
+      "days_forecasted": 14,
+      "high_impact_days": 4,
+      "top_days": [
+        {
+          "date": "2026-01-01",
+          "lift": "+35%",
+          "events": 3
+        },
+        {
+          "date": "2025-12-31",
+          "lift": "+23%",
+          "events": 2
+        },
+        {
+          "date": "2026-01-08",
+          "lift": "+18%",
+          "events": 2
+        }
+      ]
+    },
+    "inventory_recommendations": {
+      "status": "success",
+      "days_covered": 7,
+      "high_impact_days": 5,
+      "priority_items": 5,
+      "top_priorities": [
+        {
+          "date": "2026-01-01",
+          "category": "Flower",
+          "lift": "+37%"
+        },
+        {
+          "date": "2026-01-01",
+          "category": "Pre-Rolls",
+          "lift": "+37%"
+        },
+        {
+          "date": "2026-01-01",
+          "category": "Vapes",
+          "lift": "+37%"
+        }
+      ]
+    },
+    "llm_synthesis": {
+      "status": "success",
+      "ollama_available": true,
+      "model": "llama3.2:3b",
+      "summaries_generated": 2
+    },
+    "pattern_alerts": {
+      "status": "success",
+      "total_alerts": 0,
+      "important_alerts": 0,
+      "alerts": []
+    },
+    "roi_tracker": {
+      "status": "success",
+      "grade": "C",
+      "value_per_month": "$1296",
+      "days_analyzed": 177
+    },
+    "notifications": {
+      "status": "success",
+      "alerts_generated": 11,
+      "high_priority_alerts": 1,
+      "notifications_sent": false
+    }
+  },
+  "errors": [],
+  "alerts": []
+}

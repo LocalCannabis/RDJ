@@ -1,0 +1,600 @@
+{
+  "generated": "2025-12-27 02:00:43.847996",
+  "store_hours": {
+    "open": 9,
+    "close": 23,
+    "note": "Only in-store hours analyzed. After-hours orders are online."
+  },
+  "hourly_patterns": [
+    {
+      "hour": 9,
+      "avg_units": 16.83,
+      "pct_of_daily": 0.0398,
+      "peak_rank": 13
+    },
+    {
+      "hour": 10,
+      "avg_units": 21.7,
+      "pct_of_daily": 0.0513,
+      "peak_rank": 11
+    },
+    {
+      "hour": 11,
+      "avg_units": 27.52,
+      "pct_of_daily": 0.0651,
+      "peak_rank": 9
+    },
+    {
+      "hour": 12,
+      "avg_units": 31.33,
+      "pct_of_daily": 0.0741,
+      "peak_rank": 8
+    },
+    {
+      "hour": 13,
+      "avg_units": 39.02,
+      "pct_of_daily": 0.0922,
+      "peak_rank": 3
+    },
+    {
+      "hour": 14,
+      "avg_units": 36.92,
+      "pct_of_daily": 0.0873,
+      "peak_rank": 5
+    },
+    {
+      "hour": 15,
+      "avg_units": 37.02,
+      "pct_of_daily": 0.0875,
+      "peak_rank": 4
+    },
+    {
+      "hour": 16,
+      "avg_units": 40.91,
+      "pct_of_daily": 0.0967,
+      "peak_rank": 1
+    },
+    {
+      "hour": 17,
+      "avg_units": 39.99,
+      "pct_of_daily": 0.0945,
+      "peak_rank": 2
+    },
+    {
+      "hour": 18,
+      "avg_units": 36.31,
+      "pct_of_daily": 0.0858,
+      "peak_rank": 6
+    },
+    {
+      "hour": 19,
+      "avg_units": 33.2,
+      "pct_of_daily": 0.0785,
+      "peak_rank": 7
+    },
+    {
+      "hour": 20,
+      "avg_units": 27.52,
+      "pct_of_daily": 0.065,
+      "peak_rank": 10
+    },
+    {
+      "hour": 21,
+      "avg_units": 18.91,
+      "pct_of_daily": 0.0447,
+      "peak_rank": 12
+    },
+    {
+      "hour": 22,
+      "avg_units": 15.84,
+      "pct_of_daily": 0.0374,
+      "peak_rank": 14
+    }
+  ],
+  "day_hour_interactions": {
+    "Sunday": [
+      {
+        "hour": 9,
+        "avg_units": 8.23,
+        "lift_vs_baseline": -0.5108
+      },
+      {
+        "hour": 10,
+        "avg_units": 19.42,
+        "lift_vs_baseline": -0.105
+      },
+      {
+        "hour": 11,
+        "avg_units": 24.73,
+        "lift_vs_baseline": -0.1014
+      },
+      {
+        "hour": 12,
+        "avg_units": 31.77,
+        "lift_vs_baseline": 0.0139
+      },
+      {
+        "hour": 13,
+        "avg_units": 30.62,
+        "lift_vs_baseline": -0.2154
+      },
+      {
+        "hour": 14,
+        "avg_units": 36.13,
+        "lift_vs_baseline": -0.0212
+      },
+      {
+        "hour": 15,
+        "avg_units": 37.87,
+        "lift_vs_baseline": 0.0229
+      },
+      {
+        "hour": 16,
+        "avg_units": 36.96,
+        "lift_vs_baseline": -0.0966
+      },
+      {
+        "hour": 17,
+        "avg_units": 33.94,
+        "lift_vs_baseline": -0.1511
+      },
+      {
+        "hour": 18,
+        "avg_units": 30.44,
+        "lift_vs_baseline": -0.1616
+      },
+      {
+        "hour": 19,
+        "avg_units": 28.9,
+        "lift_vs_baseline": -0.1295
+      },
+      {
+        "hour": 20,
+        "avg_units": 16.04,
+        "lift_vs_baseline": -0.4171
+      },
+      {
+        "hour": 21,
+        "avg_units": 14.96,
+        "lift_vs_baseline": -0.2089
+      },
+      {
+        "hour": 22,
+        "avg_units": 14.23,
+        "lift_vs_baseline": -0.1014
+      }
+    ],
+    "Monday": [
+      {
+        "hour": 9,
+        "avg_units": 16.25,
+        "lift_vs_baseline": -0.0342
+      },
+      {
+        "hour": 10,
+        "avg_units": 24.33,
+        "lift_vs_baseline": 0.121
+      },
+      {
+        "hour": 11,
+        "avg_units": 23.98,
+        "lift_vs_baseline": -0.1287
+      },
+      {
+        "hour": 12,
+        "avg_units": 32.87,
+        "lift_vs_baseline": 0.0489
+      },
+      {
+        "hour": 13,
+        "avg_units": 30.6,
+        "lift_vs_baseline": -0.2159
+      },
+      {
+        "hour": 14,
+        "avg_units": 34.0,
+        "lift_vs_baseline": -0.079
+      },
+      {
+        "hour": 15,
+        "avg_units": 34.35,
+        "lift_vs_baseline": -0.0722
+      },
+      {
+        "hour": 16,
+        "avg_units": 37.56,
+        "lift_vs_baseline": -0.082
+      },
+      {
+        "hour": 17,
+        "avg_units": 36.69,
+        "lift_vs_baseline": -0.0824
+      },
+      {
+        "hour": 18,
+        "avg_units": 33.31,
+        "lift_vs_baseline": -0.0827
+      },
+      {
+        "hour": 19,
+        "avg_units": 31.27,
+        "lift_vs_baseline": -0.0583
+      },
+      {
+        "hour": 20,
+        "avg_units": 27.52,
+        "lift_vs_baseline": 0.0001
+      },
+      {
+        "hour": 21,
+        "avg_units": 15.92,
+        "lift_vs_baseline": -0.158
+      },
+      {
+        "hour": 22,
+        "avg_units": 13.4,
+        "lift_vs_baseline": -0.1536
+      }
+    ],
+    "Tuesday": [
+      {
+        "hour": 9,
+        "avg_units": 15.21,
+        "lift_vs_baseline": -0.0959
+      },
+      {
+        "hour": 10,
+        "avg_units": 19.87,
+        "lift_vs_baseline": -0.0846
+      },
+      {
+        "hour": 11,
+        "avg_units": 26.63,
+        "lift_vs_baseline": -0.0322
+      },
+      {
+        "hour": 12,
+        "avg_units": 26.62,
+        "lift_vs_baseline": -0.1506
+      },
+      {
+        "hour": 13,
+        "avg_units": 28.44,
+        "lift_vs_baseline": -0.2711
+      },
+      {
+        "hour": 14,
+        "avg_units": 31.25,
+        "lift_vs_baseline": -0.1535
+      },
+      {
+        "hour": 15,
+        "avg_units": 33.21,
+        "lift_vs_baseline": -0.1029
+      },
+      {
+        "hour": 16,
+        "avg_units": 37.6,
+        "lift_vs_baseline": -0.081
+      },
+      {
+        "hour": 17,
+        "avg_units": 36.98,
+        "lift_vs_baseline": -0.0752
+      },
+      {
+        "hour": 18,
+        "avg_units": 35.79,
+        "lift_vs_baseline": -0.0144
+      },
+      {
+        "hour": 19,
+        "avg_units": 31.31,
+        "lift_vs_baseline": -0.0571
+      },
+      {
+        "hour": 20,
+        "avg_units": 26.67,
+        "lift_vs_baseline": -0.0307
+      },
+      {
+        "hour": 21,
+        "avg_units": 15.06,
+        "lift_vs_baseline": -0.2038
+      },
+      {
+        "hour": 22,
+        "avg_units": 13.04,
+        "lift_vs_baseline": -0.1767
+      }
+    ],
+    "Wednesday": [
+      {
+        "hour": 9,
+        "avg_units": 18.96,
+        "lift_vs_baseline": 0.1269
+      },
+      {
+        "hour": 10,
+        "avg_units": 20.63,
+        "lift_vs_baseline": -0.0495
+      },
+      {
+        "hour": 11,
+        "avg_units": 24.14,
+        "lift_vs_baseline": -0.123
+      },
+      {
+        "hour": 12,
+        "avg_units": 27.29,
+        "lift_vs_baseline": -0.1289
+      },
+      {
+        "hour": 13,
+        "avg_units": 30.43,
+        "lift_vs_baseline": -0.2202
+      },
+      {
+        "hour": 14,
+        "avg_units": 30.84,
+        "lift_vs_baseline": -0.1645
+      },
+      {
+        "hour": 15,
+        "avg_units": 32.35,
+        "lift_vs_baseline": -0.1261
+      },
+      {
+        "hour": 16,
+        "avg_units": 38.29,
+        "lift_vs_baseline": -0.064
+      },
+      {
+        "hour": 17,
+        "avg_units": 37.49,
+        "lift_vs_baseline": -0.0624
+      },
+      {
+        "hour": 18,
+        "avg_units": 36.22,
+        "lift_vs_baseline": -0.0027
+      },
+      {
+        "hour": 19,
+        "avg_units": 30.78,
+        "lift_vs_baseline": -0.0729
+      },
+      {
+        "hour": 20,
+        "avg_units": 27.27,
+        "lift_vs_baseline": -0.0088
+      },
+      {
+        "hour": 21,
+        "avg_units": 15.59,
+        "lift_vs_baseline": -0.1757
+      },
+      {
+        "hour": 22,
+        "avg_units": 14.84,
+        "lift_vs_baseline": -0.0628
+      }
+    ],
+    "Thursday": [
+      {
+        "hour": 9,
+        "avg_units": 17.65,
+        "lift_vs_baseline": 0.0488
+      },
+      {
+        "hour": 10,
+        "avg_units": 20.9,
+        "lift_vs_baseline": -0.0368
+      },
+      {
+        "hour": 11,
+        "avg_units": 25.41,
+        "lift_vs_baseline": -0.0767
+      },
+      {
+        "hour": 12,
+        "avg_units": 26.76,
+        "lift_vs_baseline": -0.1458
+      },
+      {
+        "hour": 13,
+        "avg_units": 31.96,
+        "lift_vs_baseline": -0.181
+      },
+      {
+        "hour": 14,
+        "avg_units": 34.69,
+        "lift_vs_baseline": -0.0604
+      },
+      {
+        "hour": 15,
+        "avg_units": 35.08,
+        "lift_vs_baseline": -0.0524
+      },
+      {
+        "hour": 16,
+        "avg_units": 42.1,
+        "lift_vs_baseline": 0.029
+      },
+      {
+        "hour": 17,
+        "avg_units": 38.31,
+        "lift_vs_baseline": -0.0418
+      },
+      {
+        "hour": 18,
+        "avg_units": 34.02,
+        "lift_vs_baseline": -0.0631
+      },
+      {
+        "hour": 19,
+        "avg_units": 32.33,
+        "lift_vs_baseline": -0.0262
+      },
+      {
+        "hour": 20,
+        "avg_units": 30.33,
+        "lift_vs_baseline": 0.1024
+      },
+      {
+        "hour": 21,
+        "avg_units": 21.76,
+        "lift_vs_baseline": 0.1509
+      },
+      {
+        "hour": 22,
+        "avg_units": 17.14,
+        "lift_vs_baseline": 0.0821
+      }
+    ],
+    "Friday": [
+      {
+        "hour": 9,
+        "avg_units": 24.13,
+        "lift_vs_baseline": 0.4344
+      },
+      {
+        "hour": 10,
+        "avg_units": 23.98,
+        "lift_vs_baseline": 0.105
+      },
+      {
+        "hour": 11,
+        "avg_units": 35.52,
+        "lift_vs_baseline": 0.2906
+      },
+      {
+        "hour": 12,
+        "avg_units": 37.29,
+        "lift_vs_baseline": 0.19
+      },
+      {
+        "hour": 13,
+        "avg_units": 80.67,
+        "lift_vs_baseline": 1.0674
+      },
+      {
+        "hour": 14,
+        "avg_units": 49.12,
+        "lift_vs_baseline": 0.3304
+      },
+      {
+        "hour": 15,
+        "avg_units": 43.87,
+        "lift_vs_baseline": 0.1849
+      },
+      {
+        "hour": 16,
+        "avg_units": 51.33,
+        "lift_vs_baseline": 0.2546
+      },
+      {
+        "hour": 17,
+        "avg_units": 52.35,
+        "lift_vs_baseline": 0.3091
+      },
+      {
+        "hour": 18,
+        "avg_units": 48.77,
+        "lift_vs_baseline": 0.3431
+      },
+      {
+        "hour": 19,
+        "avg_units": 41.29,
+        "lift_vs_baseline": 0.2435
+      },
+      {
+        "hour": 20,
+        "avg_units": 34.88,
+        "lift_vs_baseline": 0.2678
+      },
+      {
+        "hour": 21,
+        "avg_units": 25.65,
+        "lift_vs_baseline": 0.3565
+      },
+      {
+        "hour": 22,
+        "avg_units": 19.67,
+        "lift_vs_baseline": 0.2422
+      }
+    ],
+    "Saturday": [
+      {
+        "hour": 9,
+        "avg_units": 17.4,
+        "lift_vs_baseline": 0.0343
+      },
+      {
+        "hour": 10,
+        "avg_units": 22.75,
+        "lift_vs_baseline": 0.0483
+      },
+      {
+        "hour": 11,
+        "avg_units": 32.13,
+        "lift_vs_baseline": 0.1676
+      },
+      {
+        "hour": 12,
+        "avg_units": 36.58,
+        "lift_vs_baseline": 0.1673
+      },
+      {
+        "hour": 13,
+        "avg_units": 40.13,
+        "lift_vs_baseline": 0.0285
+      },
+      {
+        "hour": 14,
+        "avg_units": 42.23,
+        "lift_vs_baseline": 0.1439
+      },
+      {
+        "hour": 15,
+        "avg_units": 42.29,
+        "lift_vs_baseline": 0.1423
+      },
+      {
+        "hour": 16,
+        "avg_units": 42.52,
+        "lift_vs_baseline": 0.0393
+      },
+      {
+        "hour": 17,
+        "avg_units": 44.06,
+        "lift_vs_baseline": 0.1018
+      },
+      {
+        "hour": 18,
+        "avg_units": 35.6,
+        "lift_vs_baseline": -0.0197
+      },
+      {
+        "hour": 19,
+        "avg_units": 36.48,
+        "lift_vs_baseline": 0.0987
+      },
+      {
+        "hour": 20,
+        "avg_units": 29.94,
+        "lift_vs_baseline": 0.0882
+      },
+      {
+        "hour": 21,
+        "avg_units": 23.42,
+        "lift_vs_baseline": 0.2386
+      },
+      {
+        "hour": 22,
+        "avg_units": 18.54,
+        "lift_vs_baseline": 0.1706
+      }
+    ]
+  }
+}

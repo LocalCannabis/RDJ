@@ -1,0 +1,118 @@
+{
+  "generated_at": "2025-12-27T02:37:43.712098",
+  "headline": "\ud83d\udcc8 $1947/month in waste avoided and sales captured",
+  "historical_performance": {
+    "period": "2025-09-28 to 2025-12-27",
+    "days_analyzed": 177,
+    "grade": "B",
+    "explanation": "Good performance. $65/day, 91% accuracy",
+    "total_value_generated": "$11485",
+    "waste_avoided": "$357",
+    "stockout_prevented": "$3473",
+    "value_per_day": "$65",
+    "value_per_month": "$1947",
+    "accuracy": {
+      "high_demand_days_caught": "35/36",
+      "slow_days_caught": "47/62"
+    }
+  },
+  "future_projection": {
+    "period_days": 30,
+    "projected_high_impact_days": 0,
+    "projected_total_value": "$1500",
+    "value_per_day": "$50",
+    "assumptions": [
+      "$150/day value from correctly predicting rush days (stockout prevention)",
+      "$50/day value from baseline inventory optimization",
+      "Based on 0 days of predictions"
+    ]
+  },
+  "key_insights": [
+    "\ud83d\udcb0 Prevented $3473 in lost sales by predicting 35 rush days",
+    "\ud83d\uddd1\ufe0f Avoided $357 in waste by predicting 47 slow days",
+    "\ud83c\udfaf 97% accuracy on rush days - excellent!",
+    "\u2705 Keep following the brain's recommendations"
+  ],
+  "daily_breakdown": [
+    {
+      "date": "2025-06-30",
+      "predicted_lift": "+5.9%",
+      "actual_lift": "+12.5%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$61.30",
+      "total_value": "$131.30"
+    },
+    {
+      "date": "2025-07-01",
+      "predicted_lift": "+10.7%",
+      "actual_lift": "+14.4%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$72.78",
+      "total_value": "$142.78"
+    },
+    {
+      "date": "2025-07-02",
+      "predicted_lift": "+10.3%",
+      "actual_lift": "+4.3%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$0.00",
+      "total_value": "$70.00"
+    },
+    {
+      "date": "2025-07-03",
+      "predicted_lift": "+10.5%",
+      "actual_lift": "-3.6%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$0.00",
+      "total_value": "$35.00"
+    },
+    {
+      "date": "2025-07-04",
+      "predicted_lift": "+10.6%",
+      "actual_lift": "+14.9%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$74.95",
+      "total_value": "$144.95"
+    },
+    {
+      "date": "2025-07-05",
+      "predicted_lift": "+10.8%",
+      "actual_lift": "+0.8%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$0.00",
+      "total_value": "$70.00"
+    },
+    {
+      "date": "2025-07-06",
+      "predicted_lift": "+10.6%",
+      "actual_lift": "+14.6%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$73.59",
+      "total_value": "$143.59"
+    },
+    {
+      "date": "2025-07-07",
+      "predicted_lift": "+10.3%",
+      "actual_lift": "+16.8%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$82.28",
+      "total_value": "$152.28"
+    },
+    {
+      "date": "2025-07-08",
+      "predicted_lift": "+10.2%",
+      "actual_lift": "-13.1%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$0.00",
+      "total_value": "$0.00"
+    },
+    {
+      "date": "2025-07-09",
+      "predicted_lift": "+10.3%",
+      "actual_lift": "-8.2%",
+      "waste_avoided": "$0.00",
+      "stockout_prevented": "$0.00",
+      "total_value": "$0.00"
+    }
+  ]
+}

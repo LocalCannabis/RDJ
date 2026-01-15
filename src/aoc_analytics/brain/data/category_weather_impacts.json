@@ -1,0 +1,475 @@
+{
+  "generated": "2025-12-27 01:55:27.989740",
+  "categories": {
+    "Flower": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Pre-Rolls": {
+      "rainy": {
+        "lift": -0.0442,
+        "lift_pct": "-4.4%",
+        "std_dev": 0.1637,
+        "sample_size": 108,
+        "p_value": 0.0012,
+        "confidence": 1.0,
+        "actionable": true
+      },
+      "dry": {
+        "lift": 0.0143,
+        "lift_pct": "+1.4%",
+        "std_dev": 0.1726,
+        "sample_size": 194,
+        "p_value": 0.0852,
+        "confidence": 0.91,
+        "actionable": true
+      },
+      "cold": {
+        "lift": -0.1223,
+        "lift_pct": "-12.2%",
+        "std_dev": 0.1517,
+        "sample_size": 64,
+        "p_value": 0.0,
+        "confidence": 1.0,
+        "actionable": true
+      },
+      "mild": {
+        "lift": 0.0595,
+        "lift_pct": "+6.0%",
+        "std_dev": 0.1452,
+        "sample_size": 155,
+        "p_value": 0.0,
+        "confidence": 1.0,
+        "actionable": true
+      },
+      "warm": {
+        "lift": 0.0988,
+        "lift_pct": "+9.9%",
+        "std_dev": 0.0974,
+        "sample_size": 32,
+        "p_value": 0.0005,
+        "confidence": 1.0,
+        "actionable": true
+      }
+    },
+    "Vapes": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Edibles": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Beverages": {
+      "rainy": {
+        "lift": -0.0892,
+        "lift_pct": "-8.9%",
+        "std_dev": 0.8377,
+        "sample_size": 108,
+        "p_value": 0.1551,
+        "confidence": 0.84,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0464,
+        "lift_pct": "+4.6%",
+        "std_dev": 0.7026,
+        "sample_size": 194,
+        "p_value": 0.2231,
+        "confidence": 0.78,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0048,
+        "lift_pct": "+0.5%",
+        "std_dev": 0.8886,
+        "sample_size": 64,
+        "p_value": 0.9567,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0401,
+        "lift_pct": "+4.0%",
+        "std_dev": 0.7052,
+        "sample_size": 155,
+        "p_value": 0.3974,
+        "confidence": 0.6,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.1832,
+        "lift_pct": "+18.3%",
+        "std_dev": 0.5615,
+        "sample_size": 32,
+        "p_value": 0.1634,
+        "confidence": 0.84,
+        "actionable": false
+      }
+    },
+    "Concentrates": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Topicals": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Accessories": {
+      "rainy": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "dry": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "mild": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      },
+      "warm": {
+        "lift": 0.0,
+        "lift_pct": "+0.0%",
+        "std_dev": 0.0,
+        "sample_size": 0,
+        "p_value": 1.0,
+        "confidence": 0.0,
+        "actionable": false
+      }
+    },
+    "Hash": {
+      "rainy": {
+        "lift": 0.0102,
+        "lift_pct": "+1.0%",
+        "std_dev": 0.4269,
+        "sample_size": 107,
+        "p_value": 0.7863,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "dry": {
+        "lift": -0.0089,
+        "lift_pct": "-0.9%",
+        "std_dev": 0.4778,
+        "sample_size": 193,
+        "p_value": 0.6926,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "cold": {
+        "lift": -0.1231,
+        "lift_pct": "-12.3%",
+        "std_dev": 0.4621,
+        "sample_size": 64,
+        "p_value": 0.0183,
+        "confidence": 0.98,
+        "actionable": true
+      },
+      "mild": {
+        "lift": 0.0595,
+        "lift_pct": "+5.9%",
+        "std_dev": 0.4715,
+        "sample_size": 154,
+        "p_value": 0.0341,
+        "confidence": 0.97,
+        "actionable": true
+      },
+      "warm": {
+        "lift": 0.0321,
+        "lift_pct": "+3.2%",
+        "std_dev": 0.3905,
+        "sample_size": 31,
+        "p_value": 0.6863,
+        "confidence": 0.5,
+        "actionable": false
+      }
+    },
+    "Capsules": {
+      "rainy": {
+        "lift": -0.0077,
+        "lift_pct": "-0.8%",
+        "std_dev": 0.6705,
+        "sample_size": 103,
+        "p_value": 0.8895,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "dry": {
+        "lift": -0.0009,
+        "lift_pct": "-0.1%",
+        "std_dev": 0.6785,
+        "sample_size": 179,
+        "p_value": 0.98,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "cold": {
+        "lift": 0.0436,
+        "lift_pct": "+4.4%",
+        "std_dev": 0.6608,
+        "sample_size": 61,
+        "p_value": 0.5788,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "mild": {
+        "lift": -0.0104,
+        "lift_pct": "-1.0%",
+        "std_dev": 0.7109,
+        "sample_size": 142,
+        "p_value": 0.8102,
+        "confidence": 0.5,
+        "actionable": false
+      },
+      "warm": {
+        "lift": -0.1531,
+        "lift_pct": "-15.3%",
+        "std_dev": 0.4919,
+        "sample_size": 29,
+        "p_value": 0.2027,
+        "confidence": 0.8,
+        "actionable": false
+      }
+    }
+  }
+}

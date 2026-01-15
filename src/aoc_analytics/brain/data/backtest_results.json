@@ -1,0 +1,1848 @@
+{
+  "generated": "2025-12-27T02:37:22.433531",
+  "period": {
+    "start": "2025-06-30",
+    "end": "2025-12-23",
+    "days": 177
+  },
+  "overall_metrics": {
+    "mape": 0.10770881600111393,
+    "directional_accuracy": 0.6610169491525424,
+    "correlation": 0.4505049231085778
+  },
+  "high_impact_detection": {
+    "precision": 0.16666666666666666,
+    "recall": 0.5
+  },
+  "signal_accuracy": {
+    "month": {
+      "sample_size": 177,
+      "predicted_lift": 0.02272113700564972,
+      "actual_lift": 0.0140896814009473,
+      "directional_accuracy": 0.6610169491525424,
+      "mape": 0.10770881600111393,
+      "correlation": 0.4505049231085778
+    },
+    "cruise": {
+      "sample_size": 88,
+      "predicted_lift": 0.07671545454545456,
+      "actual_lift": 0.03171614499106866,
+      "directional_accuracy": 0.6136363636363636,
+      "mape": 0.10874636014527059,
+      "correlation": 0.39431284200417366
+    },
+    "holiday": {
+      "sample_size": 6,
+      "predicted_lift": 0.02974666666666667,
+      "actual_lift": 0.0168917877586966,
+      "directional_accuracy": 0.6666666666666666,
+      "mape": 0.05019135623073536,
+      "correlation": 0.8820022707846791
+    },
+    "canucks": {
+      "sample_size": 12,
+      "predicted_lift": -0.026526562500000007,
+      "actual_lift": 0.06691384180790962,
+      "directional_accuracy": 0.5,
+      "mape": 0.1539529572740113,
+      "correlation": 0.21103399821681046
+    },
+    "academic": {
+      "sample_size": 16,
+      "predicted_lift": -0.14836523437500002,
+      "actual_lift": -0.06370667965416615,
+      "directional_accuracy": 0.5,
+      "mape": 0.13506641726575358,
+      "correlation": -0.4978788325267912
+    }
+  },
+  "best_predictions": [
+    {
+      "date": "2025-08-04",
+      "predicted": 0.1352,
+      "actual": 0.1375,
+      "error": -0.0023000000000000242
+    },
+    {
+      "date": "2025-08-30",
+      "predicted": 0.135,
+      "actual": 0.13771186440677965,
+      "error": -0.002711864406779646
+    },
+    {
+      "date": "2025-11-28",
+      "predicted": -0.085,
+      "actual": -0.08221797323135756,
+      "error": -0.0027820267686424482
+    },
+    {
+      "date": "2025-08-21",
+      "predicted": 0.1318,
+      "actual": 0.12864077669902912,
+      "error": 0.003159223300970876
+    },
+    {
+      "date": "2025-09-28",
+      "predicted": -0.025479999999999996,
+      "actual": -0.021621621621621623,
+      "error": -0.003858378378378373
+    }
+  ],
+  "worst_predictions": [
+    {
+      "date": "2025-10-25",
+      "predicted": 0.062725,
+      "actual": 0.3919491525423729,
+      "error": -0.3292241525423729
+    },
+    {
+      "date": "2025-12-23",
+      "predicted": 0.3,
+      "actual": 0.6538969616908851,
+      "error": -0.3538969616908851
+    },
+    {
+      "date": "2025-12-20",
+      "predicted": 0.11943125,
+      "actual": -0.24364406779661016,
+      "error": 0.3630753177966102
+    },
+    {
+      "date": "2025-08-18",
+      "predicted": 0.13019999999999998,
+      "actual": 0.695,
+      "error": -0.5648
+    },
+    {
+      "date": "2025-07-11",
+      "predicted": 0.1064,
+      "actual": 0.7782026768642447,
+      "error": -0.6718026768642447
+    }
+  ],
+  "daily_comparison": [
+    {
+      "date": "2025-06-30",
+      "predicted_lift": 0.05908,
+      "actual_lift": 0.125,
+      "error": -0.06592,
+      "events": [
+        "month:June",
+        "cruise:63%"
+      ]
+    },
+    {
+      "date": "2025-07-01",
+      "predicted_lift": 0.10679999999999999,
+      "actual_lift": 0.14398943196829592,
+      "error": -0.037189431968295925,
+      "events": [
+        "month:July",
+        "holiday:Canada Day",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-07-02",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.043478260869565216,
+      "error": 0.059721739130434784,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-03",
+      "predicted_lift": 0.1048,
+      "actual_lift": -0.03640776699029126,
+      "error": 0.14120776699029125,
+      "events": [
+        "month:July",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-07-04",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.1491395793499044,
+      "error": -0.04273957934990441,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-05",
+      "predicted_lift": 0.108,
+      "actual_lift": 0.00847457627118644,
+      "error": 0.09952542372881355,
+      "events": [
+        "month:July",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-07-06",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.14594594594594595,
+      "error": -0.03954594594594596,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-07",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.1675,
+      "error": -0.06430000000000001,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-08",
+      "predicted_lift": 0.1016,
+      "actual_lift": -0.130779392338177,
+      "error": 0.232379392338177,
+      "events": [
+        "month:July",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-07-09",
+      "predicted_lift": 0.1032,
+      "actual_lift": -0.08184143222506395,
+      "error": 0.18504143222506395,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-10",
+      "predicted_lift": 0.1048,
+      "actual_lift": 0.1529126213592233,
+      "error": -0.048112621359223284,
+      "events": [
+        "month:July",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-07-11",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.7782026768642447,
+      "error": -0.6718026768642447,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-12",
+      "predicted_lift": 0.108,
+      "actual_lift": 0.08898305084745763,
+      "error": 0.019016949152542373,
+      "events": [
+        "month:July",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-07-13",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.024324324324324326,
+      "error": 0.08207567567567567,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-14",
+      "predicted_lift": 0.1032,
+      "actual_lift": -0.035,
+      "error": 0.1382,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-15",
+      "predicted_lift": 0.1016,
+      "actual_lift": 0.08058124174372523,
+      "error": 0.021018758256274764,
+      "events": [
+        "month:July",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-07-16",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.10997442455242967,
+      "error": -0.0067744245524296726,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-17",
+      "predicted_lift": 0.1048,
+      "actual_lift": 0.012135922330097087,
+      "error": 0.09266407766990292,
+      "events": [
+        "month:July",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-07-18",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.0038240917782026767,
+      "error": 0.10257590822179732,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-19",
+      "predicted_lift": 0.108,
+      "actual_lift": -0.00847457627118644,
+      "error": 0.11647457627118644,
+      "events": [
+        "month:July",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-07-20",
+      "predicted_lift": 0.1064,
+      "actual_lift": 0.0,
+      "error": 0.1064,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-21",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.0225,
+      "error": 0.0807,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-22",
+      "predicted_lift": 0.1016,
+      "actual_lift": 0.035667107001321,
+      "error": 0.065932892998679,
+      "events": [
+        "month:July",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-07-23",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.16112531969309463,
+      "error": -0.057925319693094626,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-24",
+      "predicted_lift": 0.1048,
+      "actual_lift": 0.1796116504854369,
+      "error": -0.07481165048543689,
+      "events": [
+        "month:July",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-07-25",
+      "predicted_lift": 0.1064,
+      "actual_lift": -0.1739961759082218,
+      "error": 0.2803961759082218,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-26",
+      "predicted_lift": 0.108,
+      "actual_lift": 0.09745762711864407,
+      "error": 0.010542372881355927,
+      "events": [
+        "month:July",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-07-27",
+      "predicted_lift": 0.1064,
+      "actual_lift": -0.05405405405405406,
+      "error": 0.16045405405405405,
+      "events": [
+        "month:July",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-07-28",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.1975,
+      "error": -0.09430000000000001,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-29",
+      "predicted_lift": 0.1016,
+      "actual_lift": 0.2575957727873184,
+      "error": -0.15599577278731838,
+      "events": [
+        "month:July",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-07-30",
+      "predicted_lift": 0.1032,
+      "actual_lift": 0.25831202046035806,
+      "error": -0.15511202046035805,
+      "events": [
+        "month:July",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-07-31",
+      "predicted_lift": 0.1048,
+      "actual_lift": 0.055825242718446605,
+      "error": 0.0489747572815534,
+      "events": [
+        "month:July",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-08-01",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.05162523900573614,
+      "error": 0.08177476099426385,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-02",
+      "predicted_lift": 0.135,
+      "actual_lift": -0.07838983050847458,
+      "error": 0.2133898305084746,
+      "events": [
+        "month:August",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-08-03",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.07027027027027027,
+      "error": 0.06312972972972972,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-04",
+      "predicted_lift": 0.1352,
+      "actual_lift": 0.1375,
+      "error": -0.0023000000000000242,
+      "events": [
+        "month:August",
+        "holiday:BC Day",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-05",
+      "predicted_lift": 0.1286,
+      "actual_lift": 0.03038309114927345,
+      "error": 0.09821690885072654,
+      "events": [
+        "month:August",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-08-06",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": -0.015345268542199489,
+      "error": 0.14554526854219946,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-07",
+      "predicted_lift": 0.1318,
+      "actual_lift": 0.07281553398058252,
+      "error": 0.05898446601941748,
+      "events": [
+        "month:August",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-08-08",
+      "predicted_lift": 0.1334,
+      "actual_lift": -0.06692160611854685,
+      "error": 0.20032160611854682,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-09",
+      "predicted_lift": 0.135,
+      "actual_lift": -0.07627118644067797,
+      "error": 0.211271186440678,
+      "events": [
+        "month:August",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-08-10",
+      "predicted_lift": 0.1334,
+      "actual_lift": -0.002702702702702703,
+      "error": 0.1361027027027027,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-11",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": 0.0475,
+      "error": 0.08269999999999998,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-12",
+      "predicted_lift": 0.1286,
+      "actual_lift": 0.1334214002642008,
+      "error": -0.004821400264200804,
+      "events": [
+        "month:August",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-08-13",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": 0.06905370843989769,
+      "error": 0.06114629156010229,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-14",
+      "predicted_lift": 0.1318,
+      "actual_lift": -0.009708737864077669,
+      "error": 0.14150873786407767,
+      "events": [
+        "month:August",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-08-15",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.03441682600382409,
+      "error": 0.0989831739961759,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-16",
+      "predicted_lift": 0.135,
+      "actual_lift": -0.0826271186440678,
+      "error": 0.2176271186440678,
+      "events": [
+        "month:August",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-08-17",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.005405405405405406,
+      "error": 0.12799459459459459,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-18",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": 0.695,
+      "error": -0.5648,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-19",
+      "predicted_lift": 0.1286,
+      "actual_lift": 0.08850726552179657,
+      "error": 0.040092734478203426,
+      "events": [
+        "month:August",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-08-20",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": 0.0792838874680307,
+      "error": 0.05091611253196929,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-21",
+      "predicted_lift": 0.1318,
+      "actual_lift": 0.12864077669902912,
+      "error": 0.003159223300970876,
+      "events": [
+        "month:August",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-08-22",
+      "predicted_lift": 0.1334,
+      "actual_lift": -0.032504780114722756,
+      "error": 0.16590478011472276,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-23",
+      "predicted_lift": 0.135,
+      "actual_lift": 0.17584745762711865,
+      "error": -0.04084745762711864,
+      "events": [
+        "month:August",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-08-24",
+      "predicted_lift": 0.1334,
+      "actual_lift": -0.0918918918918919,
+      "error": 0.2252918918918919,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-25",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": -0.0325,
+      "error": 0.16269999999999998,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-26",
+      "predicted_lift": 0.1286,
+      "actual_lift": 0.0066050198150594455,
+      "error": 0.12199498018494055,
+      "events": [
+        "month:August",
+        "cruise:60%"
+      ]
+    },
+    {
+      "date": "2025-08-27",
+      "predicted_lift": 0.13019999999999998,
+      "actual_lift": -0.015345268542199489,
+      "error": 0.14554526854219946,
+      "events": [
+        "month:August",
+        "cruise:70%"
+      ]
+    },
+    {
+      "date": "2025-08-28",
+      "predicted_lift": 0.1318,
+      "actual_lift": 0.3155339805825243,
+      "error": -0.1837339805825243,
+      "events": [
+        "month:August",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-08-29",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.0038240917782026767,
+      "error": 0.12957590822179732,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-08-30",
+      "predicted_lift": 0.135,
+      "actual_lift": 0.13771186440677965,
+      "error": -0.002711864406779646,
+      "events": [
+        "month:August",
+        "cruise:100%"
+      ]
+    },
+    {
+      "date": "2025-08-31",
+      "predicted_lift": 0.1334,
+      "actual_lift": 0.01891891891891892,
+      "error": 0.11448108108108107,
+      "events": [
+        "month:August",
+        "cruise:90%"
+      ]
+    },
+    {
+      "date": "2025-09-01",
+      "predicted_lift": -0.02252,
+      "actual_lift": 0.05,
+      "error": -0.07252,
+      "events": [
+        "month:September",
+        "holiday:Labour Day",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-02",
+      "predicted_lift": -0.037,
+      "actual_lift": -0.09379128137384413,
+      "error": 0.05679128137384413,
+      "events": [
+        "month:September"
+      ]
+    },
+    {
+      "date": "2025-09-03",
+      "predicted_lift": -0.02804,
+      "actual_lift": 0.0,
+      "error": -0.02804,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-04",
+      "predicted_lift": -0.026759999999999996,
+      "actual_lift": -0.3058252427184466,
+      "error": 0.27906524271844657,
+      "events": [
+        "month:September",
+        "cruise:64%"
+      ]
+    },
+    {
+      "date": "2025-09-05",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": 0.08030592734225621,
+      "error": -0.1057859273422562,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-06",
+      "predicted_lift": -0.0242,
+      "actual_lift": -0.03177966101694915,
+      "error": 0.007579661016949152,
+      "events": [
+        "month:September",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-09-07",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": -0.0891891891891892,
+      "error": 0.06370918918918919,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-08",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.0675,
+      "error": 0.03946000000000001,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-09",
+      "predicted_lift": -0.037,
+      "actual_lift": -0.12285336856010567,
+      "error": 0.08585336856010567,
+      "events": [
+        "month:September"
+      ]
+    },
+    {
+      "date": "2025-09-10",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.22250639386189258,
+      "error": 0.19446639386189257,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-11",
+      "predicted_lift": -0.026759999999999996,
+      "actual_lift": -0.16019417475728157,
+      "error": 0.13343417475728156,
+      "events": [
+        "month:September",
+        "cruise:64%"
+      ]
+    },
+    {
+      "date": "2025-09-12",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": -0.032504780114722756,
+      "error": 0.00702478011472276,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-13",
+      "predicted_lift": -0.0242,
+      "actual_lift": -0.1228813559322034,
+      "error": 0.0986813559322034,
+      "events": [
+        "month:September",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-09-14",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": -0.13243243243243244,
+      "error": 0.10695243243243244,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-15",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.0375,
+      "error": 0.00946,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-16",
+      "predicted_lift": -0.037,
+      "actual_lift": 0.02509907529722589,
+      "error": -0.062099075297225886,
+      "events": [
+        "month:September"
+      ]
+    },
+    {
+      "date": "2025-09-17",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.16112531969309463,
+      "error": 0.13308531969309462,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-18",
+      "predicted_lift": -0.026759999999999996,
+      "actual_lift": 0.05825242718446602,
+      "error": -0.08501242718446601,
+      "events": [
+        "month:September",
+        "cruise:64%"
+      ]
+    },
+    {
+      "date": "2025-09-19",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": -0.1739961759082218,
+      "error": 0.1485161759082218,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-20",
+      "predicted_lift": -0.0242,
+      "actual_lift": -0.10805084745762712,
+      "error": 0.08385084745762712,
+      "events": [
+        "month:September",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-09-21",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": 0.04594594594594595,
+      "error": -0.07142594594594595,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-22",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.005,
+      "error": -0.023039999999999998,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-23",
+      "predicted_lift": -0.037,
+      "actual_lift": -0.08058124174372523,
+      "error": 0.043581241743725234,
+      "events": [
+        "month:September"
+      ]
+    },
+    {
+      "date": "2025-09-24",
+      "predicted_lift": -0.02804,
+      "actual_lift": 0.03836317135549872,
+      "error": -0.06640317135549872,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-25",
+      "predicted_lift": -0.026759999999999996,
+      "actual_lift": -0.09466019417475728,
+      "error": 0.06790019417475729,
+      "events": [
+        "month:September",
+        "cruise:64%"
+      ]
+    },
+    {
+      "date": "2025-09-26",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": 0.009560229445506692,
+      "error": -0.035040229445506686,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-27",
+      "predicted_lift": -0.0242,
+      "actual_lift": -0.18220338983050846,
+      "error": 0.15800338983050846,
+      "events": [
+        "month:September",
+        "cruise:80%"
+      ]
+    },
+    {
+      "date": "2025-09-28",
+      "predicted_lift": -0.025479999999999996,
+      "actual_lift": -0.021621621621621623,
+      "error": -0.003858378378378373,
+      "events": [
+        "month:September",
+        "cruise:72%"
+      ]
+    },
+    {
+      "date": "2025-09-29",
+      "predicted_lift": -0.02804,
+      "actual_lift": -0.12,
+      "error": 0.09196,
+      "events": [
+        "month:September",
+        "cruise:56%"
+      ]
+    },
+    {
+      "date": "2025-09-30",
+      "predicted_lift": -0.026999999999999996,
+      "actual_lift": -0.083223249669749,
+      "error": 0.05622324966974901,
+      "events": [
+        "month:September",
+        "holiday:National Day for Truth and Reconciliation"
+      ]
+    },
+    {
+      "date": "2025-10-01",
+      "predicted_lift": 0.051,
+      "actual_lift": -0.1329923273657289,
+      "error": 0.1839923273657289,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-02",
+      "predicted_lift": 0.051,
+      "actual_lift": -0.09223300970873786,
+      "error": 0.14323300970873787,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-03",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.0745697896749522,
+      "error": -0.023569789674952206,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-04",
+      "predicted_lift": 0.062725,
+      "actual_lift": 0.09957627118644068,
+      "error": -0.03685127118644067,
+      "events": [
+        "month:October",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-10-05",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.0,
+      "error": 0.051,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-06",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.075,
+      "error": -0.024,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-07",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.14134742404227213,
+      "error": -0.09034742404227214,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-08",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.1867007672634271,
+      "error": -0.1357007672634271,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-09",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.26941747572815533,
+      "error": -0.21841747572815534,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-10",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.17208413001912046,
+      "error": -0.12108413001912047,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-11",
+      "predicted_lift": 0.062725,
+      "actual_lift": 0.2711864406779661,
+      "error": -0.2084614406779661,
+      "events": [
+        "month:October",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-10-12",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.08378378378378379,
+      "error": -0.03278378378378379,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-13",
+      "predicted_lift": 0.061,
+      "actual_lift": 0.005,
+      "error": 0.056,
+      "events": [
+        "month:October",
+        "holiday:Thanksgiving"
+      ]
+    },
+    {
+      "date": "2025-10-14",
+      "predicted_lift": 0.051,
+      "actual_lift": -0.0066050198150594455,
+      "error": 0.057605019815059444,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-15",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.12276214833759591,
+      "error": -0.07176214833759592,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-16",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.055825242718446605,
+      "error": -0.004825242718446608,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-17",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.3441682600382409,
+      "error": -0.2931682600382409,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-18",
+      "predicted_lift": 0.062725,
+      "actual_lift": 0.15889830508474576,
+      "error": -0.09617330508474575,
+      "events": [
+        "month:October",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-10-19",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.3081081081081081,
+      "error": -0.25710810810810814,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-20",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.19,
+      "error": -0.139,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-21",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.17569352708058125,
+      "error": -0.12469352708058126,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-22",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.24296675191815856,
+      "error": -0.19196675191815857,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-23",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.3325242718446602,
+      "error": -0.2815242718446602,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-24",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.09751434034416825,
+      "error": -0.04651434034416826,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-25",
+      "predicted_lift": 0.062725,
+      "actual_lift": 0.3919491525423729,
+      "error": -0.3292241525423729,
+      "events": [
+        "month:October",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-10-26",
+      "predicted_lift": 0.051,
+      "actual_lift": 0.08378378378378379,
+      "error": -0.03278378378378379,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-27",
+      "predicted_lift": 0.051,
+      "actual_lift": -0.075,
+      "error": 0.126,
+      "events": [
+        "month:October"
+      ]
+    },
+    {
+      "date": "2025-10-28",
+      "predicted_lift": 0.1755,
+      "actual_lift": -0.03830911492734478,
+      "error": 0.21380911492734478,
+      "events": [
+        "month:October",
+        "pre_halloween"
+      ]
+    },
+    {
+      "date": "2025-10-29",
+      "predicted_lift": 0.1755,
+      "actual_lift": -0.061381074168797956,
+      "error": 0.23688107416879794,
+      "events": [
+        "month:October",
+        "pre_halloween"
+      ]
+    },
+    {
+      "date": "2025-10-30",
+      "predicted_lift": 0.1755,
+      "actual_lift": 0.0,
+      "error": 0.1755,
+      "events": [
+        "month:October",
+        "pre_halloween"
+      ]
+    },
+    {
+      "date": "2025-10-31",
+      "predicted_lift": 0.1755,
+      "actual_lift": -0.10133843212237094,
+      "error": 0.2768384321223709,
+      "events": [
+        "month:October",
+        "pre_halloween"
+      ]
+    },
+    {
+      "date": "2025-11-01",
+      "predicted_lift": -0.073275,
+      "actual_lift": 0.11440677966101695,
+      "error": -0.18768177966101696,
+      "events": [
+        "month:November",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-11-02",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.021621621621621623,
+      "error": -0.06337837837837838,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-03",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.175,
+      "error": 0.08999999999999998,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-04",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.0964332892998679,
+      "error": 0.011433289299867894,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-05",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.13043478260869565,
+      "error": 0.04543478260869564,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-06",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.14320388349514562,
+      "error": 0.05820388349514562,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-07",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.030592734225621414,
+      "error": -0.05440726577437859,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-08",
+      "predicted_lift": -0.073275,
+      "actual_lift": 0.0,
+      "error": -0.073275,
+      "events": [
+        "month:November",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-11-09",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.051351351351351354,
+      "error": -0.03364864864864865,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-10",
+      "predicted_lift": -0.085,
+      "actual_lift": 0.0525,
+      "error": -0.1375,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-11",
+      "predicted_lift": -0.07500000000000001,
+      "actual_lift": -0.15191545574636725,
+      "error": 0.07691545574636724,
+      "events": [
+        "month:November",
+        "holiday:Remembrance Day"
+      ]
+    },
+    {
+      "date": "2025-11-12",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.11253196930946291,
+      "error": 0.027531969309462903,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-13",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.09223300970873786,
+      "error": 0.007233009708737859,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-14",
+      "predicted_lift": -0.085,
+      "actual_lift": 0.0,
+      "error": -0.085,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-15",
+      "predicted_lift": -0.073275,
+      "actual_lift": -0.04449152542372881,
+      "error": -0.028783474576271194,
+      "events": [
+        "month:November",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-11-16",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.13513513513513514,
+      "error": 0.050135135135135137,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-17",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.2625,
+      "error": 0.1775,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-18",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.07529722589167767,
+      "error": -0.009702774108322335,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-19",
+      "predicted_lift": -0.085,
+      "actual_lift": 0.010230179028132993,
+      "error": -0.095230179028133,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-20",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.18446601941747573,
+      "error": 0.09946601941747572,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-21",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.05353728489483748,
+      "error": -0.03146271510516253,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-22",
+      "predicted_lift": -0.073275,
+      "actual_lift": -0.00423728813559322,
+      "error": -0.06903771186440678,
+      "events": [
+        "month:November",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-11-23",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.07027027027027027,
+      "error": -0.014729729729729732,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-24",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.175,
+      "error": 0.08999999999999998,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-25",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.09114927344782034,
+      "error": 0.006149273447820333,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-26",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.18414322250639387,
+      "error": 0.09914322250639386,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-27",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.1529126213592233,
+      "error": 0.06791262135922328,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-28",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.08221797323135756,
+      "error": -0.0027820267686424482,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-11-29",
+      "predicted_lift": -0.073275,
+      "actual_lift": 0.00423728813559322,
+      "error": -0.07751228813559323,
+      "events": [
+        "month:November",
+        "canucks:35%"
+      ]
+    },
+    {
+      "date": "2025-11-30",
+      "predicted_lift": -0.085,
+      "actual_lift": -0.07567567567567568,
+      "error": -0.009324324324324326,
+      "events": [
+        "month:November"
+      ]
+    },
+    {
+      "date": "2025-12-01",
+      "predicted_lift": -0.137,
+      "actual_lift": -0.1975,
+      "error": 0.0605,
+      "events": [
+        "month:December"
+      ]
+    },
+    {
+      "date": "2025-12-02",
+      "predicted_lift": -0.137,
+      "actual_lift": -0.130779392338177,
+      "error": -0.006220607661823002,
+      "events": [
+        "month:December"
+      ]
+    },
+    {
+      "date": "2025-12-03",
+      "predicted_lift": -0.137,
+      "actual_lift": -0.08695652173913043,
+      "error": -0.05004347826086958,
+      "events": [
+        "month:December"
+      ]
+    },
+    {
+      "date": "2025-12-04",
+      "predicted_lift": -0.137,
+      "actual_lift": -0.23786407766990292,
+      "error": 0.10086407766990291,
+      "events": [
+        "month:December"
+      ]
+    },
+    {
+      "date": "2025-12-05",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.09560229445506692,
+      "error": -0.07139770554493309,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-06",
+      "predicted_lift": -0.16113750000000002,
+      "actual_lift": 0.08050847457627118,
+      "error": -0.24164597457627118,
+      "events": [
+        "month:December",
+        "canucks:35%",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-07",
+      "predicted_lift": -0.167,
+      "actual_lift": 0.013513513513513514,
+      "error": -0.18051351351351352,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-08",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.18,
+      "error": 0.012999999999999984,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-09",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.19418758256274768,
+      "error": 0.02718758256274767,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-10",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.01278772378516624,
+      "error": -0.15421227621483377,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-11",
+      "predicted_lift": -0.167,
+      "actual_lift": 0.007281553398058253,
+      "error": -0.17428155339805826,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-12",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.13766730401529637,
+      "error": -0.029332695984703644,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-13",
+      "predicted_lift": -0.16113750000000002,
+      "actual_lift": -0.025423728813559324,
+      "error": -0.13571377118644068,
+      "events": [
+        "month:December",
+        "canucks:35%",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-14",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.002702702702702703,
+      "error": -0.1642972972972973,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-15",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.135,
+      "error": -0.032,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-16",
+      "predicted_lift": -0.167,
+      "actual_lift": 0.04095112285336856,
+      "error": -0.2079511228533686,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-17",
+      "predicted_lift": -0.167,
+      "actual_lift": 0.015345268542199489,
+      "error": -0.1823452685421995,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-18",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.11165048543689321,
+      "error": -0.0553495145631068,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-19",
+      "predicted_lift": -0.167,
+      "actual_lift": -0.03824091778202677,
+      "error": -0.12875908221797325,
+      "events": [
+        "month:December",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-20",
+      "predicted_lift": 0.11943125,
+      "actual_lift": -0.24364406779661016,
+      "error": 0.3630753177966102,
+      "events": [
+        "month:December",
+        "pre_christmas",
+        "canucks:35%",
+        "academic:finals"
+      ]
+    },
+    {
+      "date": "2025-12-21",
+      "predicted_lift": 0.13150000000000006,
+      "actual_lift": 0.0891891891891892,
+      "error": 0.04231081081081087,
+      "events": [
+        "month:December",
+        "pre_christmas"
+      ]
+    },
+    {
+      "date": "2025-12-22",
+      "predicted_lift": 0.28150000000000003,
+      "actual_lift": 0.0275,
+      "error": 0.254,
+      "events": [
+        "month:December",
+        "pre_christmas"
+      ]
+    },
+    {
+      "date": "2025-12-23",
+      "predicted_lift": 0.3,
+      "actual_lift": 0.6538969616908851,
+      "error": -0.3538969616908851,
+      "events": [
+        "month:December",
+        "pre_christmas"
+      ]
+    }
+  ]
+}

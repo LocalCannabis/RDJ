@@ -57,6 +57,19 @@ except ImportError as e:
     analyze_signals_demo = None
     BRAIN_FEATURES["signal_analysis"] = False
 
+# === SIGNAL MAGNITUDE LEARNING (numpy + scipy) ===
+try:
+    from aoc_analytics.brain.signal_magnitude import (
+        SignalMagnitudeLearner,
+        SignalImpact,
+    )
+    BRAIN_FEATURES["signal_magnitude"] = True
+except ImportError as e:
+    logger.warning(f"Signal magnitude learning unavailable: {e}")
+    SignalMagnitudeLearner = None
+    SignalImpact = None
+    BRAIN_FEATURES["signal_magnitude"] = False
+
 # === CORE BRAIN: Memory and learning (SQLite-based) ===
 try:
     from aoc_analytics.brain.memory import BrainMemory, MemoryEntry, Hypothesis
@@ -129,6 +142,9 @@ __all__ = [
 
 if SignalAnalyzer is not None:
     __all__.extend(["SignalAnalyzer", "SignalSnapshot", "analyze_signals_demo"])
+
+if SignalMagnitudeLearner is not None:
+    __all__.extend(["SignalMagnitudeLearner", "SignalImpact"])
 
 if BrainMemory is not None:
     __all__.extend(["BrainMemory", "MemoryEntry", "Hypothesis", "KnowledgeLearner", "HypothesisEngine"])

@@ -1,0 +1,400 @@
+{
+  "generated": "2025-12-27 00:36:49.201736",
+  "locations": [
+    "Kingsway",
+    "Parksville",
+    "Victoria Drive"
+  ],
+  "profiles": {
+    "Kingsway": {
+      "avg_daily_units": 240.13259668508286,
+      "avg_daily_revenue": 5869.377817679558,
+      "top_categories": [
+        [
+          "Pre-Rolls",
+          0.28647846493649914
+        ],
+        [
+          "Dried Flower",
+          0.1630199705503405
+        ],
+        [
+          "Beverages",
+          0.11143705135284374
+        ],
+        [
+          "Distillate Gummies/Chews",
+          0.09297349530646051
+        ],
+        [
+          "Rosin & Resin Gummies/Chews",
+          0.055344653046199156
+        ]
+      ],
+      "peak_hours": [
+        13,
+        18,
+        17,
+        16,
+        19
+      ],
+      "busiest_day": "Friday",
+      "slowest_day": "Tuesday"
+    },
+    "Parksville": {
+      "avg_daily_units": 184.05524861878453,
+      "avg_daily_revenue": 4267.173287292818,
+      "top_categories": [
+        [
+          "Pre-Rolls",
+          0.28064777570991173
+        ],
+        [
+          "Dried Flower",
+          0.14097676652458427
+        ],
+        [
+          "Distillate Gummies/Chews",
+          0.11505673290508495
+        ],
+        [
+          "Beverages",
+          0.09956774929459086
+        ],
+        [
+          "Rosin & Resin Gummies/Chews",
+          0.04025334694122591
+        ]
+      ],
+      "peak_hours": [
+        16,
+        15,
+        17,
+        14,
+        13
+      ],
+      "busiest_day": "Friday",
+      "slowest_day": "Sunday"
+    },
+    "Victoria Drive": {
+      "avg_daily_units": 0.0,
+      "avg_daily_revenue": 0.0,
+      "top_categories": [],
+      "peak_hours": [],
+      "busiest_day": "Unknown",
+      "slowest_day": "Unknown"
+    }
+  },
+  "analysis": {
+    "universal_patterns": [
+      {
+        "type": "busiest_day",
+        "description": "All stores busiest on Friday",
+        "confidence": 1.0
+      }
+    ],
+    "location_specific": [
+      {
+        "type": "category_mix",
+        "category": "Resin",
+        "description": "Resin varies: Kingsway (0.7%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Resin at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Rosin & Resin Gummies/Chews",
+        "description": "Rosin & Resin Gummies/Chews varies: Kingsway (5.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Rosin & Resin Gummies/Chews at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Bath Products",
+        "description": "Bath Products varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Bath Products at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Dab Tools",
+        "description": "Dab Tools varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Dab Tools at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Distillate Gummies/Chews",
+        "description": "Distillate Gummies/Chews varies: Parksville (11.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Distillate Gummies/Chews at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Pre-roll Sativa",
+        "description": "Pre-roll Sativa varies: Parksville (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Pre-roll Sativa at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Pre-roll Indica",
+        "description": "Pre-roll Indica varies: Parksville (0.1%) vs Kingsway (0.0%)",
+        "action": "Stock more Pre-roll Indica at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Other Concentrates",
+        "description": "Other Concentrates varies: Parksville (0.3%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Other Concentrates at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Grinders",
+        "description": "Grinders varies: Parksville (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Grinders at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Blunts",
+        "description": "Blunts varies: Parksville (1.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Blunts at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Disposable Vapes",
+        "description": "Disposable Vapes varies: Parksville (3.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Disposable Vapes at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Extracts - Inhaled",
+        "description": "Extracts - Inhaled varies: Parksville (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Extracts - Inhaled at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Incense & Candles",
+        "description": "Incense & Candles varies: Kingsway (0.3%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Incense & Candles at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Pre-Rolls",
+        "description": "Pre-Rolls varies: Kingsway (28.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Pre-Rolls at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Seeds",
+        "description": "Seeds varies: Parksville (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Seeds at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Flower Indica",
+        "description": "Flower Indica varies: Parksville (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Flower Indica at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Lighters",
+        "description": "Lighters varies: Parksville (1.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Lighters at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Cleaning Supplies",
+        "description": "Cleaning Supplies varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Cleaning Supplies at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Lotions & Balms",
+        "description": "Lotions & Balms varies: Parksville (0.2%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Lotions & Balms at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Rosin Infused Pre-Rolls",
+        "description": "Rosin Infused Pre-Rolls varies: Kingsway (0.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Rosin Infused Pre-Rolls at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Vape Batteries",
+        "description": "Vape Batteries varies: Parksville (0.7%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Vape Batteries at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Beverages",
+        "description": "Beverages varies: Kingsway (11.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Beverages at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "High CBD Flower",
+        "description": "High CBD Flower varies: Kingsway (0.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more High CBD Flower at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Rolling Supplies",
+        "description": "Rolling Supplies varies: Parksville (3.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Rolling Supplies at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Capsules",
+        "description": "Capsules varies: Kingsway (0.9%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Capsules at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Diamonds",
+        "description": "Diamonds varies: Parksville (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Diamonds at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Vapourizers & E-Rigs",
+        "description": "Vapourizers & E-Rigs varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Vapourizers & E-Rigs at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Resin Vapes",
+        "description": "Resin Vapes varies: Kingsway (3.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Resin Vapes at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Liquid Diamond Vapes",
+        "description": "Liquid Diamond Vapes varies: Parksville (1.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Liquid Diamond Vapes at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Tinctures",
+        "description": "Tinctures varies: Parksville (1.2%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Tinctures at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Other Topicals",
+        "description": "Other Topicals varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Other Topicals at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Other Edibles",
+        "description": "Other Edibles varies: Kingsway (0.2%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Other Edibles at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Rosin",
+        "description": "Rosin varies: Kingsway (4.3%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Rosin at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Hash",
+        "description": "Hash varies: Parksville (1.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Hash at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Flower Sativa",
+        "description": "Flower Sativa varies: Parksville (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Flower Sativa at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Rosin Vapes",
+        "description": "Rosin Vapes varies: Kingsway (0.5%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Rosin Vapes at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Sticks & Roll-Ons",
+        "description": "Sticks & Roll-Ons varies: Kingsway (0.1%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Sticks & Roll-Ons at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Distillate Infused Pre-Rolls",
+        "description": "Distillate Infused Pre-Rolls varies: Parksville (1.4%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Distillate Infused Pre-Rolls at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Resin Infused Pre-Rolls",
+        "description": "Resin Infused Pre-Rolls varies: Kingsway (0.8%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Resin Infused Pre-Rolls at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Other Accessories",
+        "description": "Other Accessories varies: Kingsway (0.7%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Other Accessories at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Shatter",
+        "description": "Shatter varies: Parksville (0.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Shatter at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Distillate Vapes",
+        "description": "Distillate Vapes varies: Parksville (3.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Distillate Vapes at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Chocolate",
+        "description": "Chocolate varies: Parksville (1.4%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Chocolate at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Diamond Infused Pre-Rolls",
+        "description": "Diamond Infused Pre-Rolls varies: Parksville (2.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Diamond Infused Pre-Rolls at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Pre-roll Hybrid",
+        "description": "Pre-roll Hybrid varies: Parksville (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Pre-roll Hybrid at Parksville"
+      },
+      {
+        "type": "category_mix",
+        "category": "Hash Infused Pre-Rolls",
+        "description": "Hash Infused Pre-Rolls varies: Kingsway (0.6%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Hash Infused Pre-Rolls at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Flower Hybrid",
+        "description": "Flower Hybrid varies: Kingsway (0.0%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Flower Hybrid at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Dried Flower",
+        "description": "Dried Flower varies: Kingsway (16.3%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Dried Flower at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Blend Vapes",
+        "description": "Blend Vapes varies: Kingsway (0.2%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Blend Vapes at Kingsway"
+      },
+      {
+        "type": "category_mix",
+        "category": "Glassware",
+        "description": "Glassware varies: Parksville (0.3%) vs Victoria Drive (0.0%)",
+        "action": "Stock more Glassware at Parksville"
+      }
+    ],
+    "recommendations": []
+  }
+}

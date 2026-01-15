@@ -1,0 +1,570 @@
+{
+  "generated": "2025-12-27 01:55:28.311066",
+  "anomalies": [
+    {
+      "date": "2025-03-21",
+      "location": "Kingsway",
+      "actual": 1406.0,
+      "expected": 340.25,
+      "deviation_pct": 313.2,
+      "deviation_sigma": 5.66,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-18",
+      "location": "Kingsway",
+      "actual": 498.0,
+      "expected": 222.57692307692307,
+      "deviation_pct": 123.7,
+      "deviation_sigma": 4.88,
+      "is_positive": true
+    },
+    {
+      "date": "2025-05-01",
+      "location": "Parksville",
+      "actual": 395.0,
+      "expected": 185.88235294117646,
+      "deviation_pct": 112.5,
+      "deviation_sigma": 4.7,
+      "is_positive": true
+    },
+    {
+      "date": "2025-04-30",
+      "location": "Kingsway",
+      "actual": 410.0,
+      "expected": 212.31372549019608,
+      "deviation_pct": 93.1,
+      "deviation_sigma": 4.57,
+      "is_positive": true
+    },
+    {
+      "date": "2025-02-03",
+      "location": "Kingsway",
+      "actual": 438.0,
+      "expected": 222.57692307692307,
+      "deviation_pct": 96.8,
+      "deviation_sigma": 3.82,
+      "is_positive": true
+    },
+    {
+      "date": "2025-12-23",
+      "location": "Kingsway",
+      "actual": 326.0,
+      "expected": 206.05769230769232,
+      "deviation_pct": 58.2,
+      "deviation_sigma": 3.63,
+      "is_positive": true
+    },
+    {
+      "date": "2025-04-20",
+      "location": "Kingsway",
+      "actual": 314.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": 42.7,
+      "deviation_sigma": 3.56,
+      "is_positive": true
+    },
+    {
+      "date": "2025-10-25",
+      "location": "Kingsway",
+      "actual": 402.0,
+      "expected": 255.19230769230768,
+      "deviation_pct": 57.5,
+      "deviation_sigma": 3.37,
+      "is_positive": true
+    },
+    {
+      "date": "2025-04-17",
+      "location": "Kingsway",
+      "actual": 338.0,
+      "expected": 223.7058823529412,
+      "deviation_pct": 51.1,
+      "deviation_sigma": 3.22,
+      "is_positive": true
+    },
+    {
+      "date": "2025-12-23",
+      "location": "Parksville",
+      "actual": 300.0,
+      "expected": 172.82692307692307,
+      "deviation_pct": 73.6,
+      "deviation_sigma": 3.19,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-28",
+      "location": "Parksville",
+      "actual": 306.0,
+      "expected": 185.88235294117646,
+      "deviation_pct": 64.6,
+      "deviation_sigma": 2.7,
+      "is_positive": true
+    },
+    {
+      "date": "2025-10-19",
+      "location": "Parksville",
+      "actual": 208.0,
+      "expected": 145.23076923076923,
+      "deviation_pct": 43.2,
+      "deviation_sigma": 2.62,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-31",
+      "location": "Parksville",
+      "actual": 207.0,
+      "expected": 145.23076923076923,
+      "deviation_pct": 42.5,
+      "deviation_sigma": 2.57,
+      "is_positive": true
+    },
+    {
+      "date": "2025-06-28",
+      "location": "Parksville",
+      "actual": 320.0,
+      "expected": 209.82692307692307,
+      "deviation_pct": 52.5,
+      "deviation_sigma": 2.57,
+      "is_positive": true
+    },
+    {
+      "date": "2025-01-08",
+      "location": "Parksville",
+      "actual": 99.0,
+      "expected": 174.11764705882354,
+      "deviation_pct": -43.1,
+      "deviation_sigma": -2.5,
+      "is_positive": false
+    },
+    {
+      "date": "2025-04-25",
+      "location": "Kingsway",
+      "actual": 787.0,
+      "expected": 340.25,
+      "deviation_pct": 131.3,
+      "deviation_sigma": 2.37,
+      "is_positive": true
+    },
+    {
+      "date": "2024-12-31",
+      "location": "Parksville",
+      "actual": 266.0,
+      "expected": 172.82692307692307,
+      "deviation_pct": 53.9,
+      "deviation_sigma": 2.33,
+      "is_positive": true
+    },
+    {
+      "date": "2024-12-31",
+      "location": "Kingsway",
+      "actual": 283.0,
+      "expected": 206.05769230769232,
+      "deviation_pct": 37.3,
+      "deviation_sigma": 2.33,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-03",
+      "location": "Parksville",
+      "actual": 201.0,
+      "expected": 145.23076923076923,
+      "deviation_pct": 38.4,
+      "deviation_sigma": 2.32,
+      "is_positive": true
+    },
+    {
+      "date": "2025-07-30",
+      "location": "Kingsway",
+      "actual": 312.0,
+      "expected": 212.31372549019608,
+      "deviation_pct": 47.0,
+      "deviation_sigma": 2.3,
+      "is_positive": true
+    },
+    {
+      "date": "2025-12-12",
+      "location": "Parksville",
+      "actual": 142.0,
+      "expected": 230.1346153846154,
+      "deviation_pct": -38.3,
+      "deviation_sigma": -2.3,
+      "is_positive": false
+    },
+    {
+      "date": "2025-10-22",
+      "location": "Parksville",
+      "actual": 243.0,
+      "expected": 174.11764705882354,
+      "deviation_pct": 39.6,
+      "deviation_sigma": 2.29,
+      "is_positive": true
+    },
+    {
+      "date": "2025-07-07",
+      "location": "Parksville",
+      "actual": 239.0,
+      "expected": 170.21153846153845,
+      "deviation_pct": 40.4,
+      "deviation_sigma": 2.28,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-04",
+      "location": "Parksville",
+      "actual": 239.0,
+      "expected": 170.21153846153845,
+      "deviation_pct": 40.4,
+      "deviation_sigma": 2.28,
+      "is_positive": true
+    },
+    {
+      "date": "2025-07-06",
+      "location": "Parksville",
+      "actual": 199.0,
+      "expected": 145.23076923076923,
+      "deviation_pct": 37.0,
+      "deviation_sigma": 2.24,
+      "is_positive": true
+    },
+    {
+      "date": "2025-11-01",
+      "location": "Kingsway",
+      "actual": 350.0,
+      "expected": 255.19230769230768,
+      "deviation_pct": 37.2,
+      "deviation_sigma": 2.18,
+      "is_positive": true
+    },
+    {
+      "date": "2025-05-15",
+      "location": "Kingsway",
+      "actual": 301.0,
+      "expected": 223.7058823529412,
+      "deviation_pct": 34.6,
+      "deviation_sigma": 2.17,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-30",
+      "location": "Parksville",
+      "actual": 302.0,
+      "expected": 209.82692307692307,
+      "deviation_pct": 43.9,
+      "deviation_sigma": 2.15,
+      "is_positive": true
+    },
+    {
+      "date": "2025-10-10",
+      "location": "Parksville",
+      "actual": 312.0,
+      "expected": 230.1346153846154,
+      "deviation_pct": 35.6,
+      "deviation_sigma": 2.14,
+      "is_positive": true
+    },
+    {
+      "date": "2025-10-19",
+      "location": "Kingsway",
+      "actual": 276.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": 25.5,
+      "deviation_sigma": 2.12,
+      "is_positive": true
+    },
+    {
+      "date": "2025-07-04",
+      "location": "Parksville",
+      "actual": 311.0,
+      "expected": 230.1346153846154,
+      "deviation_pct": 35.1,
+      "deviation_sigma": 2.11,
+      "is_positive": true
+    },
+    {
+      "date": "2025-07-28",
+      "location": "Parksville",
+      "actual": 233.0,
+      "expected": 170.21153846153845,
+      "deviation_pct": 36.9,
+      "deviation_sigma": 2.08,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-23",
+      "location": "Kingsway",
+      "actual": 345.0,
+      "expected": 255.19230769230768,
+      "deviation_pct": 35.2,
+      "deviation_sigma": 2.06,
+      "is_positive": true
+    },
+    {
+      "date": "2025-04-06",
+      "location": "Parksville",
+      "actual": 96.0,
+      "expected": 145.23076923076923,
+      "deviation_pct": -33.9,
+      "deviation_sigma": -2.05,
+      "is_positive": false
+    },
+    {
+      "date": "2025-03-30",
+      "location": "Kingsway",
+      "actual": 166.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": -24.5,
+      "deviation_sigma": -2.04,
+      "is_positive": false
+    },
+    {
+      "date": "2025-05-17",
+      "location": "Parksville",
+      "actual": 297.0,
+      "expected": 209.82692307692307,
+      "deviation_pct": 41.5,
+      "deviation_sigma": 2.03,
+      "is_positive": true
+    },
+    {
+      "date": "2025-03-05",
+      "location": "Parksville",
+      "actual": 235.0,
+      "expected": 174.11764705882354,
+      "deviation_pct": 35.0,
+      "deviation_sigma": 2.02,
+      "is_positive": true
+    },
+    {
+      "date": "2025-09-04",
+      "location": "Kingsway",
+      "actual": 152.0,
+      "expected": 223.7058823529412,
+      "deviation_pct": -32.1,
+      "deviation_sigma": -2.02,
+      "is_positive": false
+    },
+    {
+      "date": "2025-06-29",
+      "location": "Kingsway",
+      "actual": 272.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": 23.6,
+      "deviation_sigma": 1.97,
+      "is_positive": true
+    },
+    {
+      "date": "2025-01-18",
+      "location": "Parksville",
+      "actual": 126.0,
+      "expected": 209.82692307692307,
+      "deviation_pct": -40.0,
+      "deviation_sigma": -1.95,
+      "is_positive": false
+    },
+    {
+      "date": "2025-11-05",
+      "location": "Parksville",
+      "actual": 116.0,
+      "expected": 174.11764705882354,
+      "deviation_pct": -33.4,
+      "deviation_sigma": -1.93,
+      "is_positive": false
+    },
+    {
+      "date": "2025-12-10",
+      "location": "Parksville",
+      "actual": 116.0,
+      "expected": 174.11764705882354,
+      "deviation_pct": -33.4,
+      "deviation_sigma": -1.93,
+      "is_positive": false
+    },
+    {
+      "date": "2025-07-11",
+      "location": "Kingsway",
+      "actual": 700.0,
+      "expected": 340.25,
+      "deviation_pct": 105.7,
+      "deviation_sigma": 1.91,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-12",
+      "location": "Parksville",
+      "actual": 249.0,
+      "expected": 172.82692307692307,
+      "deviation_pct": 44.1,
+      "deviation_sigma": 1.91,
+      "is_positive": true
+    },
+    {
+      "date": "2025-08-31",
+      "location": "Kingsway",
+      "actual": 170.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": -22.7,
+      "deviation_sigma": -1.89,
+      "is_positive": false
+    },
+    {
+      "date": "2025-10-17",
+      "location": "Parksville",
+      "actual": 301.0,
+      "expected": 230.1346153846154,
+      "deviation_pct": 30.8,
+      "deviation_sigma": 1.85,
+      "is_positive": true
+    },
+    {
+      "date": "2025-04-06",
+      "location": "Kingsway",
+      "actual": 172.0,
+      "expected": 219.98076923076923,
+      "deviation_pct": -21.8,
+      "deviation_sigma": -1.82,
+      "is_positive": false
+    },
+    {
+      "date": "2025-10-11",
+      "location": "Kingsway",
+      "actual": 334.0,
+      "expected": 255.19230769230768,
+      "deviation_pct": 30.9,
+      "deviation_sigma": 1.81,
+      "is_positive": true
+    },
+    {
+      "date": "2025-10-23",
+      "location": "Parksville",
+      "actual": 265.0,
+      "expected": 185.88235294117646,
+      "deviation_pct": 42.6,
+      "deviation_sigma": 1.78,
+      "is_positive": true
+    },
+    {
+      "date": "2025-11-24",
+      "location": "Parksville",
+      "actual": 117.0,
+      "expected": 170.21153846153845,
+      "deviation_pct": -31.3,
+      "deviation_sigma": -1.76,
+      "is_positive": false
+    }
+  ],
+  "correlations": [
+    {
+      "event_type": "cruise_ships",
+      "avg_impact_pct": 36.0,
+      "sample_size": 39,
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "event_type": "academic",
+      "avg_impact_pct": 29.7,
+      "sample_size": 17,
+      "p_value": 0.0068,
+      "significant": true
+    },
+    {
+      "event_type": "canucks_home_game",
+      "avg_impact_pct": 21.8,
+      "sample_size": 8,
+      "p_value": 0.1417,
+      "significant": false
+    },
+    {
+      "event_type": "nfl",
+      "avg_impact_pct": 14.5,
+      "sample_size": 10,
+      "p_value": 0.3121,
+      "significant": false
+    }
+  ],
+  "explained_anomalies": [
+    {
+      "anomaly": "\ud83d\udcc8 2025-08-18 @ Kingsway: 498 units (+123.7%, 4.9\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.7"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-05-01 @ Parksville: 395 units (+112.5%, 4.7\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.6"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-02-03 @ Kingsway: 438 units (+96.8%, 3.8\u03c3)",
+      "reasons": [
+        "[signal] nfl:monday_night"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-04-20 @ Kingsway: 314 units (+42.7%, 3.6\u03c3)",
+      "reasons": [
+        "[signal] academic:spring_finals"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-10-25 @ Kingsway: 402 units (+57.5%, 3.4\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.4",
+        "[signal] canucks_home_game",
+        "[signal] academic:midterms"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-04-17 @ Kingsway: 338 units (+51.1%, 3.2\u03c3)",
+      "reasons": [
+        "[signal] academic:spring_finals"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-08-28 @ Parksville: 306 units (+64.6%, 2.7\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.8"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-10-19 @ Parksville: 208 units (+43.2%, 2.6\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.4",
+        "[signal] nfl:sunday_football",
+        "[signal] academic:midterms"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-08-31 @ Parksville: 207 units (+42.5%, 2.6\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.9"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-06-28 @ Parksville: 320 units (+52.5%, 2.6\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.9",
+        "[signal] canucks_home_game"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-04-25 @ Kingsway: 787 units (+131.3%, 2.4\u03c3)",
+      "reasons": [
+        "[signal] academic:spring_finals"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-08-03 @ Parksville: 201 units (+38.4%, 2.3\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.9"
+      ]
+    },
+    {
+      "anomaly": "\ud83d\udcc8 2025-07-30 @ Kingsway: 312 units (+47.0%, 2.3\u03c3)",
+      "reasons": [
+        "[signal] cruise_ships:0.7"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "generated": "2025-12-27 01:55:27.052115",
+  "location": "all",
+  "signals": {
+    "cruise": {
+      "signal_name": "Cruise Ship Day",
+      "signal_type": "cruise",
+      "lift": 0.0576,
+      "lift_pct": "+5.8%",
+      "std_dev": 0.1483,
+      "p_value": 0.0001,
+      "confidence": 1.0,
+      "sample_size": 136,
+      "predictor_weight": 1.7,
+      "actionable": true
+    },
+    "nhl": {
+      "signal_name": "Canucks Home Game",
+      "signal_type": "sports",
+      "lift": 0.0152,
+      "lift_pct": "+1.5%",
+      "std_dev": 0.1609,
+      "p_value": 0.1794,
+      "confidence": 0.82,
+      "sample_size": 115,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "nfl": {
+      "signal_name": "NFL Sunday",
+      "signal_type": "sports",
+      "lift": -0.0216,
+      "lift_pct": "-2.2%",
+      "std_dev": 0.0987,
+      "p_value": 0.3067,
+      "confidence": 0.69,
+      "sample_size": 25,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "mls": {
+      "signal_name": "Whitecaps Home Game",
+      "signal_type": "sports",
+      "lift": 0.0709,
+      "lift_pct": "+7.1%",
+      "std_dev": 0.2642,
+      "p_value": 0.0441,
+      "confidence": 0.96,
+      "sample_size": 105,
+      "predictor_weight": 2.0,
+      "actionable": true
+    },
+    "cfl": {
+      "signal_name": "BC Lions Home Game",
+      "signal_type": "sports",
+      "lift": 0.0605,
+      "lift_pct": "+6.1%",
+      "std_dev": 0.162,
+      "p_value": 0.6176,
+      "confidence": 0.5,
+      "sample_size": 78,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "finals": {
+      "signal_name": "Academic Finals",
+      "signal_type": "academic",
+      "lift": 0.0307,
+      "lift_pct": "+3.1%",
+      "std_dev": 0.2164,
+      "p_value": 0.7951,
+      "confidence": 0.5,
+      "sample_size": 32,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "reading_break": {
+      "signal_name": "Academic Reading Break",
+      "signal_type": "academic",
+      "lift": -0.0126,
+      "lift_pct": "-1.3%",
+      "std_dev": 0.1489,
+      "p_value": 0.6036,
+      "confidence": 0.5,
+      "sample_size": 9,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "move_in": {
+      "signal_name": "Academic Move In",
+      "signal_type": "academic",
+      "lift": -0.0643,
+      "lift_pct": "-6.4%",
+      "std_dev": 0.1146,
+      "p_value": 0.0722,
+      "confidence": 0.93,
+      "sample_size": 17,
+      "predictor_weight": 1.8,
+      "actionable": true
+    },
+    "rain_streak": {
+      "signal_name": "Rain Streak",
+      "signal_type": "weather",
+      "lift": 0.0064,
+      "lift_pct": "+0.6%",
+      "std_dev": 0.2909,
+      "p_value": 0.4514,
+      "confidence": 0.55,
+      "sample_size": 72,
+      "predictor_weight": 0.0,
+      "actionable": false
+    },
+    "first_nice_day": {
+      "signal_name": "First Nice Day",
+      "signal_type": "weather",
+      "lift": 0.0118,
+      "lift_pct": "+1.2%",
+      "std_dev": 0.1843,
+      "p_value": 0.69,
+      "confidence": 0.5,
+      "sample_size": 22,
+      "predictor_weight": 0.0,
+      "actionable": false
+    }
+  }
+}

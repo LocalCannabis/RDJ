@@ -1,0 +1,241 @@
+{
+  "scanned_at": "2025-12-27 00:40:30.500496",
+  "subreddits": [
+    "vancouver",
+    "britishcolumbia",
+    "VancouverEvents",
+    "VancouverConcerts"
+  ],
+  "events": [
+    {
+      "title": "Greenhouse light over Metro Vancouver (long exposure, film)",
+      "type": "concert",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pvqpkm/greenhouse_light_over_metro_vancouver_long/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 1050,
+      "num_comments": 74,
+      "keywords": [
+        "show"
+      ],
+      "summary": "I set up my old Nikon FE2 film camera for some long-exposure night shots from my balcony and was curious to see how this greenhouse light would turn out. To the naked eye it was just a small pink stre"
+    },
+    {
+      "title": "Americans with Questions on BC Travel - Read This Thread",
+      "type": "concert",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1jb7th1/americans_with_questions_on_bc_travel_read_this/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 451,
+      "num_comments": 96,
+      "keywords": [
+        "show",
+        "tour"
+      ],
+      "summary": "Hello American friends!\n\n*This is a thread for all your travel questions. We will be removing any threads created by Americans with travel questions that are not posted here.*\n\nAs mods and readers of "
+    },
+    {
+      "title": "Hallmark movies bring more to B.C. than just film work. They impact the broader economy, too | Jobs, tourism and other spending related to filming boosts communities, province says",
+      "type": "concert",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1pw9m4p/hallmark_movies_bring_more_to_bc_than_just_film/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 249,
+      "num_comments": 45,
+      "keywords": [
+        "tour"
+      ],
+      "summary": "Hallmark movies bring more to B.C. than just film work. They impact the broader economy, too | Jobs, tourism and other spending related to filming boosts communities, province says"
+    },
+    {
+      "title": "snowy view and some friends",
+      "type": "weather",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pwk5xs/snowy_view_and_some_friends/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 177,
+      "num_comments": 12,
+      "keywords": [
+        "snow"
+      ],
+      "summary": "snowy view and some friends"
+    },
+    {
+      "title": "North Island\u2013Powell River MP Aaron Gunn declines B.C. Conservative leadership run",
+      "type": "sports",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1puuotf/north_islandpowell_river_mp_aaron_gunn_declines/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 138,
+      "num_comments": 108,
+      "keywords": [
+        "run"
+      ],
+      "summary": "North Island\u2013Powell River MP Aaron Gunn declines B.C. Conservative leadership run"
+    },
+    {
+      "title": "Tsawwassen Mills Traffic",
+      "type": "road_closure",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pwlwb0/tsawwassen_mills_traffic/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 117,
+      "num_comments": 37,
+      "keywords": [
+        "traffic"
+      ],
+      "summary": "Not sure what\u2019s going on but been sitting ducks for the past 2.25hrs trying to exit. \n\nAbsolute mess. I know it\u2019s boxing day but I\u2019ve been coming here for years and this is a first. Anyone happen to h"
+    },
+    {
+      "title": "The 2025 /r/Vancouver Shop-Local Business Holiday Guide",
+      "type": "community",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1ow2a3u/the_2025_rvancouver_shoplocal_business_holiday/",
+      "detected_date": "2025-12-27",
+      "event_date": "2026-01-02",
+      "location": "Downtown",
+      "score": 85,
+      "num_comments": 10,
+      "keywords": [
+        "market",
+        "event",
+        "free",
+        "beach"
+      ],
+      "summary": "Hey party people!\n\nWe're back for the newest iteration of the Shop Local Holiday Guide for people looking for gift ideas for the holiday season!\n\n* [2020 Shop Local Holiday List](https://www.reddit.co"
+    },
+    {
+      "title": "Looking Back on 2025: Thank You, r/vancouver",
+      "type": "concert",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pv08pe/looking_back_on_2025_thank_you_rvancouver/",
+      "detected_date": "2025-12-27",
+      "event_date": "2025-12-27",
+      "location": "Downtown",
+      "score": 64,
+      "num_comments": 8,
+      "keywords": [
+        "show"
+      ],
+      "summary": "Hey you crazy kids,\n\nAs we close out 2025, the mod team wanted to take a moment to say thank you. This subreddit is what it is because of all of you; your posts, your comments, and your ~~complaining~"
+    },
+    {
+      "title": "Coquihalla highway conditions",
+      "type": "weather",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1pwicxr/coquihalla_highway_conditions/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 19,
+      "num_comments": 54,
+      "keywords": [
+        "snow"
+      ],
+      "summary": "Is it safe for a FWD sedan with snow tires to drive through the Coquihalla highway? I saw some webcams on DriveBC and there are parts with tons of snow on the road\u2026 "
+    },
+    {
+      "title": "Charting the delays: Current flight disruptions at Canada's major airports",
+      "type": "transit",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pwkirg/charting_the_delays_current_flight_disruptions_at/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 17,
+      "num_comments": 2,
+      "keywords": [
+        "delay",
+        "disruption"
+      ],
+      "summary": "Congrats to YVR for its efficiency in reducing the cancellations over Christmas (compared to Toronto and Montreal, who fared FAR worse)!"
+    },
+    {
+      "title": "Dashcam footage request Dec 24th at 8:30 pm",
+      "type": "sports",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1pvl6vo/dashcam_footage_request_dec_24th_at_830_pm/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": "Burnaby",
+      "score": 13,
+      "num_comments": 1,
+      "keywords": [
+        "run"
+      ],
+      "summary": "Hi everyone,\n\nWe were involved in a hit\u2011and\u2011run on Highway 1, Burnaby\u2011bound, just after the Grandview Hwy exit at around 8:30 PM on December 24.\n\nThere were three vehicles involved. One of them \u2014 poss"
+    },
+    {
+      "title": "Glasses on the expo line",
+      "type": "festival",
+      "source": "r/vancouver",
+      "url": "https://reddit.com/r/vancouver/comments/1pwfcbx/glasses_on_the_expo_line/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": null,
+      "score": 8,
+      "num_comments": 2,
+      "keywords": [
+        "expo"
+      ],
+      "summary": "If they're yours, you can find them at lost and found."
+    },
+    {
+      "title": "Places to stay East BC?",
+      "type": "community",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1pvvatq/places_to_stay_east_bc/",
+      "detected_date": "2025-12-27",
+      "event_date": null,
+      "location": "Downtown",
+      "score": 3,
+      "num_comments": 32,
+      "keywords": [
+        "market"
+      ],
+      "summary": "I have no real specific time frame I have been staying on the island and before that was in Squamish for a while.\n\nBut I'd like to go to East BC, I've heard good things about Nelson , golden  and Vern"
+    },
+    {
+      "title": "Weeknd Concert Vancouver",
+      "type": "concert",
+      "source": "r/VancouverConcerts",
+      "url": "https://reddit.com/r/VancouverConcerts/comments/1ln6vgj/weeknd_concert_vancouver/",
+      "detected_date": "2025-12-27",
+      "event_date": "2025-12-31",
+      "location": null,
+      "score": 1,
+      "num_comments": 3,
+      "keywords": [
+        "concert"
+      ],
+      "summary": "Hey Im 24M, anyone up for Weeknd Wednesday Concert? Dm me.."
+    },
+    {
+      "title": "Small beach bonfire",
+      "type": "community",
+      "source": "r/britishcolumbia",
+      "url": "https://reddit.com/r/britishcolumbia/comments/1pvxfpd/small_beach_bonfire/",
+      "detected_date": "2025-12-27",
+      "event_date": "2026-01-03",
+      "location": null,
+      "score": 0,
+      "num_comments": 27,
+      "keywords": [
+        "beach"
+      ],
+      "summary": "Hey guys I\u2019m going to sechelt this weekend and was thinking to have a small bonfire possibly on the , is it allowed or will the cops come to shut me down ? It\u2019s just going to be me and my girlfriend s"
+    }
+  ]
+}

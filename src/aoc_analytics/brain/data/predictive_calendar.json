@@ -1,0 +1,277 @@
+{
+  "generated": "2025-12-27 01:55:28.313626",
+  "days_ahead": 14,
+  "forecasts": [
+    {
+      "date": "2025-12-27",
+      "day_name": "Saturday",
+      "combined_lift_pct": 13.9,
+      "baseline_multiplier": 1.14,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "Game day: pre-rolls, beverages, quick purchases"
+      ],
+      "events": [
+        {
+          "name": "Canucks Home Game (prob: 35%)",
+          "type": "canucks_home",
+          "lift_pct": 7.7,
+          "confidence": 0.3
+        },
+        {
+          "name": "Looking Back on 2025: Thank You, r/vancouver",
+          "type": "reddit_concert",
+          "lift_pct": 10.0,
+          "confidence": 0.13
+        }
+      ]
+    },
+    {
+      "date": "2025-12-28",
+      "day_name": "Sunday",
+      "combined_lift_pct": 15.0,
+      "baseline_multiplier": 1.15,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "NFL: Sunday Football",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2025-12-29",
+      "day_name": "Monday",
+      "combined_lift_pct": 15.0,
+      "baseline_multiplier": 1.15,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "NFL: Monday Night",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2025-12-30",
+      "day_name": "Tuesday",
+      "combined_lift_pct": 5.5,
+      "baseline_multiplier": 1.05,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "Game day: pre-rolls, beverages, quick purchases"
+      ],
+      "events": [
+        {
+          "name": "Canucks Home Game (prob: 25%)",
+          "type": "canucks_home",
+          "lift_pct": 5.5,
+          "confidence": 0.21
+        }
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "day_name": "Wednesday",
+      "combined_lift_pct": 23.0,
+      "baseline_multiplier": 1.23,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "stocking_notes": [
+        "\ud83d\udce6 Pre-holiday stock-up rush expected"
+      ],
+      "events": [
+        {
+          "name": "\ud83d\udcc5 Day Before New Year's Day",
+          "type": "pre_holiday",
+          "lift_pct": 18.0,
+          "confidence": 0.85
+        },
+        {
+          "name": "Weeknd Concert Vancouver",
+          "type": "reddit_concert",
+          "lift_pct": 10.0,
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "date": "2026-01-01",
+      "day_name": "Thursday",
+      "combined_lift_pct": 35.2,
+      "baseline_multiplier": 1.35,
+      "staffing": "\ud83d\udd34 FULL STAFF - Major event day",
+      "stocking_notes": [
+        "\ud83c\udf89 NYE/NYD: party packs, edibles, beverages, pre-rolls",
+        "Game day: pre-rolls, beverages, quick purchases",
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "\ud83c\udf89 New Year's Day",
+          "type": "statutory_holiday",
+          "lift_pct": 25.0,
+          "confidence": 0.9
+        },
+        {
+          "name": "Canucks Home Game (prob: 25%)",
+          "type": "canucks_home",
+          "lift_pct": 5.5,
+          "confidence": 0.21
+        },
+        {
+          "name": "NFL: Thursday Night",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2026-01-02",
+      "day_name": "Friday",
+      "combined_lift_pct": 15.0,
+      "baseline_multiplier": 1.15,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "stocking_notes": [],
+      "events": [
+        {
+          "name": "The 2025 /r/Vancouver Shop-Local Business Holiday ",
+          "type": "reddit_community",
+          "lift_pct": 5.0,
+          "confidence": 0.17
+        }
+      ]
+    },
+    {
+      "date": "2026-01-03",
+      "day_name": "Saturday",
+      "combined_lift_pct": 10.2,
+      "baseline_multiplier": 1.1,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "Game day: pre-rolls, beverages, quick purchases"
+      ],
+      "events": [
+        {
+          "name": "Canucks Home Game (prob: 35%)",
+          "type": "canucks_home",
+          "lift_pct": 7.7,
+          "confidence": 0.3
+        },
+        {
+          "name": "Small beach bonfire",
+          "type": "reddit_community",
+          "lift_pct": 5.0,
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "date": "2026-01-04",
+      "day_name": "Sunday",
+      "combined_lift_pct": 15.0,
+      "baseline_multiplier": 1.15,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "NFL: Sunday Football",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2026-01-05",
+      "day_name": "Monday",
+      "combined_lift_pct": 15.0,
+      "baseline_multiplier": 1.15,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "NFL: Monday Night",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2026-01-06",
+      "day_name": "Tuesday",
+      "combined_lift_pct": 5.5,
+      "baseline_multiplier": 1.05,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [
+        "Game day: pre-rolls, beverages, quick purchases"
+      ],
+      "events": [
+        {
+          "name": "Canucks Home Game (prob: 25%)",
+          "type": "canucks_home",
+          "lift_pct": 5.5,
+          "confidence": 0.21
+        }
+      ]
+    },
+    {
+      "date": "2026-01-07",
+      "day_name": "Wednesday",
+      "combined_lift_pct": 0.0,
+      "baseline_multiplier": 1.0,
+      "staffing": "\ud83d\udfe2 Normal staffing",
+      "stocking_notes": [],
+      "events": []
+    },
+    {
+      "date": "2026-01-08",
+      "day_name": "Thursday",
+      "combined_lift_pct": 17.8,
+      "baseline_multiplier": 1.18,
+      "staffing": "\ud83d\udfe0 Extra staff recommended",
+      "stocking_notes": [
+        "Game day: pre-rolls, beverages, quick purchases",
+        "NFL Sunday: expect evening lull during games"
+      ],
+      "events": [
+        {
+          "name": "Canucks Home Game (prob: 25%)",
+          "type": "canucks_home",
+          "lift_pct": 5.5,
+          "confidence": 0.21
+        },
+        {
+          "name": "NFL: Thursday Night",
+          "type": "nfl_sunday",
+          "lift_pct": 15.0,
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "date": "2026-01-09",
+      "day_name": "Friday",
+      "combined_lift_pct": 10.0,
+      "baseline_multiplier": 1.1,
+      "staffing": "\ud83d\udfe1 Normal+ (add 1 if possible)",
+      "stocking_notes": [],
+      "events": []
+    }
+  ]
+}
