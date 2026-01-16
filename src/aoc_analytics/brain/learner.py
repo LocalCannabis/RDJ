@@ -17,9 +17,9 @@ import hashlib
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
-import requests
 
 from aoc_analytics.brain.memory import BrainMemory, MemoryEntry
+from aoc_analytics.brain.llm_provider import LLMProvider, get_llm_provider
 
 
 @dataclass
@@ -159,9 +159,9 @@ class KnowledgeLearner:
     4. METRICS - What to measure and target values
     """
     
-    def __init__(self, memory: BrainMemory, ollama_url: str = "http://localhost:11434"):
+    def __init__(self, memory: BrainMemory, llm_provider: LLMProvider = None):
         self.memory = memory
-        self.ollama_url = ollama_url
+        self.llm = llm_provider or get_llm_provider()
     
     def bootstrap_fundamentals(self):
         """Load built-in retail knowledge into memory."""
@@ -301,22 +301,17 @@ CONDITIONS: [when this applies]
 TESTABLE_PREDICTION: [a specific, measurable prediction]
 """
         
-        response = requests.post(
-            f"{self.ollama_url}/api/generate",
-            json={
-                "model": "llama3.2",
-                "prompt": prompt,
-                "stream": False,
-                "options": {"temperature": 0.2}
-            },
-            timeout=30
-        )
-        
-        if response.status_code != 200:
-            print(f"LLM error: {response.status_code}")
+        if not self.llm.is_available:
+            print("LLM not available - skipping observation learning")
             return
         
-        result = response.json()['response']
+        response = self.llm.generate(prompt, temperature=0.2)
+        
+        if not response.success:
+            print(f"LLM error: {response.error}")
+            return
+        
+        result = response.text
         
         # Parse response
         parsed = self._parse_llm_principle(result)

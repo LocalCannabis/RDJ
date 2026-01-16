@@ -20,7 +20,6 @@ from datetime import datetime, timedelta
 from typing import Optional, Callable
 from pathlib import Path
 import threading
-import requests
 
 from aoc_analytics.core.db_adapter import get_connection
 from aoc_analytics.brain.memory import BrainMemory, MemoryEntry, Hypothesis
@@ -74,19 +73,20 @@ class BrainAgent:
     def __init__(self, 
                  sales_db: str = "aoc_sales.db",
                  brain_db: str = "brain_memory.db",
-                 ollama_url: str = "http://localhost:11434"):
+                 llm_provider = None):
+        from aoc_analytics.brain.llm_provider import get_llm_provider
         
         self.sales_db = Path(sales_db)
         self.brain_db = Path(brain_db)
-        self.ollama_url = ollama_url
+        self.llm = llm_provider or get_llm_provider()
         
         # Initialize components
         self.memory = BrainMemory(str(self.brain_db))
-        self.learner = KnowledgeLearner(self.memory, ollama_url)
+        self.learner = KnowledgeLearner(self.memory, self.llm)
         self.hypothesis_engine = HypothesisEngine(
             self.memory, 
             str(self.sales_db),
-            ollama_url
+            self.llm
         )
         
         self.state = BrainState()
@@ -362,19 +362,13 @@ QUESTION: {question}
 Answer concisely and specifically. If the answer requires data you don't have, say so.
 """
         
-        response = requests.post(
-            f"{self.ollama_url}/api/generate",
-            json={
-                "model": "llama3.2",
-                "prompt": prompt,
-                "stream": False,
-                "options": {"temperature": 0.3}
-            },
-            timeout=30
-        )
+        if not self.llm.is_available:
+            return "LLM not available - cannot answer questions."
         
-        if response.status_code == 200:
-            return response.json()['response']
+        response = self.llm.generate(prompt, temperature=0.3)
+        
+        if response.success:
+            return response.text
         return "I couldn't process that question right now."
     
     def run_forever(self, cycle_interval_minutes: int = 60):

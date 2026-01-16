@@ -1,7 +1,7 @@
 """
 LLM Synthesis for Brain Insights
 
-Uses Ollama (local LLM) to generate natural language summaries
+Uses LLM (OpenAI or Ollama) to generate natural language summaries
 of what the brain has learned, turning statistical findings into
 actionable human-readable insights.
 
@@ -12,11 +12,12 @@ Examples:
 """
 
 import json
-import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+from aoc_analytics.brain.llm_provider import LLMProvider, get_llm_provider
 
 
 @dataclass
@@ -32,18 +33,15 @@ class BrainInsight:
 
 class LLMSynthesizer:
     """
-    Generates natural language summaries using Ollama.
-    Falls back to template-based generation if Ollama unavailable.
+    Generates natural language summaries using LLM (OpenAI or Ollama).
+    Falls back to template-based generation if no LLM available.
     """
     
-    # Default Ollama model - use smaller models for speed
-    DEFAULT_MODEL = "llama3.2:3b"  # Fast, good for summaries
-    FALLBACK_MODELS = ["llama3.2:1b", "phi3", "mistral", "llama2"]
-    
     def __init__(self, model: str = None):
-        self.model = model or self.DEFAULT_MODEL
+        self.llm = LLMProvider(model=model) if model else get_llm_provider()
+        self.model = self.llm.model
+        self.ollama_available = self.llm.is_available  # Backwards compat
         self.brain_dir = Path(__file__).parent / "data"
-        self.ollama_available = self._check_ollama()
         
         # Load all brain data
         self.signal_magnitudes = self._load_json("learned_signal_magnitudes.json")
@@ -62,45 +60,17 @@ class LLMSynthesizer:
                 return json.load(f)
         return {}
     
-    def _check_ollama(self) -> bool:
-        """Check if Ollama is available and running."""
-        try:
-            result = subprocess.run(
-                ["ollama", "list"],
-                capture_output=True,
-                text=True,
-                timeout=5,
-            )
-            return result.returncode == 0
-        except (subprocess.SubprocessError, FileNotFoundError):
-            return False
-    
-    def _call_ollama(self, prompt: str, system: str = None) -> Optional[str]:
-        """Call Ollama with a prompt."""
-        if not self.ollama_available:
+    def _call_llm(self, prompt: str, system: str = None) -> Optional[str]:
+        """Call LLM with a prompt (OpenAI or Ollama)."""
+        if not self.llm.is_available:
             return None
         
-        try:
-            cmd = ["ollama", "run", self.model]
-            
-            full_prompt = prompt
-            if system:
-                full_prompt = f"System: {system}\n\nUser: {prompt}"
-            
-            result = subprocess.run(
-                cmd,
-                input=full_prompt,
-                capture_output=True,
-                text=True,
-                timeout=60,
-            )
-            
-            if result.returncode == 0:
-                return result.stdout.strip()
-            return None
-            
-        except subprocess.SubprocessError:
-            return None
+        response = self.llm.generate(prompt, system=system)
+        return response.text if response.success else None
+    
+    # Backwards compatibility alias
+    def _call_ollama(self, prompt: str, system: str = None) -> Optional[str]:
+        return self._call_llm(prompt, system)
     
     def _format_signal_data(self) -> str:
         """Format signal magnitude data for the LLM."""

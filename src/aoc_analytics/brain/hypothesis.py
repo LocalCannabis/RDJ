@@ -16,7 +16,6 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Optional, Callable
-import requests
 
 from aoc_analytics.core.db_adapter import get_connection
 from aoc_analytics.brain.memory import BrainMemory, Hypothesis, MemoryEntry
@@ -46,10 +45,11 @@ class HypothesisEngine:
     
     def __init__(self, memory: BrainMemory, 
                  sales_db_path: str = "aoc_sales.db",
-                 ollama_url: str = "http://localhost:11434"):
+                 llm_provider = None):
+        from aoc_analytics.brain.llm_provider import get_llm_provider
         self.memory = memory
         self.sales_db = sales_db_path
-        self.ollama_url = ollama_url
+        self.llm = llm_provider or get_llm_provider()
     
     def generate_hypotheses_from_data(self, lookback_days: int = 90) -> list[Hypothesis]:
         """
@@ -348,19 +348,13 @@ EXPECTED IMPACT: [quantified benefit]
 REASONING: [why this works based on the hypotheses]
 """
         
-        response = requests.post(
-            f"{self.ollama_url}/api/generate",
-            json={
-                "model": "llama3.2",
-                "prompt": prompt,
-                "stream": False,
-                "options": {"temperature": 0.3}
-            },
-            timeout=30
-        )
+        if not self.llm.is_available:
+            return None
         
-        if response.status_code == 200:
-            return response.json()['response']
+        response = self.llm.generate(prompt, temperature=0.3)
+        
+        if response.success:
+            return response.text
         return None
     
     def get_hypothesis_summary(self) -> dict:
