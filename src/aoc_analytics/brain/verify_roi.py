@@ -9,10 +9,11 @@ Usage:
     python verify_roi.py
 """
 
-import sqlite3
 import json
 from pathlib import Path
 from datetime import datetime
+
+from aoc_analytics.core.db_adapter import get_connection
 
 def main():
     print("=" * 70)
@@ -34,7 +35,7 @@ def main():
         print("❌ Cannot find aoc_sales.db")
         return
     
-    conn = sqlite3.connect(str(db_path))
+    conn = get_connection(str(db_path))
     cur = conn.cursor()
     
     # Step 1: Calculate baseline

@@ -17,12 +17,14 @@ Signals we can learn magnitude for:
 - Full moons (yes, really)
 """
 
-import sqlite3
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
+import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection
 import numpy as np
 
 # Import vibe signals - handle both module and script contexts
@@ -100,8 +102,7 @@ class SignalMagnitudeLearner:
         self.vibe_engine = VibeEngine()
     
     def get_connection(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
+        conn = get_connection(self.db_path)
         return conn
     
     def _get_daily_sales(self, location: str = None, days: int = 365) -> Dict[str, Dict]:

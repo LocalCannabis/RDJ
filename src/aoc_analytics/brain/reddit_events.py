@@ -15,7 +15,6 @@ Uses Reddit's JSON API (no auth required for public subreddits).
 
 import json
 import re
-import sqlite3
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, date
 from pathlib import Path
@@ -23,6 +22,8 @@ from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 from enum import Enum
 import time
+
+from aoc_analytics.core.db_adapter import get_connection
 
 try:
     import httpx

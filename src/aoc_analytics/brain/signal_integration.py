@@ -17,13 +17,14 @@ The brain doesn't reinvent this - it:
 from __future__ import annotations
 
 import json
-import sqlite3
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Optional, Dict, List, Any, Tuple
 import logging
 
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection
 
 # Import existing signal infrastructure
 try:
@@ -135,7 +136,7 @@ class SignalAnalyzer:
     
     def get_signal_snapshot(self, target_date: date) -> SignalSnapshot:
         """Get all signals for a specific date."""
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(self.db_path)
         
         snapshot = SignalSnapshot(date=target_date)
         snapshot.day_of_week = target_date.weekday()
@@ -216,7 +217,7 @@ class SignalAnalyzer:
         
         Returns dict of signal -> correlation stats
         """
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(self.db_path)
         
         # Get daily data with signals and sales
         df_query = """
@@ -430,7 +431,7 @@ class SignalAnalyzer:
             return None
         
         # Get expected revenue (same DOW average)
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(self.db_path)
         dow = target_date.weekday()
         # SQLite weekday: 0=Sunday, but Python weekday: 0=Monday
         sqlite_dow = (dow + 1) % 7
@@ -508,13 +509,12 @@ class SignalAnalyzer:
 
 def analyze_signals_demo(db_path: str = "aoc_sales.db"):
     """Demo: Analyze which signals actually matter using raw weather + sales data."""
-    import sqlite3
     
     print("=" * 70)
     print("AOC SIGNAL ANALYSIS - Finding What Actually Matters")
     print("=" * 70)
     
-    conn = sqlite3.connect(db_path)
+    conn = get_connection(db_path)
     
     # Join weather with daily sales
     query = """

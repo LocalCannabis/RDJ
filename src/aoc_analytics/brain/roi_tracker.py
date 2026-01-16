@@ -1,5 +1,4 @@
-"""
-ROI Tracker - Calculate the dollar value of the brain's predictions.
+"""ROI Tracker - Calculate the dollar value of the brain's predictions.
 
 This module answers: "How much money did following these predictions save/make?"
 
@@ -11,12 +10,13 @@ Key metrics:
 "If I had followed these recommendations, I would have saved/made $X"
 """
 
-import sqlite3
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
+
+from aoc_analytics.core.db_adapter import get_connection
 
 
 @dataclass
@@ -198,7 +198,7 @@ class ROITracker:
         if not self.db_path.exists():
             return None
             
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(str(self.db_path))
         cursor = conn.cursor()
         
         # Get sales for the date
@@ -218,7 +218,7 @@ class ROITracker:
         if not self.db_path.exists():
             return 3500.0  # Default baseline
             
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(str(self.db_path))
         cursor = conn.cursor()
         
         # Get average sales for this day of week over last 90 days

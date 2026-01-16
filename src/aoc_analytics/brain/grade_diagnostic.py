@@ -1,5 +1,4 @@
-"""
-Grade Improvement Diagnostic
+"""Grade Improvement Diagnostic
 
 Current Grade: C ($43/day, 19% rush accuracy)
 Target Grade: A ($100+/day, 70%+ rush accuracy)
@@ -9,13 +8,14 @@ specific calibration recommendations.
 """
 
 import json
-import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection
 
 
 @dataclass

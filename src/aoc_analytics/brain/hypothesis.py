@@ -16,9 +16,9 @@ import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Optional, Callable
-import sqlite3
 import requests
 
+from aoc_analytics.core.db_adapter import get_connection
 from aoc_analytics.brain.memory import BrainMemory, Hypothesis, MemoryEntry
 
 
@@ -58,7 +58,7 @@ class HypothesisEngine:
         This is where the brain "thinks" - finding patterns and
         formulating theories about why they exist.
         """
-        conn = sqlite3.connect(self.sales_db)
+        conn = get_connection(self.sales_db)
         
         # Gather data summaries for pattern detection
         patterns = self._detect_patterns(conn, lookback_days)
@@ -76,7 +76,7 @@ class HypothesisEngine:
         
         return hypotheses
     
-    def _detect_patterns(self, conn: sqlite3.Connection, days: int) -> list[dict]:
+    def _detect_patterns(self, conn, days: int) -> list[dict]:
         """Detect statistical patterns in sales data."""
         patterns = []
         

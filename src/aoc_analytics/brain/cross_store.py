@@ -1,5 +1,4 @@
-"""
-Cross-Store Learning
+"""Cross-Store Learning
 
 Analyzes patterns across all stores to determine:
 1. Which patterns are universal (apply everywhere)
@@ -12,13 +11,14 @@ This is crucial for:
 - Staffing optimization (location-specific busy times)
 """
 
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection as db_get_connection
 
 try:
     from scipy import stats
@@ -79,8 +79,8 @@ class CrossStoreLearner:
                     break
         self.db_path = str(db_path) if db_path else None
         
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return db_get_connection(self.db_path)
     
     def get_all_locations(self) -> List[str]:
         """Get all store locations in the database."""

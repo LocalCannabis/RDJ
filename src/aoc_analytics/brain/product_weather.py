@@ -1,5 +1,4 @@
-"""
-Product-Level Weather Impact Learning
+"""Product-Level Weather Impact Learning
 
 Learns which product CATEGORIES respond differently to weather:
 - Do edibles sell better on rainy days (indoor vibe)?
@@ -9,13 +8,14 @@ Learns which product CATEGORIES respond differently to weather:
 This extends signal_magnitude.py to be product-aware.
 """
 
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection as db_get_connection
 
 # Import scipy for statistics
 try:
@@ -88,8 +88,8 @@ class ProductWeatherLearner:
                     break
         self.db_path = str(db_path) if db_path else None
         
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return db_get_connection(self.db_path)
     
     def _get_category_daily_sales(self, category: str, location: str = None, days: int = 365) -> Dict[str, Dict]:
         """Get daily sales for a specific category."""

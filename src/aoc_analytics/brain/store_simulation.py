@@ -12,7 +12,6 @@ This is the REAL test: can the brain help a manager
 make better ordering decisions?
 """
 
-import sqlite3
 import json
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, date
@@ -20,6 +19,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from collections import defaultdict
 import random
+
+from aoc_analytics.core.db_adapter import get_connection as db_get_connection
 
 
 @dataclass
@@ -127,8 +128,8 @@ class StoreSimulator:
         self.db_path = db_path
         self.brain_dir = Path(__file__).parent / "data"
         
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return db_get_connection(self.db_path)
     
     def _get_sku_baselines(self, start_date: date) -> Dict[str, SKUState]:
         """Calculate baseline sales velocity for each SKU."""

@@ -18,11 +18,12 @@ import sys
 import time
 import json
 import logging
-import sqlite3
 from datetime import datetime, date, timedelta
 from pathlib import Path
 from typing import Optional
 import signal
+
+from aoc_analytics.core.db_adapter import get_connection
 
 # Setup logging
 logging.basicConfig(
@@ -112,7 +113,7 @@ class BrainDaemon:
         
         import csv
         
-        conn = sqlite3.connect(self.db_path)
+        conn = get_connection(self.db_path)
         cur = conn.cursor()
         
         with open(file_path) as f:
@@ -211,7 +212,7 @@ class BrainDaemon:
     def log_health(self):
         """Log daemon health status."""
         try:
-            conn = sqlite3.connect(self.db_path)
+            conn = get_connection(self.db_path)
             cur = conn.cursor()
             
             # Latest transaction date

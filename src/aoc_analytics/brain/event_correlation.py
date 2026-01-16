@@ -1,5 +1,4 @@
-"""
-Event Impact Correlation
+"""Event Impact Correlation
 
 Correlates detected events (Reddit, vibe_signals, etc.) with
 actual sales anomalies to learn which event types matter most.
@@ -11,13 +10,14 @@ This answers questions like:
 """
 
 import json
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timedelta, date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection as db_get_connection
 
 try:
     from scipy import stats
@@ -83,8 +83,8 @@ class EventImpactAnalyzer:
                     break
         self.db_path = str(db_path) if db_path else None
         
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return db_get_connection(self.db_path)
     
     def _get_daily_sales(self, location: str = None, days: int = 365) -> Dict[str, Dict]:
         """Get daily sales data."""

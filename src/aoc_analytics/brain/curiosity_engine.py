@@ -17,7 +17,6 @@ The brain should be:
 4. Persistent - keep exploring 24/7
 """
 
-import sqlite3
 import json
 import random
 import hashlib
@@ -27,6 +26,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Callable
 from collections import defaultdict
 import math
+
+from aoc_analytics.core.db_adapter import get_connection
 
 try:
     from scipy import stats
@@ -201,7 +202,7 @@ class HypothesisGenerator:
     @classmethod
     def generate_random_hypothesis(cls, db_path: str) -> Hypothesis:
         """Generate a random hypothesis by combining data attributes."""
-        conn = sqlite3.connect(db_path)
+        conn = get_connection(db_path)
         cur = conn.cursor()
         
         # Get available categories
@@ -287,8 +288,8 @@ class HypothesisTester:
     def __init__(self, db_path: str):
         self.db_path = db_path
     
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return get_connection(self.db_path)
     
     def test_hypothesis(self, hypothesis: Hypothesis) -> Hypothesis:
         """Test a hypothesis and update it with results."""

@@ -17,13 +17,14 @@ Key metrics:
 """
 
 import json
-import sqlite3
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, date
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection
 
 try:
     from scipy import stats
@@ -163,12 +164,13 @@ class Backtester:
         
         return impacts
     
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_db_connection(self):
+        """Get database connection using adapter (supports SQLite and PostgreSQL)."""
+        return get_connection(str(self.db_path))
     
     def _get_daily_sales(self, days: int = 365) -> Dict[str, Dict]:
         """Get historical daily sales data."""
-        conn = self.get_connection()
+        conn = self.get_db_connection()
         cursor = conn.cursor()
         
         cutoff = datetime.now() - timedelta(days=days)

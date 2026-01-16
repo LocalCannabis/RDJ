@@ -1,5 +1,4 @@
-"""
-Brain Memory - Long-term knowledge storage with semantic retrieval.
+"""Brain Memory - Long-term knowledge storage with semantic retrieval.
 
 The brain needs to remember:
 1. Learned knowledge (retail best practices, marketing principles)
@@ -10,7 +9,6 @@ The brain needs to remember:
 """
 
 import json
-import sqlite3
 from dataclasses import dataclass, field, asdict
 from datetime import datetime
 from typing import Optional
@@ -18,6 +16,8 @@ from pathlib import Path
 import hashlib
 
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection
 
 
 @dataclass
@@ -72,7 +72,7 @@ class BrainMemory:
     
     def __init__(self, db_path: str = "brain_memory.db"):
         self.db_path = Path(db_path)
-        self.conn = sqlite3.connect(str(self.db_path))
+        self.conn = get_connection(str(self.db_path))
         self._init_schema()
         self._embedding_model = None
     

@@ -16,13 +16,14 @@ Store Hours: 9am - 11pm (hours 9-22)
 Orders outside store hours are online orders and not significant for staffing.
 """
 
-import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 from collections import defaultdict
 import numpy as np
+
+from aoc_analytics.core.db_adapter import get_connection as db_get_connection
 
 try:
     from scipy import stats
@@ -97,8 +98,8 @@ class TimeOfDayLearner:
                     break
         self.db_path = str(db_path) if db_path else None
         
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return db_get_connection(self.db_path)
     
     def _get_hourly_sales(self, location: str = None, days: int = 365) -> Dict[int, List[float]]:
         """Get sales by hour across all days (store hours only: 9am-11pm)."""

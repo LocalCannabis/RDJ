@@ -14,7 +14,6 @@ always watching the data, always learning.
 """
 
 import json
-import sqlite3
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -23,6 +22,7 @@ from pathlib import Path
 import threading
 import requests
 
+from aoc_analytics.core.db_adapter import get_connection
 from aoc_analytics.brain.memory import BrainMemory, MemoryEntry, Hypothesis
 from aoc_analytics.brain.learner import KnowledgeLearner
 from aoc_analytics.brain.hypothesis import HypothesisEngine
@@ -187,7 +187,7 @@ class BrainAgent:
         """Observe current sales patterns and anomalies."""
         observations = []
         
-        conn = sqlite3.connect(str(self.sales_db))
+        conn = get_connection(str(self.sales_db))
         now = datetime.now()
         today = now.strftime('%Y-%m-%d')
         
@@ -247,7 +247,7 @@ class BrainAgent:
     
     def _test_hypothesis(self, h: Hypothesis) -> Optional[dict]:
         """Test a specific hypothesis against current data."""
-        conn = sqlite3.connect(str(self.sales_db))
+        conn = get_connection(str(self.sales_db))
         today = datetime.now().strftime('%Y-%m-%d')
         
         # Get today's value for the metric

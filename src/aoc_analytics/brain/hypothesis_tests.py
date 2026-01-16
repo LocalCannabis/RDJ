@@ -1,14 +1,14 @@
-"""
-Hypothesis Test Implementations
+"""Hypothesis Test Implementations
 
 Actual statistical tests for each hypothesis category.
 """
 
-import sqlite3
 from datetime import datetime, timedelta, date
 from collections import defaultdict
 from typing import Dict, List, Tuple, Optional
 import math
+
+from aoc_analytics.core.db_adapter import get_connection
 
 try:
     from scipy import stats
@@ -27,8 +27,8 @@ class HypothesisTests:
     def __init__(self, db_path: str):
         self.db_path = db_path
     
-    def get_connection(self) -> sqlite3.Connection:
-        return sqlite3.connect(self.db_path)
+    def get_connection(self):
+        return get_connection(self.db_path)
     
     # ==================== TEMPORAL TESTS ====================
     
