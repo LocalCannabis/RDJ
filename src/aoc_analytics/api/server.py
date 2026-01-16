@@ -246,6 +246,14 @@ def create_app(db_path: Optional[str] = None) -> FastAPI:
     app.include_router(signals_router)
     app.include_router(anomaly_router)
     app.include_router(hero_router)
+    
+    # JFK integration routes
+    try:
+        from .jfk_endpoints import jfk_router
+        app.include_router(jfk_router)
+        logger.info("JFK integration routes registered")
+    except ImportError as e:
+        logger.warning(f"JFK routes not available: {e}")
 
     return app
 
