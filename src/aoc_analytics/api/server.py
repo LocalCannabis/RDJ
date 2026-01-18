@@ -173,7 +173,9 @@ class HealthResponse(BaseModel):
 
 def get_db_connection() -> sqlite3.Connection:
     """Get a database connection."""
-    conn = sqlite3.connect(DATABASE_PATH)
+    # check_same_thread=False is required for FastAPI which uses thread pools
+    # Each request gets its own connection which is closed after use
+    conn = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     return conn
 

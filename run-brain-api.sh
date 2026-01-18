@@ -48,12 +48,15 @@ fi
 # Set up Python path
 export PYTHONPATH="${AOC_ROOT}/src:${PYTHONPATH}"
 
-# Default JFK database path (local development)
-if [ -z "$JFK_DB_PATH" ]; then
-    JFK_DB="${HOME}/Projects/JFK/backend/instance/cannabis_retail.db"
-    if [ -f "$JFK_DB" ]; then
-        export JFK_DB_PATH="$JFK_DB"
-        echo "Using JFK database: $JFK_DB_PATH"
+# AOC's own database (historical sales + weather)
+if [ -z "$AOC_DB_PATH" ]; then
+    AOC_DB="${AOC_ROOT}/aoc_analytics.db"
+    if [ -f "$AOC_DB" ]; then
+        export AOC_DB_PATH="$AOC_DB"
+        echo "Using AOC database: $AOC_DB_PATH"
+    else
+        echo "WARNING: AOC database not found at $AOC_DB"
+        echo "Run: python scripts/create_aoc_database.py to create it"
     fi
 fi
 

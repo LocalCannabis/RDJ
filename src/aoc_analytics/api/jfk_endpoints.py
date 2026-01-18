@@ -116,11 +116,11 @@ class AnalyticsOverview(BaseModel):
 # =============================================================================
 
 
-def get_jfk_db():
-    """Get connection to JFK database."""
+def get_aoc_db():
+    """Get connection to AOC's own database (historical sales + weather)."""
     db_path = os.environ.get(
-        "JFK_DB_PATH",
-        str(Path.home() / "Projects" / "JFK" / "backend" / "instance" / "cannabis_retail.db")
+        "AOC_DB_PATH",
+        str(Path(__file__).parent.parent.parent.parent.parent / "aoc_analytics.db")
     )
     return get_connection(db_path)
 
@@ -134,11 +134,12 @@ def get_jfk_db():
 def jfk_health():
     """Health check for JFK integration."""
     try:
-        conn = get_jfk_db()
+        conn = get_aoc_db()
         result = conn.execute("SELECT COUNT(*) FROM sales").fetchone()
         conn.close()
         return {
             "status": "healthy",
+            "database": "aoc_analytics.db",
             "sales_records": result[0],
             "integration": "active"
         }
@@ -152,49 +153,60 @@ def jfk_health():
 
 @jfk_router.get("/summary", response_model=DailySummary)
 def get_daily_summary(
-    target_date: Optional[str] = Query(None, description="Date to summarize (YYYY-MM-DD)")
+    target_date: Optional[str] = Query(None, description="Date to summarize (YYYY-MM-DD)"),
+    store_id: Optional[str] = Query(None, description="Store ID to filter by (e.g., parksville, vancouver, burnaby)")
 ):
     """Get daily sales summary."""
-    conn = get_jfk_db()
+    conn = get_aoc_db()
+    
+    # Build store filter
+    store_filter = ""
+    params = []
+    if store_id:
+        store_filter = " AND store_id = ?"
+        params.append(store_id.lower())
     
     if target_date:
         date_filter = target_date
     else:
-        # Get most recent date
-        result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
+        # Get most recent date (for this store if specified)
+        if store_id:
+            result = conn.execute(f"SELECT MAX(date) FROM sales WHERE store_id = ?", (store_id.lower(),)).fetchone()
+        else:
+            result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
         date_filter = result[0] if result[0] else str(date.today())
     
     try:
         # Basic stats
-        stats = conn.execute("""
+        stats = conn.execute(f"""
             SELECT 
                 COUNT(*) as transactions,
                 SUM(quantity) as items,
                 SUM(subtotal) as revenue,
                 AVG(subtotal) as avg_txn
             FROM sales
-            WHERE date = ?
-        """, (date_filter,)).fetchone()
+            WHERE date = ?{store_filter}
+        """, (date_filter, *params)).fetchone()
         
         # Top category
-        top_cat = conn.execute("""
+        top_cat = conn.execute(f"""
             SELECT category, SUM(subtotal) as rev
             FROM sales
-            WHERE date = ? AND category IS NOT NULL
+            WHERE date = ? AND category IS NOT NULL{store_filter}
             GROUP BY category
             ORDER BY rev DESC
             LIMIT 1
-        """, (date_filter,)).fetchone()
+        """, (date_filter, *params)).fetchone()
         
         # Top product
-        top_prod = conn.execute("""
+        top_prod = conn.execute(f"""
             SELECT product_name, SUM(subtotal) as rev
             FROM sales
-            WHERE date = ? AND product_name IS NOT NULL
+            WHERE date = ? AND product_name IS NOT NULL{store_filter}
             GROUP BY product_name
             ORDER BY rev DESC
             LIMIT 1
-        """, (date_filter,)).fetchone()
+        """, (date_filter, *params)).fetchone()
         
         conn.close()
         
@@ -216,25 +228,36 @@ def get_daily_summary(
 @jfk_router.get("/categories", response_model=list[CategoryPerformance])
 def get_category_performance(
     target_date: Optional[str] = Query(None),
+    store_id: Optional[str] = Query(None, description="Store ID to filter by"),
     limit: int = Query(10, ge=1, le=50)
 ):
     """Get category performance breakdown."""
-    conn = get_jfk_db()
+    conn = get_aoc_db()
+    
+    # Build store filter
+    store_filter = ""
+    params = []
+    if store_id:
+        store_filter = " AND store_id = ?"
+        params.append(store_id.lower())
     
     if target_date:
         date_filter = target_date
     else:
-        result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
+        if store_id:
+            result = conn.execute(f"SELECT MAX(date) FROM sales WHERE store_id = ?", (store_id.lower(),)).fetchone()
+        else:
+            result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
         date_filter = result[0] if result[0] else str(date.today())
     
     try:
         # Get total for percentage calculation
-        total = conn.execute("""
-            SELECT SUM(subtotal) FROM sales WHERE date = ?
-        """, (date_filter,)).fetchone()[0] or 1
+        total = conn.execute(f"""
+            SELECT SUM(subtotal) FROM sales WHERE date = ?{store_filter}
+        """, (date_filter, *params)).fetchone()[0] or 1
         
         # Get category stats
-        rows = conn.execute("""
+        rows = conn.execute(f"""
             SELECT 
                 category,
                 SUM(subtotal) as revenue,
@@ -242,11 +265,11 @@ def get_category_performance(
                 COUNT(*) as transactions,
                 AVG(unit_price) as avg_price
             FROM sales
-            WHERE date = ? AND category IS NOT NULL
+            WHERE date = ? AND category IS NOT NULL{store_filter}
             GROUP BY category
             ORDER BY revenue DESC
             LIMIT ?
-        """, (date_filter, limit)).fetchall()
+        """, (date_filter, *params, limit)).fetchall()
         
         conn.close()
         
@@ -268,32 +291,45 @@ def get_category_performance(
 
 
 @jfk_router.get("/hourly", response_model=list[HourlyPattern])
-def get_hourly_pattern(target_date: Optional[str] = Query(None)):
+def get_hourly_pattern(
+    target_date: Optional[str] = Query(None),
+    store_id: Optional[str] = Query(None, description="Store ID to filter by")
+):
     """Get hourly sales pattern."""
-    conn = get_jfk_db()
+    conn = get_aoc_db()
+    
+    # Build store filter
+    store_filter = ""
+    params = []
+    if store_id:
+        store_filter = " AND store_id = ?"
+        params.append(store_id.lower())
     
     if target_date:
         date_filter = target_date
     else:
-        result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
+        if store_id:
+            result = conn.execute(f"SELECT MAX(date) FROM sales WHERE store_id = ?", (store_id.lower(),)).fetchone()
+        else:
+            result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
         date_filter = result[0] if result[0] else str(date.today())
     
     try:
         # Get total for percentage
-        total = conn.execute("""
-            SELECT SUM(subtotal) FROM sales WHERE date = ?
-        """, (date_filter,)).fetchone()[0] or 1
+        total = conn.execute(f"""
+            SELECT SUM(subtotal) FROM sales WHERE date = ?{store_filter}
+        """, (date_filter, *params)).fetchone()[0] or 1
         
-        rows = conn.execute("""
+        rows = conn.execute(f"""
             SELECT 
                 CAST(strftime('%H', time) AS INTEGER) as hour,
                 SUM(subtotal) as revenue,
                 COUNT(*) as transactions
             FROM sales
-            WHERE date = ?
+            WHERE date = ?{store_filter}
             GROUP BY hour
             ORDER BY hour
-        """, (date_filter,)).fetchall()
+        """, (date_filter, *params)).fetchall()
         
         conn.close()
         
@@ -315,15 +351,26 @@ def get_hourly_pattern(target_date: Optional[str] = Query(None)):
 @jfk_router.get("/insights", response_model=InsightsResponse)
 def get_insights(
     target_date: Optional[str] = Query(None),
+    store_id: Optional[str] = Query(None, description="Store ID to filter by"),
     insight_type: Optional[str] = Query(None, description="Filter by type")
 ):
     """Get AI-generated insights for the day."""
-    conn = get_jfk_db()
+    conn = get_aoc_db()
+    
+    # Build store filter
+    store_filter = ""
+    params = []
+    if store_id:
+        store_filter = " AND store_id = ?"
+        params.append(store_id.lower())
     
     if target_date:
         date_filter = target_date
     else:
-        result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
+        if store_id:
+            result = conn.execute(f"SELECT MAX(date) FROM sales WHERE store_id = ?", (store_id.lower(),)).fetchone()
+        else:
+            result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
         date_filter = result[0] if result[0] else str(date.today())
     
     try:
@@ -331,13 +378,13 @@ def get_insights(
         insights = []
         
         # Insight 1: Top performer
-        top = conn.execute("""
+        top = conn.execute(f"""
             SELECT product_name, SUM(quantity) as qty, SUM(subtotal) as rev
-            FROM sales WHERE date = ?
+            FROM sales WHERE date = ?{store_filter}
             GROUP BY product_name
             ORDER BY rev DESC
             LIMIT 1
-        """, (date_filter,)).fetchone()
+        """, (date_filter, *params)).fetchone()
         
         if top:
             insights.append(InsightItem(
@@ -351,13 +398,13 @@ def get_insights(
             ))
         
         # Insight 2: Category trend
-        categories = conn.execute("""
+        categories = conn.execute(f"""
             SELECT category, SUM(subtotal) as rev
-            FROM sales WHERE date = ? AND category IS NOT NULL
+            FROM sales WHERE date = ? AND category IS NOT NULL{store_filter}
             GROUP BY category
             ORDER BY rev DESC
             LIMIT 3
-        """, (date_filter,)).fetchall()
+        """, (date_filter, *params)).fetchall()
         
         if categories:
             cat_names = [c[0].split(' > ')[-1] for c in categories]
@@ -372,9 +419,9 @@ def get_insights(
             ))
         
         # Insight 3: Average transaction value
-        avg = conn.execute("""
-            SELECT AVG(subtotal), COUNT(*) FROM sales WHERE date = ?
-        """, (date_filter,)).fetchone()
+        avg = conn.execute(f"""
+            SELECT AVG(subtotal), COUNT(*) FROM sales WHERE date = ?{store_filter}
+        """, (date_filter, *params)).fetchone()
         
         if avg and avg[0]:
             insights.append(InsightItem(
@@ -406,7 +453,10 @@ def get_insights(
 
 
 @jfk_router.get("/ai-summary")
-def get_ai_summary(target_date: Optional[str] = Query(None)):
+def get_ai_summary(
+    target_date: Optional[str] = Query(None),
+    store_id: Optional[str] = Query(None, description="Store ID to filter by")
+):
     """Get AI-generated executive summary."""
     # Load OpenAI key from JFK .env if not already set
     if not os.environ.get("OPENAI_API_KEY"):
@@ -419,40 +469,52 @@ def get_ai_summary(target_date: Optional[str] = Query(None)):
     
     from aoc_analytics.brain.llm_provider import get_llm_provider
     
-    conn = get_jfk_db()
+    conn = get_aoc_db()
+    
+    # Build store filter
+    store_filter = ""
+    params = []
+    if store_id:
+        store_filter = " AND store_id = ?"
+        params.append(store_id.lower())
     
     if target_date:
         date_filter = target_date
     else:
-        result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
+        if store_id:
+            result = conn.execute(f"SELECT MAX(date) FROM sales WHERE store_id = ?", (store_id.lower(),)).fetchone()
+        else:
+            result = conn.execute("SELECT MAX(date) FROM sales").fetchone()
         date_filter = result[0] if result[0] else str(date.today())
     
     try:
         # Gather data for summary
-        stats = conn.execute("""
+        stats = conn.execute(f"""
             SELECT 
                 COUNT(*) as txns,
                 SUM(quantity) as items,
                 SUM(subtotal) as revenue,
                 COUNT(DISTINCT category) as cats
-            FROM sales WHERE date = ?
-        """, (date_filter,)).fetchone()
+            FROM sales WHERE date = ?{store_filter}
+        """, (date_filter, *params)).fetchone()
         
-        top_products = conn.execute("""
+        top_products = conn.execute(f"""
             SELECT product_name, SUM(quantity) as qty, SUM(subtotal) as rev
-            FROM sales WHERE date = ?
+            FROM sales WHERE date = ?{store_filter}
             GROUP BY product_name
             ORDER BY rev DESC
             LIMIT 5
-        """, (date_filter,)).fetchall()
+        """, (date_filter, *params)).fetchall()
         
         conn.close()
         
         # Generate AI summary
         llm = get_llm_provider()
         
+        store_label = store_id.title() if store_id else "All Stores"
         prompt = f"""You are a cannabis retail analytics AI. Summarize today's performance in 2-3 sentences for a store manager.
 
+Store: {store_label}
 Date: {date_filter}
 Transactions: {stats[0]}
 Items Sold: {stats[1]}
