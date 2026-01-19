@@ -597,5 +597,159 @@ def trigger_brain_analysis():
     }
 
 
+# =============================================================================
+# Signage Recommendations (AOC Decision Router)
+# =============================================================================
+
+
+class SignageRecommendationItem(BaseModel):
+    """A single product recommendation for signage."""
+    rank: int
+    sku: str
+    product_name: str
+    category: str
+    subcategory: Optional[str] = None
+    price: float
+    score: float
+    reasons: list[str]
+    lens_scores: dict[str, float]
+
+
+class SignageDecision(BaseModel):
+    """The decision made by AOC for this recommendation set."""
+    regime: str
+    regime_drivers: list[str]
+    selected_lenses: list[str]
+    lens_weights: dict[str, float]
+    category_boosts: list[str]
+    category_demotes: list[str]
+    confidence: float
+    explanation: str
+
+
+class SignageRecommendationResponse(BaseModel):
+    """Full signage recommendation response."""
+    store_id: str
+    purpose: str
+    generated_at: str
+    valid_until: str
+    total_items: int
+    recommendations: list[SignageRecommendationItem]
+    decision: SignageDecision
+    categories_represented: list[str]
+
+
+@jfk_router.get("/signage/recommend", response_model=SignageRecommendationResponse)
+def get_signage_recommendations(
+    store_id: str = Query(..., description="Store ID (e.g., parksville, kingsway, burnaby)"),
+    purpose: str = Query("SIGNAGE", description="Screen purpose: SIGNAGE, ORDERING, PROMO, STAFF_PICKS"),
+    max_items: int = Query(8, ge=1, le=20, description="Maximum number of recommendations"),
+    categories: Optional[str] = Query(None, description="Comma-separated category filter"),
+):
+    """
+    Get AOC-powered product recommendations for digital signage.
+    
+    AOC's Decision Router analyzes current conditions (weather, time, events)
+    and selects the optimal analysis lenses to score products.
+    
+    Returns ranked products with explanations of why they were chosen.
+    """
+    from aoc_analytics.core.recommender import SignageRecommenderV1
+    from aoc_analytics.core.decision_router import WeatherContext, TimeContext
+    
+    logger.info(f"Signage recommendation request: store={store_id}, purpose={purpose}, max={max_items}")
+    
+    try:
+        # Initialize recommender with AOC database
+        # Path: /src/aoc_analytics/api/jfk_endpoints.py -> /aoc_analytics.db
+        db_path = os.environ.get(
+            "AOC_DB_PATH",
+            str(Path(__file__).parent.parent.parent.parent / "aoc_analytics.db")
+        )
+        logger.info(f"Using database: {db_path}")
+        recommender = SignageRecommenderV1(db_path=db_path)
+        
+        # Build constraints
+        constraints = {
+            "max_items": max_items,
+        }
+        if categories:
+            constraints["categories"] = categories.split(",")
+        
+        # Get current weather (optional - graceful fallback)
+        weather = None
+        try:
+            from aoc_analytics.core.weather import WeatherClient, STORE_LOCATIONS
+            if store_id.lower() in STORE_LOCATIONS:
+                client = WeatherClient()
+                lat, lon = STORE_LOCATIONS[store_id.lower()]
+                weather_data = client.get_current(lat, lon)
+                if weather_data:
+                    weather = WeatherContext(
+                        temp_c=weather_data.get("temp_c", 15),
+                        feels_like_c=weather_data.get("feels_like_c", 15),
+                        precip_mm=weather_data.get("precip_mm", 0),
+                        precip_type=weather_data.get("precip_type", "none"),
+                        cloud_cover_pct=weather_data.get("cloud_cover", 50),
+                        humidity_pct=weather_data.get("humidity", 50),
+                        wind_kph=weather_data.get("wind_kph", 10),
+                        condition=weather_data.get("condition", "Clear"),
+                    )
+        except Exception as e:
+            logger.warning(f"Weather fetch failed, using defaults: {e}")
+        
+        # Generate recommendations
+        result = recommender.generate(
+            store_id=store_id.lower(),
+            purpose=purpose,
+            constraints=constraints,
+            weather=weather,
+        )
+        
+        # Transform to response format
+        recommendations = [
+            SignageRecommendationItem(
+                rank=item.rank,
+                sku=item.product.sku,
+                product_name=item.product.product_name,
+                category=item.product.category,
+                subcategory=item.product.subcategory,
+                price=item.product.price,
+                score=item.total_score,
+                reasons=item.reasons,
+                lens_scores=item.lens_scores,
+            )
+            for item in result.items
+        ]
+        
+        decision = SignageDecision(
+            regime=result.decision.regime.name,
+            regime_drivers=result.decision.regime.drivers,
+            selected_lenses=result.decision.selected_lenses,
+            lens_weights=result.decision.lens_weights,
+            category_boosts=result.decision.regime.category_boosts,
+            category_demotes=result.decision.regime.category_demotes,
+            confidence=result.decision.confidence,
+            explanation=result.decision.explanation,
+        )
+        
+        return SignageRecommendationResponse(
+            store_id=store_id,
+            purpose=purpose,
+            generated_at=result.generated_at.isoformat(),
+            valid_until=result.valid_until.isoformat(),
+            total_items=len(recommendations),
+            recommendations=recommendations,
+            decision=decision,
+            categories_represented=result.categories_represented,
+        )
+        
+    except Exception as e:
+        logger.error(f"Signage recommendation error: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # Export the router for inclusion in main app
 __all__ = ["jfk_router"]

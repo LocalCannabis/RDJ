@@ -296,7 +296,7 @@ class SignageRecommenderV1:
                         COUNT(DISTINCT date || time) as transaction_count
                         
                     FROM sales
-                    WHERE location = ?
+                    WHERE store_id = ?
                     GROUP BY sku, product_name, category
                 )
                 SELECT * FROM product_metrics
