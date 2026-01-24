@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy pyproject.toml first for better caching
-COPY pyproject.toml .
+# Copy pyproject.toml and README first for better caching
+COPY pyproject.toml README.md ./
 
-# Install with all needed extras (llm for OpenAI)
-RUN pip install --no-cache-dir -e ".[llm]"
+# Install the package (non-editable for Docker)
+RUN pip install --no-cache-dir ".[llm]"
 
 # Install psycopg2-binary for PostgreSQL support
 RUN pip install --no-cache-dir psycopg2-binary
